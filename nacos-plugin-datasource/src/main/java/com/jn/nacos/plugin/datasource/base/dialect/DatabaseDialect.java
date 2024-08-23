@@ -1,33 +1,49 @@
 package com.jn.nacos.plugin.datasource.base.dialect;
 
+import com.google.common.collect.Maps;
+import com.jn.langx.text.StringTemplates;
+import com.jn.langx.util.Objs;
 import com.jn.sqlhelper.dialect.Dialect;
-import com.jn.sqlhelper.dialect.SQLDialectException;
-import com.jn.sqlhelper.dialect.pagination.PagedPreparedParameterSetter;
-import com.jn.sqlhelper.dialect.pagination.QueryParameters;
+import com.jn.sqlhelper.dialect.DialectRegistry;
+import com.jn.sqlhelper.dialect.instrument.Instrumentations;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
-import java.sql.CallableStatement;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public abstract class DatabaseDialect {
 
-    public abstract String getDatabase();
-    public abstract String getFunction(String functionName);
-
-    protected Dialect dialect;
-
-    private int bindLimitParametersAtStartOfQuery(RowSelection paramRowSelection, List params, int paramInt){
-
+    private String name;
+    private Dialect delegate;
+    private Map<String, String> functionMap;
+    public DatabaseDialect(String name){
+        this.name = name;
+        this.delegate = DialectRegistry.getInstance().getDialectByName(name);
+        this.functionMap = initFunctionMap();
     }
 
-    public int bindLimitParametersAtEndOfQuery(RowSelection paramRowSelection, List params, int paramInt){
-
+    protected Map<String,String> initFunctionMap(){
+        Map<String,String> map = Maps.newHashMap();
+        map.put("NOW()", "CURRENT_TIMESTAMP");
+        return map;
+    }
+    public String getFunction(String functionName){
+        String func =this.functionMap.get(functionName);
+        if(Objs.isEmpty(func)){
+            throw new RuntimeException(StringTemplates.formatWithPlaceholder("function {} in {} database dialect is not supported", functionName, this.getName()));
+        }
+        return func;
     }
 
     public String getLimitSql(String sql, RowSelection rowSelection){
-        return this.dialect.getLimitSql(sql, rowSelection);
+        return this.delegate.getLimitSql(sql, rowSelection);
     }
 
+    public List rebuildParameters(List queryParams, RowSelection selection){
+        return Instrumentations.rebuildParameters(this.delegate, queryParams, selection);
+    }
+
+    public String getName() {
+        return name;
+    }
 }
