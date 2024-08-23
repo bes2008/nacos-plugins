@@ -26,6 +26,7 @@
         <langx-java.version>5.4.3</langx-java.version>
         <commons-codec.version>1.17.0</commons-codec.version>
         <nacos.version>2.4.1</nacos.version>
+        <sqlhelper.version>5.0.1</sqlhelper.version>
     </properties>
 
     <dependencyManagement>
@@ -63,6 +64,11 @@
                 <version>${commons-codec.version}</version>
                 <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>io.github.bes2008.solution.sqlhelper</groupId>
+                <artifactId>sqlhelper-dialect</artifactId>
+                <version>${sqlhelper.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -87,6 +93,7 @@
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>
