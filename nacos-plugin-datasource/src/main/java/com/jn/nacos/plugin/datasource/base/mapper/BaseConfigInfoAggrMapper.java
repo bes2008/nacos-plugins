@@ -23,9 +23,7 @@ public class BaseConfigInfoAggrMapper extends BaseMapper implements ConfigInfoAg
         final String tenantId = (String) context.getWhereParameter(FieldConstant.TENANT_ID);
 
         RowSelection rowSelection = new RowSelection(startRow, pageSize);
-        String sql =
-                "SELECT data_id,group_id,tenant_id,datum_id,app_name,content FROM config_info_aggr WHERE data_id=? AND "
-                        + "group_id=? AND tenant_id=? ORDER BY datum_id ";
+        String sql = "SELECT data_id,group_id,tenant_id,datum_id,app_name,content FROM config_info_aggr WHERE data_id=? AND group_id=? AND tenant_id=? ORDER BY datum_id ";
         List<Object> paramList = CollectionUtils.list(dataId, groupId, tenantId);
 
         sql = getDialect().getLimitSql(sql, rowSelection);
