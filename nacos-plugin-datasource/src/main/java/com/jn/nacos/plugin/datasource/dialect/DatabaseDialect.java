@@ -1,4 +1,4 @@
-package com.jn.nacos.plugin.datasource.base.dialect;
+package com.jn.nacos.plugin.datasource.dialect;
 
 import com.jn.langx.text.StringTemplates;
 import com.jn.langx.util.Objs;

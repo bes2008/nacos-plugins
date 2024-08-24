@@ -1,4 +1,4 @@
-package com.jn.nacos.plugin.datasource.base.mapper;
+package com.jn.nacos.plugin.datasource.mapper;
 
 import com.alibaba.nacos.common.utils.StringUtils;
 import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
