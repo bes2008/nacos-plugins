@@ -1,0 +1,8 @@
+com.jn.nacos.plugin.datasource.db.dm.mapper.ConfigInfoBetaMapper
+com.jn.nacos.plugin.datasource.db.kingbase.mapper.ConfigInfoBetaMapper
+com.jn.nacos.plugin.datasource.db.magicdata.mapper.ConfigInfoBetaMapper
+com.jn.nacos.plugin.datasource.db.mssql.mapper.ConfigInfoBetaMapper
+com.jn.nacos.plugin.datasource.db.opengauss.mapper.ConfigInfoBetaMapper
+com.jn.nacos.plugin.datasource.db.oracle.mapper.ConfigInfoBetaMapper
+com.jn.nacos.plugin.datasource.db.oscar.mapper.ConfigInfoBetaMapper
+com.jn.nacos.plugin.datasource.db.postgresql.mapper.ConfigInfoBetaMapper

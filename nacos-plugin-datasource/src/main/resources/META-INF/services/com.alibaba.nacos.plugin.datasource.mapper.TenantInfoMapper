@@ -1,0 +1,8 @@
+com.jn.nacos.plugin.datasource.db.dm.mapper.TenantInfoMapper
+com.jn.nacos.plugin.datasource.db.kingbase.mapper.TenantInfoMapper
+com.jn.nacos.plugin.datasource.db.magicdata.mapper.TenantInfoMapper
+com.jn.nacos.plugin.datasource.db.mssql.mapper.TenantInfoMapper
+com.jn.nacos.plugin.datasource.db.opengauss.mapper.TenantInfoMapper
+com.jn.nacos.plugin.datasource.db.oracle.mapper.TenantInfoMapper
+com.jn.nacos.plugin.datasource.db.oscar.mapper.TenantInfoMapper
+com.jn.nacos.plugin.datasource.db.postgresql.mapper.TenantInfoMapper
