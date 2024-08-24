@@ -10,7 +10,7 @@ import com.jn.sqlhelper.dialect.pagination.RowSelection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseConfigTagRelationMapper extends BaseMapper implements ConfigTagsRelationMapper {
+public abstract class BaseConfigTagRelationMapper extends BaseMapper implements ConfigTagsRelationMapper {
     public BaseConfigTagRelationMapper(String databaseId) {
         super(databaseId);
     }

@@ -9,7 +9,7 @@ import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.util.List;
 
-public class BaseHistoryConfigInfoMapper extends BaseMapper implements HistoryConfigInfoMapper {
+public abstract class BaseHistoryConfigInfoMapper extends BaseMapper implements HistoryConfigInfoMapper {
     public BaseHistoryConfigInfoMapper(String databaseId) {
         super(databaseId);
     }

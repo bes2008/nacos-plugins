@@ -8,7 +8,7 @@ import com.jn.sqlhelper.dialect.pagination.RowSelection;
 import java.util.Collections;
 import java.util.List;
 
-public class BaseConfigInfoTagMapper extends BaseMapper implements ConfigInfoTagMapper {
+public abstract class BaseConfigInfoTagMapper extends BaseMapper implements ConfigInfoTagMapper {
     public BaseConfigInfoTagMapper(String databaseId) {
         super(databaseId);
     }
