@@ -5,6 +5,6 @@ import com.jn.nacos.plugin.datasource.base.mapper.BaseConfigInfoTagMapper;
 
 public class ConfigInfoTagMapper extends BaseConfigInfoTagMapper {
     public ConfigInfoTagMapper() {
-        super(DatabaseTypes.OPENGAUSS);
+        super(DatabaseTypes.DAMENG);
     }
 }

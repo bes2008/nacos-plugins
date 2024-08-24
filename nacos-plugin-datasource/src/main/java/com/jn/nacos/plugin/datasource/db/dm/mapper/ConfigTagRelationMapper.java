@@ -5,6 +5,6 @@ import com.jn.nacos.plugin.datasource.base.mapper.BaseConfigTagRelationMapper;
 
 public class ConfigTagRelationMapper extends BaseConfigTagRelationMapper {
     public ConfigTagRelationMapper() {
-        super(DatabaseTypes.OPENGAUSS);
+        super(DatabaseTypes.DAMENG);
     }
 }

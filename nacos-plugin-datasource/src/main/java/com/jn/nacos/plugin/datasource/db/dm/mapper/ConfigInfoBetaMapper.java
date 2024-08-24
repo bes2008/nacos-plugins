@@ -5,6 +5,6 @@ import com.jn.nacos.plugin.datasource.base.mapper.BaseConfigInfoBetaMapper;
 
 public class ConfigInfoBetaMapper extends BaseConfigInfoBetaMapper {
     public ConfigInfoBetaMapper() {
-        super(DatabaseTypes.OPENGAUSS);
+        super(DatabaseTypes.DAMENG);
     }
 }

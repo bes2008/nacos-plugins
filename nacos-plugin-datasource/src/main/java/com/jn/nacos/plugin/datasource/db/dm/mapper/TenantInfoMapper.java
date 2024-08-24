@@ -5,6 +5,6 @@ import com.jn.nacos.plugin.datasource.base.mapper.BaseTenantInfoMapper;
 
 public class TenantInfoMapper extends BaseTenantInfoMapper {
     public TenantInfoMapper() {
-        super(DatabaseTypes.OPENGAUSS);
+        super(DatabaseTypes.DAMENG);
     }
 }
