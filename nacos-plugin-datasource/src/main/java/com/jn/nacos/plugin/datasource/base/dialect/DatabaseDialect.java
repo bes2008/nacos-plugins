@@ -1,8 +1,8 @@
 package com.jn.nacos.plugin.datasource.base.dialect;
 
-import com.google.common.collect.Maps;
 import com.jn.langx.text.StringTemplates;
 import com.jn.langx.util.Objs;
+import com.jn.langx.util.collection.Maps;
 import com.jn.sqlhelper.dialect.Dialect;
 import com.jn.sqlhelper.dialect.DialectRegistry;
 import com.jn.sqlhelper.dialect.instrument.Instrumentations;
