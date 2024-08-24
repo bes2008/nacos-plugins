@@ -5,6 +5,9 @@ import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.TenantCapacityMapper;
 import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.alibaba.nacos.plugin.datasource.model.MapperResult;
+import com.jn.sqlhelper.dialect.pagination.RowSelection;
+
+import java.util.List;
 
 public class BaseTenantCapacityMapper extends BaseMapper implements TenantCapacityMapper {
     public BaseTenantCapacityMapper(String databaseId) {
@@ -13,11 +16,14 @@ public class BaseTenantCapacityMapper extends BaseMapper implements TenantCapaci
 
     @Override
     public MapperResult getCapacityList4CorrectUsage(MapperContext context) {
+        int pageSize =  Integer.parseInt(context.getWhereParameter(FieldConstant.LIMIT_SIZE).toString());
+        RowSelection rowSelection = new RowSelection(0, pageSize);
 
-        String sql = "SELECT id, tenant_id FROM tenant_capacity WHERE id>?";
-        MapperResult result= new MapperResult(sql, CollectionUtils.list(context.getWhereParameter(FieldConstant.ID),
-                context.getWhereParameter(FieldConstant.LIMIT_SIZE)));
+        String sql = "SELECT id, tenant_id FROM tenant_capacity WHERE id>? ";
+        sql = getDialect().getLimitSql(sql, rowSelection);
 
-        return result;
+        List paramList = CollectionUtils.list(context.getWhereParameter(FieldConstant.ID));
+        List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
+        return new MapperResult(sql, pagedParams);
     }
 }
