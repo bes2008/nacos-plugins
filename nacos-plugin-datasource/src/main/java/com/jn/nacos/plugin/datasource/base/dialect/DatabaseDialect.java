@@ -32,8 +32,8 @@ public abstract class DatabaseDialect {
         String customizedDialect = System.getProperty(customizedDialectKey);
         if(Strings.isEmpty(customizedDialect)){
             String customizedDialectEnvKey = Strings.replaceChars(customizedDialectKey, '.', '_');
-            customizedDialectEnvKey =Strings.upperCase(customizedDialectEnvKey);
-            customizedDialect = System.getenv(customizedDialectKey);
+            customizedDialectEnvKey = Strings.upperCase(customizedDialectEnvKey);
+            customizedDialect = System.getenv(customizedDialectEnvKey);
         }
         if(Strings.isEmpty(customizedDialect)){
             customizedDialect = dialect;
