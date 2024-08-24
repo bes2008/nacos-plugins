@@ -8,7 +8,7 @@ import com.alibaba.nacos.plugin.datasource.model.MapperResult;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.util.List;
-
+@SuppressWarnings("all")
 public abstract class BaseGroupCapacityMapper extends BaseMapper implements GroupCapacityMapper {
     public BaseGroupCapacityMapper(String databaseId) {
         super(databaseId);
