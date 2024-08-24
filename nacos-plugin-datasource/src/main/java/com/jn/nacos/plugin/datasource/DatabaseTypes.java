@@ -10,4 +10,5 @@ public class DatabaseTypes extends DataSourceConstant {
     public static final String DAMENG = "dm";
     public static final String MSSQL ="sqlserver";
     public static final String POSTGRESQL = "postgresql";
+    public static final String OSCAR ="oscar";
 }
