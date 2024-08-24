@@ -15,6 +15,7 @@
     </description>
     <modules>
         <module>nacos-plugin-datasource</module>
+        <module>nacos-plugin-datasource-sqlscript</module>
     </modules>
 
     <properties>
