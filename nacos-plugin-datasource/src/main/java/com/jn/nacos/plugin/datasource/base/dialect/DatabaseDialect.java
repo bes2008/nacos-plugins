@@ -2,7 +2,10 @@ package com.jn.nacos.plugin.datasource.base.dialect;
 
 import com.jn.langx.text.StringTemplates;
 import com.jn.langx.util.Objs;
+import com.jn.langx.util.Preconditions;
+import com.jn.langx.util.Strings;
 import com.jn.langx.util.collection.Maps;
+import com.jn.langx.util.reflect.Reflects;
 import com.jn.sqlhelper.dialect.Dialect;
 import com.jn.sqlhelper.dialect.DialectRegistry;
 import com.jn.sqlhelper.dialect.instrument.Instrumentations;
@@ -17,9 +20,25 @@ public abstract class DatabaseDialect {
     private Dialect delegate;
     private Map<String, String> functionMap;
     public DatabaseDialect(String name){
+        Preconditions.checkNotEmpty(name, "invalid dialect in class {}", Reflects.getFQNClassName(this.getClass()));
         this.name = name;
-        this.delegate = DialectRegistry.getInstance().getDialectByName(name);
+        String sqlhelperDialect = getCustomizedDialect(this.name);
+        this.delegate = DialectRegistry.getInstance().getDialectByName(sqlhelperDialect);
         this.functionMap = initFunctionMap();
+    }
+
+    private static String getCustomizedDialect(String dialect){
+        String customizedDialectKey = "nacos.database.dialect."+dialect;
+        String customizedDialect = System.getProperty(customizedDialectKey);
+        if(Strings.isEmpty(customizedDialect)){
+            String customizedDialectEnvKey = Strings.replaceChars(customizedDialectKey, '.', '_');
+            customizedDialectEnvKey =Strings.upperCase(customizedDialectEnvKey);
+            customizedDialect = System.getenv(customizedDialectKey);
+        }
+        if(Strings.isEmpty(customizedDialect)){
+            customizedDialect = dialect;
+        }
+        return customizedDialect;
     }
 
     protected Map<String,String> initFunctionMap(){
