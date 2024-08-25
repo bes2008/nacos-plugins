@@ -13,6 +13,9 @@ public class DatabaseDialectManager {
 
     private Map<String, DatabaseDialect> dialectMap;
 
+    private DatabaseDialectManager(){
+        init();
+    }
     private void init(){
         Collection<DatabaseDialect> dialects = NacosServiceLoader.load(DatabaseDialect.class);
         Map<String, DatabaseDialect> map = Maps.newHashMap();
