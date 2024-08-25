@@ -15,8 +15,7 @@
 
 
 #### 安装教程
-
-1.  将插件及其依赖，放到 nacos plugins目录即可
+1. [nacosplugin-datasource 安装](./nacosplugin-datasource/installation.MD)
 
 #### 使用说明
 
