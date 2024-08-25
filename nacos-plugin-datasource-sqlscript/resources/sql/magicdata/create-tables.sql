@@ -11,8 +11,8 @@ CREATE TABLE "config_info" (
                                "group_id" varchar(255) ,
                                "content" text  NOT NULL,
                                "md5" varchar(32) ,
-                               "gmt_create" timestamp(3) without time zone NOT NULL,
-                               "gmt_modified" timestamp(3) without time zone NOT NULL,
+                               "gmt_create" timestamp(6) NOT NULL,
+                               "gmt_modified" timestamp(6) NOT NULL,
                                "src_user" text ,
                                "src_ip" varchar(20) ,
                                "app_name" varchar(128) ,
@@ -64,7 +64,7 @@ CREATE TABLE "config_info_aggr" (
                                     "group_id" varchar(255)  NOT NULL,
                                     "datum_id" varchar(255)  NOT NULL,
                                     "content" text  NOT NULL,
-                                    "gmt_modified" timestamp(3) without time zone NOT NULL,
+                                    "gmt_modified" timestamp(6) NOT NULL,
                                     "app_name" varchar(128) ,
                                     "tenant_id" varchar(128)
 )
@@ -89,7 +89,11 @@ CREATE UNIQUE INDEX "uk_configinfoaggr_datagrouptenantdatum" ON "config_info_agg
 -- ----------------------------
 ALTER TABLE "config_info_aggr" ADD CONSTRAINT "config_info_aggr_pkey" PRIMARY KEY ("id");
 
-
+-- ----------------------------
+-- Records of config_info_aggr
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for config_info_beta
@@ -103,8 +107,8 @@ CREATE TABLE "config_info_beta" (
                                     "content" text  NOT NULL,
                                     "beta_ips" varchar(1024) ,
                                     "md5" varchar(32) ,
-                                    "gmt_create" timestamp(3) without time zone NOT NULL,
-                                    "gmt_modified" timestamp(3) without time zone NOT NULL,
+                                    "gmt_create" timestamp(6) NOT NULL,
+                                    "gmt_modified" timestamp(6) NOT NULL,
                                     "src_user" text ,
                                     "src_ip" varchar(20) ,
                                     "tenant_id" varchar(128) ,
@@ -138,6 +142,12 @@ ALTER TABLE "config_info_beta" ADD CONSTRAINT "config_info_beta_pkey" PRIMARY KE
 
 
 -- ----------------------------
+-- Records of config_info_beta
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
 -- Table structure for config_info_tag
 -- ----------------------------
 DROP TABLE IF EXISTS "config_info_tag";
@@ -150,8 +160,8 @@ CREATE TABLE "config_info_tag" (
                                    "app_name" varchar(128) ,
                                    "content" text  NOT NULL,
                                    "md5" varchar(32) ,
-                                   "gmt_create" timestamp(3) without time zone NOT NULL,
-                                   "gmt_modified" timestamp(3) without time zone NOT NULL,
+                                   "gmt_create" timestamp(6) NOT NULL,
+                                   "gmt_modified" timestamp(6) NOT NULL,
                                    "src_user" text ,
                                    "src_ip" varchar(20)
 )
@@ -180,6 +190,12 @@ CREATE UNIQUE INDEX "uk_configinfotag_datagrouptenanttag" ON "config_info_tag" U
 -- Primary Key structure for table config_info_tag
 -- ----------------------------
 ALTER TABLE "config_info_tag" ADD CONSTRAINT "config_info_tag_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Records of config_info_tag
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for config_tags_relation
@@ -224,6 +240,11 @@ ALTER TABLE "config_tags_relation" ADD CONSTRAINT "config_tags_relation_pkey" PR
 
 
 
+-- ----------------------------
+-- Records of config_tags_relation
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for group_capacity
@@ -238,8 +259,8 @@ CREATE TABLE "group_capacity" (
                                   "max_aggr_count" int4 NOT NULL,
                                   "max_aggr_size" int4 NOT NULL,
                                   "max_history_count" int4 NOT NULL,
-                                  "gmt_create" timestamp(3) without time zone NOT NULL,
-                                  "gmt_modified" timestamp(3) without time zone NOT NULL
+                                  "gmt_create" timestamp(6) NOT NULL,
+                                  "gmt_modified" timestamp(6) NOT NULL
 )
 ;
 COMMENT ON COLUMN "group_capacity"."id" IS '主键ID';
@@ -269,6 +290,11 @@ CREATE UNIQUE INDEX "uk_group_id" ON "group_capacity" USING btree (
 ALTER TABLE "group_capacity" ADD CONSTRAINT "group_capacity_pkey" PRIMARY KEY ("id");
 
 
+-- ----------------------------
+-- Records of group_capacity
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for his_config_info
@@ -282,8 +308,8 @@ CREATE TABLE "his_config_info" (
                                    "app_name" varchar(128) ,
                                    "content" text  NOT NULL,
                                    "md5" varchar(32) ,
-                                   "gmt_create" timestamp(3) without time zone NOT NULL  DEFAULT '2010-05-05 00:00:00',
-                                   "gmt_modified" timestamp(3) without time zone NOT NULL,
+                                   "gmt_create" timestamp(6) NOT NULL  DEFAULT '2010-05-05 00:00:00',
+                                   "gmt_modified" timestamp(6) NOT NULL,
                                    "src_user" text ,
                                    "src_ip" varchar(20) ,
                                    "op_type" char(10) ,
@@ -329,8 +355,8 @@ CREATE TABLE "tenant_capacity" (
                                    "max_aggr_count" int4 NOT NULL,
                                    "max_aggr_size" int4 NOT NULL,
                                    "max_history_count" int4 NOT NULL,
-                                   "gmt_create" timestamp(3) without time zone NOT NULL,
-                                   "gmt_modified" timestamp(3) without time zone NOT NULL
+                                   "gmt_create" timestamp(6) NOT NULL,
+                                   "gmt_modified" timestamp(6) NOT NULL
 )
 ;
 COMMENT ON COLUMN "tenant_capacity"."id" IS '主键ID';
@@ -359,6 +385,12 @@ CREATE UNIQUE INDEX "uk_tenant_id" ON "tenant_capacity" USING btree (
 ALTER TABLE "tenant_capacity" ADD CONSTRAINT "tenant_capacity_pkey" PRIMARY KEY ("id");
 
 
+
+-- ----------------------------
+-- Records of tenant_capacity
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for tenant_info
@@ -393,6 +425,12 @@ CREATE UNIQUE INDEX "uk_tenant_info_kptenantid" ON "tenant_info" USING btree (
     "tenant_id"
     );
 
+-- ----------------------------
+-- Records of tenant_info
+-- ----------------------------
+BEGIN;
+COMMIT;
+
 
 
 -- ----------------------------
@@ -405,6 +443,13 @@ CREATE TABLE "users" (
                          "enabled" boolean NOT NULL
 )
 ;
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+BEGIN;
+INSERT INTO "users" VALUES ('nacos', '$2a$10$EuWPZHzz32dJN7jexM34MOeYirDdFAZm2kuWj7VEOJhhZkDrxfvUu', TRUE);
+COMMIT;
 
 
 -- ----------------------------
@@ -425,6 +470,15 @@ CREATE UNIQUE INDEX "uk_username_role" ON "roles" USING btree (
     "username",
     "role"
     );
+
+-- ----------------------------
+-- Records of roles
+-- ----------------------------
+BEGIN;
+INSERT INTO "roles" VALUES ('nacos', 'ROLE_ADMIN');
+COMMIT;
+
+
 
 -- ----------------------------
 -- Table structure for permissions
@@ -449,16 +503,13 @@ CREATE UNIQUE INDEX "uk_role_permission" ON "permissions" USING btree (
 
 
 -- ----------------------------
--- Records of users
+-- Records of permissions
 -- ----------------------------
-INSERT INTO "users" VALUES ('nacos', '$2a$10$EuWPZHzz32dJN7jexM34MOeYirDdFAZm2kuWj7VEOJhhZkDrxfvUu', TRUE);
-
-
--- ----------------------------
--- Records of roles
--- ----------------------------
-
-INSERT INTO "roles" VALUES ('nacos', 'ROLE_ADMIN');
-
-
+BEGIN;
 COMMIT;
+
+
+
+
+
+
