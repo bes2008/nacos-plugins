@@ -24,7 +24,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <jmh.version>1.23</jmh.version>
-        <langx-java.version>5.4.3</langx-java.version>
+        <langx-java.version>5.4.4</langx-java.version>
         <commons-codec.version>1.17.0</commons-codec.version>
         <nacos.version>2.4.1</nacos.version>
         <sqlhelper.version>5.0.2</sqlhelper.version>
