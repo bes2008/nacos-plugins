@@ -14,8 +14,8 @@
         nacos plugins
     </description>
     <modules>
-        <module>nacos-plugin-datasource</module>
-        <module>nacos-plugin-datasource-sqlscript</module>
+        <module>nacosplugin-datasource</module>
+        <module>nacosplugin-datasource-sqlscript</module>
     </modules>
 
     <properties>

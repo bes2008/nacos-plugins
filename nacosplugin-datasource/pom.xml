@@ -9,7 +9,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>nacos-plugin-datasource</artifactId>
+    <artifactId>nacosplugin-datasource</artifactId>
     <name>${project.groupId}:${project.artifactId}:${project.version}</name>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
