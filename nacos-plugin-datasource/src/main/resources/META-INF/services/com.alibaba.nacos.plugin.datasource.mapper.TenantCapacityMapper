@@ -1,8 +1,0 @@
-com.jn.nacos.plugin.datasource.db.dm.mapper.TenantCapacityMapper
-com.jn.nacos.plugin.datasource.db.kingbase.mapper.TenantCapacityMapper
-com.jn.nacos.plugin.datasource.db.magicdata.mapper.TenantCapacityMapper
-com.jn.nacos.plugin.datasource.db.mssql.mapper.TenantCapacityMapper
-com.jn.nacos.plugin.datasource.db.opengauss.mapper.TenantCapacityMapper
-com.jn.nacos.plugin.datasource.db.oracle.mapper.TenantCapacityMapper
-com.jn.nacos.plugin.datasource.db.oscar.mapper.TenantCapacityMapper
-com.jn.nacos.plugin.datasource.db.postgresql.mapper.TenantCapacityMapper

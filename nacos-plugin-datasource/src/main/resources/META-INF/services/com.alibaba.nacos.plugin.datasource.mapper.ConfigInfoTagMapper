@@ -1,8 +1,0 @@
-com.jn.nacos.plugin.datasource.db.dm.mapper.ConfigInfoTagMapper
-com.jn.nacos.plugin.datasource.db.kingbase.mapper.ConfigInfoTagMapper
-com.jn.nacos.plugin.datasource.db.magicdata.mapper.ConfigInfoTagMapper
-com.jn.nacos.plugin.datasource.db.mssql.mapper.ConfigInfoTagMapper
-com.jn.nacos.plugin.datasource.db.opengauss.mapper.ConfigInfoTagMapper
-com.jn.nacos.plugin.datasource.db.oracle.mapper.ConfigInfoTagMapper
-com.jn.nacos.plugin.datasource.db.oscar.mapper.ConfigInfoTagMapper
-com.jn.nacos.plugin.datasource.db.postgresql.mapper.ConfigInfoTagMapper

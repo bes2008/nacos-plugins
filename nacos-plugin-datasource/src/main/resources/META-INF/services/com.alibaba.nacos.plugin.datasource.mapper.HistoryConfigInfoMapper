@@ -1,8 +1,0 @@
-com.jn.nacos.plugin.datasource.db.dm.mapper.HistoryConfigInfoMapper
-com.jn.nacos.plugin.datasource.db.kingbase.mapper.HistoryConfigInfoMapper
-com.jn.nacos.plugin.datasource.db.magicdata.mapper.HistoryConfigInfoMapper
-com.jn.nacos.plugin.datasource.db.mssql.mapper.HistoryConfigInfoMapper
-com.jn.nacos.plugin.datasource.db.opengauss.mapper.HistoryConfigInfoMapper
-com.jn.nacos.plugin.datasource.db.oracle.mapper.HistoryConfigInfoMapper
-com.jn.nacos.plugin.datasource.db.oscar.mapper.HistoryConfigInfoMapper
-com.jn.nacos.plugin.datasource.db.postgresql.mapper.HistoryConfigInfoMapper

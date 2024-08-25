@@ -1,8 +1,0 @@
-com.jn.nacos.plugin.datasource.db.dm.mapper.ConfigTagRelationMapper
-com.jn.nacos.plugin.datasource.db.kingbase.mapper.ConfigTagRelationMapper
-com.jn.nacos.plugin.datasource.db.magicdata.mapper.ConfigTagRelationMapper
-com.jn.nacos.plugin.datasource.db.mssql.mapper.ConfigTagRelationMapper
-com.jn.nacos.plugin.datasource.db.opengauss.mapper.ConfigTagRelationMapper
-com.jn.nacos.plugin.datasource.db.oracle.mapper.ConfigTagRelationMapper
-com.jn.nacos.plugin.datasource.db.oscar.mapper.ConfigTagRelationMapper
-com.jn.nacos.plugin.datasource.db.postgresql.mapper.ConfigTagRelationMapper

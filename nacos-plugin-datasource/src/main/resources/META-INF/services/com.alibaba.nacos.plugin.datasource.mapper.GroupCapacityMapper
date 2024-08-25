@@ -1,8 +1,0 @@
-com.jn.nacos.plugin.datasource.db.dm.mapper.GroupCapacityMapper
-com.jn.nacos.plugin.datasource.db.kingbase.mapper.GroupCapacityMapper
-com.jn.nacos.plugin.datasource.db.magicdata.mapper.GroupCapacityMapper
-com.jn.nacos.plugin.datasource.db.mssql.mapper.GroupCapacityMapper
-com.jn.nacos.plugin.datasource.db.opengauss.mapper.GroupCapacityMapper
-com.jn.nacos.plugin.datasource.db.oracle.mapper.GroupCapacityMapper
-com.jn.nacos.plugin.datasource.db.oscar.mapper.GroupCapacityMapper
-com.jn.nacos.plugin.datasource.db.postgresql.mapper.GroupCapacityMapper
