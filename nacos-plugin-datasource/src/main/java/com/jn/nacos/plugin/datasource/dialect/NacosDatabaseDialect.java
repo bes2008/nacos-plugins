@@ -14,12 +14,12 @@ import com.jn.sqlhelper.dialect.pagination.RowSelection;
 import java.util.List;
 import java.util.Map;
 
-public abstract class DatabaseDialect {
+public abstract class NacosDatabaseDialect {
 
     private String name;
     private Dialect delegate;
     private Map<String, String> functionMap;
-    public DatabaseDialect(String name){
+    public NacosDatabaseDialect(String name){
         Preconditions.checkNotEmpty(name, "invalid dialect in class {}", Reflects.getFQNClassName(this.getClass()));
         this.name = name;
         String sqlhelperDialect = getCustomizedDialect(this.name);
