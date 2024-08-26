@@ -3,7 +3,7 @@
 ```text
 # 插件及插件依赖，如下为maven-dependency-plugin输出日志重点部分
 [INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ nacosplugin-datasource ---
-[INFO] io.github.bes2008.solution.nacos.plugins:nacosplugin-datasource:jar:1.0.0
+[INFO] io.github.bes2008.solution.nacosplugins:nacosplugin-datasource:jar:1.0.0
 [INFO] +- io.github.bes2008.solution.sqlhelper:sqlhelper-dialect:jar:5.0.2:compile
 [INFO] |  +- io.github.bes2008.solution.sqlhelper:sqlhelper-common:jar:5.0.2:compile
 [INFO] |  +- io.github.bes2008.solution.langx:langx-java-el:jar:5.4.4:compile
@@ -30,4 +30,11 @@ db.pool.config.driverClassName=org.postgresql.Driver
 nacosplugin-datasource-sqlscripts/resources/sql/ 目录下
 ```
 4. 启动nacos访问
+
+---
+
+## PostgreSQL 测试时，注意事项
+1. 相关依赖要放全
+
+2. 使用Oracle JDK 8，使用 OpenJDK 8可能会遇到SRAM相关问题
 

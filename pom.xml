@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.bes2008.solution.nacos.plugins</groupId>
+    <groupId>io.github.bes2008.solution.nacosplugins</groupId>
     <artifactId>nacos-plugins</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
@@ -16,6 +16,7 @@
     <modules>
         <module>nacosplugin-datasource</module>
         <module>nacosplugin-datasource-sqlscript</module>
+        <module>nacosplugin-all</module>
     </modules>
 
     <properties>
@@ -32,6 +33,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>io.github.bes2008.solution.nacosplugins</groupId>
+                <artifactId>nacosplugin-datasource</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+
             <dependency>
                 <groupId>org.openjdk.jmh</groupId>
                 <artifactId>jmh-core</artifactId>
