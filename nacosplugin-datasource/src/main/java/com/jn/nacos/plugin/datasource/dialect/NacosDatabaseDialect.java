@@ -59,7 +59,7 @@ public abstract class NacosDatabaseDialect {
     }
 
     public List rebuildParameters(List queryParams, RowSelection selection){
-        return Instrumentations.rebuildParameters(this.delegate, queryParams, selection);
+        return this.delegate.rebuildParameters(selection, queryParams);
     }
 
     public String getName() {

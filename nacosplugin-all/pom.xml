@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>nacosplugin-all</artifactId>
-
+    <name>${project.groupId}:${project.artifactId}:${project.version}</name>
     <properties>
         <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
     </properties>
