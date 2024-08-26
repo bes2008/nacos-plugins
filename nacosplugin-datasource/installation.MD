@@ -28,7 +28,6 @@ nacosplugin-datasource-sqlscripts/resources/sql/ 目录下
 ---
 
 ## PostgreSQL 测试时，注意事项
-1. 相关依赖要放全
-
-2. 使用Oracle JDK 8，使用 OpenJDK 8可能会遇到SRAM相关问题
+1. postgresql 相关依赖要放全，且要与服务端兼容，建议 >= 42.2.0 版本。
+2. 使用Oracle JDK 8，使用 OpenJDK 8可能会遇到 PostgreSQL SCRAM 认证相关问题
 
