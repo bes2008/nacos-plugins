@@ -26,6 +26,12 @@
         <dependency>
             <groupId>io.github.bes2008.solution.sqlhelper</groupId>
             <artifactId>sqlhelper-dialect</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.github.bes2008.solution.langx</groupId>
+                    <artifactId>langx-java-el</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>

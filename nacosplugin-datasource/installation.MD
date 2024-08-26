@@ -1,5 +1,5 @@
 ## datasource 插件安装
-1. 将插件、数据库驱动、数据库驱动依赖，放到 nacos plugins目录
+1. 将插件、数据库驱动 放到 `nacos/plugins` 目录
 ```text
 io.github.bes2008.solution.nacosplugins:nacosplugin-all:jar:1.0.0           
 ```
@@ -30,4 +30,5 @@ nacosplugin-datasource-sqlscripts/resources/sql/ 目录下
 ## PostgreSQL 测试时，注意事项
 1. postgresql 相关依赖要放全，且要与服务端兼容，建议 >= 42.2.0 版本。
 2. 使用Oracle JDK 8，使用 OpenJDK 8可能会遇到 PostgreSQL SCRAM 认证相关问题
+3. 驱动[下载地址](https://mvnrepository.com/artifact/org.postgresql/postgresql)
 
