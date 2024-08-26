@@ -8,7 +8,6 @@ import com.jn.langx.util.collection.Maps;
 import com.jn.langx.util.reflect.Reflects;
 import com.jn.sqlhelper.dialect.Dialect;
 import com.jn.sqlhelper.dialect.DialectRegistry;
-import com.jn.sqlhelper.dialect.instrument.Instrumentations;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.util.List;
@@ -43,6 +42,7 @@ public abstract class NacosDatabaseDialect {
 
     protected Map<String,String> initFunctionMap(){
         Map<String,String> map = Maps.newHashMap();
+        // 需要获取到毫秒
         map.put("NOW()", "CURRENT_TIMESTAMP");
         return map;
     }
