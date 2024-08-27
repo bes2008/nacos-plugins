@@ -1,0 +1,1 @@
+DROP schema if EXISTS nacos CASCADE;
