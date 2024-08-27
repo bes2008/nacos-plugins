@@ -5,12 +5,12 @@ import com.jn.langx.util.Preconditions;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialectManager;
 
-public abstract class BaseMapper extends AbstractMapper{
+public abstract class BaseMapper extends AbstractMapper {
     private String databaseId;
     protected NacosDatabaseDialect dialect;
 
-    public BaseMapper(String databaseId){
-        Preconditions.checkNotEmpty(databaseId,"database id is empty");
+    public BaseMapper(String databaseId) {
+        Preconditions.checkNotEmpty(databaseId, "database id is empty");
         this.databaseId = databaseId;
         this.dialect = NacosDatabaseDialectManager.getInstance().getDialect(this.databaseId);
     }

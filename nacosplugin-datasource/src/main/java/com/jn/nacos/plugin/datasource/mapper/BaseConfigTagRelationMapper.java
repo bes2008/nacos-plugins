@@ -1,10 +1,10 @@
 package com.jn.nacos.plugin.datasource.mapper;
 
-import com.alibaba.nacos.common.utils.StringUtils;
 import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.ConfigTagsRelationMapper;
 import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.alibaba.nacos.plugin.datasource.model.MapperResult;
+import com.jn.langx.util.Strings;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.util.ArrayList;
@@ -33,19 +33,19 @@ public abstract class BaseConfigTagRelationMapper extends BaseMapper implements 
         where.append(" a.tenant_id=? ");
         paramList.add(tenantId);
 
-        if (StringUtils.isNotBlank(dataId)) {
+        if (Strings.isNotBlank(dataId)) {
             where.append(" AND a.data_id=? ");
             paramList.add(dataId);
         }
-        if (StringUtils.isNotBlank(group)) {
+        if (Strings.isNotBlank(group)) {
             where.append(" AND a.group_id=? ");
             paramList.add(group);
         }
-        if (StringUtils.isNotBlank(appName)) {
+        if (Strings.isNotBlank(appName)) {
             where.append(" AND a.app_name=? ");
             paramList.add(appName);
         }
-        if (!StringUtils.isBlank(content)) {
+        if (Strings.isNotBlank(content)) {
             where.append(" AND a.content LIKE ? ");
             paramList.add(content);
         }
@@ -84,19 +84,19 @@ public abstract class BaseConfigTagRelationMapper extends BaseMapper implements 
         where.append(" a.tenant_id LIKE ? ");
         paramList.add(tenantId);
 
-        if (!StringUtils.isBlank(dataId)) {
+        if (!Strings.isBlank(dataId)) {
             where.append(" AND a.data_id LIKE ? ");
             paramList.add(dataId);
         }
-        if (!StringUtils.isBlank(group)) {
+        if (!Strings.isBlank(group)) {
             where.append(" AND a.group_id LIKE ? ");
             paramList.add(group);
         }
-        if (!StringUtils.isBlank(appName)) {
+        if (!Strings.isBlank(appName)) {
             where.append(" AND a.app_name = ? ");
             paramList.add(appName);
         }
-        if (!StringUtils.isBlank(content)) {
+        if (!Strings.isBlank(content)) {
             where.append(" AND a.content LIKE ? ");
             paramList.add(content);
         }
