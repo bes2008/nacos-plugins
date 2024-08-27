@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseConfigTagRelationMapper extends BaseMapper implements ConfigTagsRelationMapper {
-    public BaseConfigTagRelationMapper(String databaseId) {
+    protected BaseConfigTagRelationMapper(String databaseId) {
         super(databaseId);
     }
 

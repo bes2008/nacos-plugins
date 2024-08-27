@@ -11,7 +11,7 @@ import java.util.List;
 
 @SuppressWarnings("all")
 public abstract class BaseGroupCapacityMapper extends BaseMapper implements GroupCapacityMapper {
-    public BaseGroupCapacityMapper(String databaseId) {
+    protected BaseGroupCapacityMapper(String databaseId) {
         super(databaseId);
     }
 

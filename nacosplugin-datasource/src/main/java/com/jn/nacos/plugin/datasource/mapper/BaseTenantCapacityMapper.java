@@ -10,7 +10,7 @@ import com.jn.sqlhelper.dialect.pagination.RowSelection;
 import java.util.List;
 
 public abstract class BaseTenantCapacityMapper extends BaseMapper implements TenantCapacityMapper {
-    public BaseTenantCapacityMapper(String databaseId) {
+    protected BaseTenantCapacityMapper(String databaseId) {
         super(databaseId);
     }
 

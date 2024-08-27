@@ -17,7 +17,7 @@ import java.util.List;
 
 public abstract class BaseConfigInfoMapper extends BaseMapper implements ConfigInfoMapper {
 
-    public BaseConfigInfoMapper(String databaseId) {
+    protected BaseConfigInfoMapper(String databaseId) {
         super(databaseId);
     }
 
