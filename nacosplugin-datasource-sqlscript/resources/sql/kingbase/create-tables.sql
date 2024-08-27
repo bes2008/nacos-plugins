@@ -23,8 +23,7 @@ CREATE TABLE "config_info" (
                                "type" varchar(64) ,
                                "c_schema" text ,
                                "encrypted_data_key" text
-)
-;
+);
 
 COMMENT ON COLUMN "config_info"."id" IS 'id';
 COMMENT ON COLUMN "config_info"."data_id" IS 'data_id';
@@ -67,8 +66,7 @@ CREATE TABLE "config_info_aggr" (
                                     "gmt_modified" timestamp(3) without time zone NOT NULL,
                                     "app_name" varchar(128) ,
                                     "tenant_id" varchar(128)
-)
-;
+);
 COMMENT ON COLUMN "config_info_aggr"."id" IS 'id';
 COMMENT ON COLUMN "config_info_aggr"."data_id" IS 'data_id';
 COMMENT ON COLUMN "config_info_aggr"."group_id" IS 'group_id';
@@ -154,8 +152,7 @@ CREATE TABLE "config_info_tag" (
                                    "gmt_modified" timestamp(3) without time zone NOT NULL,
                                    "src_user" text ,
                                    "src_ip" varchar(20)
-)
-;
+);
 COMMENT ON COLUMN "config_info_tag"."id" IS 'id';
 COMMENT ON COLUMN "config_info_tag"."data_id" IS 'data_id';
 COMMENT ON COLUMN "config_info_tag"."group_id" IS 'group_id';
@@ -193,8 +190,7 @@ CREATE TABLE "config_tags_relation" (
                                         "group_id" varchar(128)  NOT NULL,
                                         "tenant_id" varchar(128) ,
                                         "nid" bigserial NOT NULL
-)
-;
+);
 COMMENT ON COLUMN "config_tags_relation"."id" IS 'id';
 COMMENT ON COLUMN "config_tags_relation"."tag_name" IS 'tag_name';
 COMMENT ON COLUMN "config_tags_relation"."tag_type" IS 'tag_type';
@@ -240,8 +236,7 @@ CREATE TABLE "group_capacity" (
                                   "max_history_count" int4 NOT NULL,
                                   "gmt_create" timestamp(3) without time zone NOT NULL,
                                   "gmt_modified" timestamp(3) without time zone NOT NULL
-)
-;
+);
 COMMENT ON COLUMN "group_capacity"."id" IS '主键ID';
 COMMENT ON COLUMN "group_capacity"."group_id" IS 'Group ID，空字符表示整个集群';
 COMMENT ON COLUMN "group_capacity"."quota" IS '配额，0表示使用默认值';
@@ -289,8 +284,7 @@ CREATE TABLE "his_config_info" (
                                    "op_type" char(10) ,
                                    "tenant_id" varchar(128) ,
                                    "encrypted_data_key" text
-)
-;
+);
 COMMENT ON COLUMN "his_config_info"."app_name" IS 'app_name';
 COMMENT ON COLUMN "his_config_info"."tenant_id" IS '租户字段';
 COMMENT ON COLUMN "his_config_info"."encrypted_data_key" IS '密钥';
@@ -331,8 +325,7 @@ CREATE TABLE "tenant_capacity" (
                                    "max_history_count" int4 NOT NULL,
                                    "gmt_create" timestamp(3) without time zone NOT NULL,
                                    "gmt_modified" timestamp(3) without time zone NOT NULL
-)
-;
+);
 COMMENT ON COLUMN "tenant_capacity"."id" IS '主键ID';
 COMMENT ON COLUMN "tenant_capacity"."tenant_id" IS 'Tenant ID';
 COMMENT ON COLUMN "tenant_capacity"."quota" IS '配额，0表示使用默认值';
@@ -373,8 +366,7 @@ CREATE TABLE "tenant_info" (
                                "create_source" varchar(32) ,
                                "gmt_create" int8 NOT NULL,
                                "gmt_modified" int8 NOT NULL
-)
-;
+);
 COMMENT ON COLUMN "tenant_info"."id" IS 'id';
 COMMENT ON COLUMN "tenant_info"."kp" IS 'kp';
 COMMENT ON COLUMN "tenant_info"."tenant_id" IS 'tenant_id';
@@ -403,8 +395,7 @@ CREATE TABLE "users" (
                          "username" varchar(50)  NOT NULL,
                          "password" varchar(500)  NOT NULL,
                          "enabled" boolean NOT NULL
-)
-;
+);
 
 
 -- ----------------------------
@@ -414,8 +405,7 @@ DROP TABLE IF EXISTS "roles";
 CREATE TABLE "roles" (
                          "username" varchar(50)  NOT NULL,
                          "role" varchar(50)  NOT NULL
-)
-;
+);
 
 
 -- ----------------------------
@@ -434,8 +424,7 @@ CREATE TABLE "permissions" (
                                "role" varchar(50)  NOT NULL,
                                "resource" varchar(512)  NOT NULL,
                                "action" varchar(8)  NOT NULL
-)
-;
+);
 
 
 -- ----------------------------

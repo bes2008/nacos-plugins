@@ -1,0 +1,2 @@
+DROP schema if EXISTS nacos CASCADE;
+CREATE SCHEMA nacos;

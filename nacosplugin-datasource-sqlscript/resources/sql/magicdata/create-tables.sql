@@ -23,8 +23,7 @@ CREATE TABLE "config_info" (
                                "type" varchar(64) ,
                                "c_schema" text ,
                                "encrypted_data_key" text
-)
-;
+);
 
 COMMENT ON COLUMN "config_info"."id" IS 'id';
 COMMENT ON COLUMN "config_info"."data_id" IS 'data_id';
@@ -67,8 +66,7 @@ CREATE TABLE "config_info_aggr" (
                                     "gmt_modified" timestamp(6) NOT NULL,
                                     "app_name" varchar(128) ,
                                     "tenant_id" varchar(128)
-)
-;
+);
 COMMENT ON COLUMN "config_info_aggr"."id" IS 'id';
 COMMENT ON COLUMN "config_info_aggr"."data_id" IS 'data_id';
 COMMENT ON COLUMN "config_info_aggr"."group_id" IS 'group_id';
@@ -89,11 +87,6 @@ CREATE UNIQUE INDEX "uk_configinfoaggr_datagrouptenantdatum" ON "config_info_agg
 -- ----------------------------
 ALTER TABLE "config_info_aggr" ADD CONSTRAINT "config_info_aggr_pkey" PRIMARY KEY ("id");
 
--- ----------------------------
--- Records of config_info_aggr
--- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for config_info_beta
@@ -141,11 +134,7 @@ CREATE UNIQUE INDEX "uk_configinfobeta_datagrouptenant" ON "config_info_beta" US
 ALTER TABLE "config_info_beta" ADD CONSTRAINT "config_info_beta_pkey" PRIMARY KEY ("id");
 
 
--- ----------------------------
--- Records of config_info_beta
--- ----------------------------
-BEGIN;
-COMMIT;
+
 
 -- ----------------------------
 -- Table structure for config_info_tag
@@ -164,8 +153,7 @@ CREATE TABLE "config_info_tag" (
                                    "gmt_modified" timestamp(6) NOT NULL,
                                    "src_user" text ,
                                    "src_ip" varchar(20)
-)
-;
+);
 COMMENT ON COLUMN "config_info_tag"."id" IS 'id';
 COMMENT ON COLUMN "config_info_tag"."data_id" IS 'data_id';
 COMMENT ON COLUMN "config_info_tag"."group_id" IS 'group_id';
@@ -191,11 +179,6 @@ CREATE UNIQUE INDEX "uk_configinfotag_datagrouptenanttag" ON "config_info_tag" U
 -- ----------------------------
 ALTER TABLE "config_info_tag" ADD CONSTRAINT "config_info_tag_pkey" PRIMARY KEY ("id");
 
--- ----------------------------
--- Records of config_info_tag
--- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for config_tags_relation
@@ -209,8 +192,7 @@ CREATE TABLE "config_tags_relation" (
                                         "group_id" varchar(128)  NOT NULL,
                                         "tenant_id" varchar(128) ,
                                         "nid" bigserial NOT NULL
-)
-;
+);
 COMMENT ON COLUMN "config_tags_relation"."id" IS 'id';
 COMMENT ON COLUMN "config_tags_relation"."tag_name" IS 'tag_name';
 COMMENT ON COLUMN "config_tags_relation"."tag_type" IS 'tag_type';
@@ -237,14 +219,6 @@ CREATE UNIQUE INDEX "uk_configtagrelation_configidtag" ON "config_tags_relation"
 -- Primary Key structure for table config_tags_relation
 -- ----------------------------
 ALTER TABLE "config_tags_relation" ADD CONSTRAINT "config_tags_relation_pkey" PRIMARY KEY ("nid");
-
-
-
--- ----------------------------
--- Records of config_tags_relation
--- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for group_capacity
@@ -290,11 +264,6 @@ CREATE UNIQUE INDEX "uk_group_id" ON "group_capacity" USING btree (
 ALTER TABLE "group_capacity" ADD CONSTRAINT "group_capacity_pkey" PRIMARY KEY ("id");
 
 
--- ----------------------------
--- Records of group_capacity
--- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for his_config_info
@@ -315,8 +284,7 @@ CREATE TABLE "his_config_info" (
                                    "op_type" char(10) ,
                                    "tenant_id" varchar(128) ,
                                    "encrypted_data_key" text
-)
-;
+);
 COMMENT ON COLUMN "his_config_info"."app_name" IS 'app_name';
 COMMENT ON COLUMN "his_config_info"."tenant_id" IS '租户字段';
 COMMENT ON COLUMN "his_config_info"."encrypted_data_key" IS '密钥';
@@ -357,8 +325,7 @@ CREATE TABLE "tenant_capacity" (
                                    "max_history_count" int4 NOT NULL,
                                    "gmt_create" timestamp(6) NOT NULL,
                                    "gmt_modified" timestamp(6) NOT NULL
-)
-;
+);
 COMMENT ON COLUMN "tenant_capacity"."id" IS '主键ID';
 COMMENT ON COLUMN "tenant_capacity"."tenant_id" IS 'Tenant ID';
 COMMENT ON COLUMN "tenant_capacity"."quota" IS '配额，0表示使用默认值';
@@ -387,12 +354,6 @@ ALTER TABLE "tenant_capacity" ADD CONSTRAINT "tenant_capacity_pkey" PRIMARY KEY 
 
 
 -- ----------------------------
--- Records of tenant_capacity
--- ----------------------------
-BEGIN;
-COMMIT;
-
--- ----------------------------
 -- Table structure for tenant_info
 -- ----------------------------
 DROP TABLE IF EXISTS "tenant_info";
@@ -405,8 +366,7 @@ CREATE TABLE "tenant_info" (
                                "create_source" varchar(32) ,
                                "gmt_create" int8 NOT NULL,
                                "gmt_modified" int8 NOT NULL
-)
-;
+);
 COMMENT ON COLUMN "tenant_info"."id" IS 'id';
 COMMENT ON COLUMN "tenant_info"."kp" IS 'kp';
 COMMENT ON COLUMN "tenant_info"."tenant_id" IS 'tenant_id';
@@ -425,13 +385,6 @@ CREATE UNIQUE INDEX "uk_tenant_info_kptenantid" ON "tenant_info" USING btree (
     "tenant_id"
     );
 
--- ----------------------------
--- Records of tenant_info
--- ----------------------------
-BEGIN;
-COMMIT;
-
-
 
 -- ----------------------------
 -- Table structure for users
@@ -441,15 +394,7 @@ CREATE TABLE "users" (
                          "username" varchar(50)  NOT NULL,
                          "password" varchar(500)  NOT NULL,
                          "enabled" boolean NOT NULL
-)
-;
-
--- ----------------------------
--- Records of users
--- ----------------------------
-BEGIN;
-INSERT INTO "users" VALUES ('nacos', '$2a$10$EuWPZHzz32dJN7jexM34MOeYirDdFAZm2kuWj7VEOJhhZkDrxfvUu', TRUE);
-COMMIT;
+);
 
 
 -- ----------------------------
@@ -459,8 +404,7 @@ DROP TABLE IF EXISTS "roles";
 CREATE TABLE "roles" (
                          "username" varchar(50)  NOT NULL,
                          "role" varchar(50)  NOT NULL
-)
-;
+);
 
 
 -- ----------------------------
@@ -471,12 +415,7 @@ CREATE UNIQUE INDEX "uk_username_role" ON "roles" USING btree (
     "role"
     );
 
--- ----------------------------
--- Records of roles
--- ----------------------------
-BEGIN;
-INSERT INTO "roles" VALUES ('nacos', 'ROLE_ADMIN');
-COMMIT;
+
 
 
 
@@ -488,8 +427,7 @@ CREATE TABLE "permissions" (
                                "role" varchar(50)  NOT NULL,
                                "resource" varchar(512)  NOT NULL,
                                "action" varchar(8)  NOT NULL
-)
-;
+);
 
 
 -- ----------------------------
@@ -502,14 +440,10 @@ CREATE UNIQUE INDEX "uk_role_permission" ON "permissions" USING btree (
     );
 
 
--- ----------------------------
--- Records of permissions
--- ----------------------------
-BEGIN;
+
+INSERT INTO "users" VALUES ('nacos', '$2a$10$EuWPZHzz32dJN7jexM34MOeYirDdFAZm2kuWj7VEOJhhZkDrxfvUu', TRUE);
+INSERT INTO "roles" VALUES ('nacos', 'ROLE_ADMIN');
 COMMIT;
-
-
-
 
 
 
