@@ -18,7 +18,7 @@ public abstract class NacosDatabaseDialect {
     private String name;
     private Dialect delegate;
     private Map<String, String> functionMap;
-    public NacosDatabaseDialect(String name){
+    protected NacosDatabaseDialect(String name){
         Preconditions.checkNotEmpty(name, "invalid dialect in class {}", Reflects.getFQNClassName(this.getClass()));
         this.name = name;
         String sqlhelperDialect = getCustomizedDialect(this.name);
@@ -53,7 +53,7 @@ public abstract class NacosDatabaseDialect {
     private static Map<String,String> defineCommonFunctionMap(){
         Map<String,String> map = Maps.newHashMap();
         // 需要获取到毫秒
-        map.put("NOW()", "CURRENT_TIMESTAMP");
+        map.put("NOW()", "CURRENT_TIMESTAMP(3)");
 
         return map;
     }
