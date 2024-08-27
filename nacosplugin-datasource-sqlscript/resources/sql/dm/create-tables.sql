@@ -232,12 +232,12 @@ DROP TABLE IF EXISTS "group_capacity";
 CREATE TABLE "group_capacity" (
                                   "id" BIGINT NOT NULL,
                                   "group_id" varchar(128)  NOT NULL,
-                                  "quota" int4 NOT NULL,
-                                  "usage" int4 NOT NULL,
-                                  "max_size" int4 NOT NULL,
-                                  "max_aggr_count" int4 NOT NULL,
-                                  "max_aggr_size" int4 NOT NULL,
-                                  "max_history_count" int4 NOT NULL,
+                                  "quota" INT NOT NULL,
+                                  "usage" INT NOT NULL,
+                                  "max_size" INT NOT NULL,
+                                  "max_aggr_count" INT NOT NULL,
+                                  "max_aggr_size" INT NOT NULL,
+                                  "max_history_count" INT NOT NULL,
                                   "gmt_create" timestamp(3) without time zone NOT NULL,
                                   "gmt_modified" timestamp(3) without time zone NOT NULL
 )
@@ -275,7 +275,7 @@ ALTER TABLE "group_capacity" ADD CONSTRAINT "group_capacity_pkey" PRIMARY KEY ("
 -- ----------------------------
 DROP TABLE IF EXISTS "his_config_info";
 CREATE TABLE "his_config_info" (
-                                   "id" int8 NOT NULL,
+                                   "id" BIGINT NOT NULL,
                                    "nid" BIGINT NOT NULL,
                                    "data_id" varchar(255)  NOT NULL,
                                    "group_id" varchar(128)  NOT NULL,
@@ -323,12 +323,12 @@ DROP TABLE IF EXISTS "tenant_capacity";
 CREATE TABLE "tenant_capacity" (
                                    "id" BIGINT NOT NULL,
                                    "tenant_id" varchar(128)  NOT NULL,
-                                   "quota" int4 NOT NULL,
-                                   "usage" int4 NOT NULL,
-                                   "max_size" int4 NOT NULL,
-                                   "max_aggr_count" int4 NOT NULL,
-                                   "max_aggr_size" int4 NOT NULL,
-                                   "max_history_count" int4 NOT NULL,
+                                   "quota" INT NOT NULL,
+                                   "usage" INT NOT NULL,
+                                   "max_size" INT NOT NULL,
+                                   "max_aggr_count" INT NOT NULL,
+                                   "max_aggr_size" INT NOT NULL,
+                                   "max_history_count" INT NOT NULL,
                                    "gmt_create" timestamp(3) without time zone NOT NULL,
                                    "gmt_modified" timestamp(3) without time zone NOT NULL
 )
@@ -371,8 +371,8 @@ CREATE TABLE "tenant_info" (
                                "tenant_name" varchar(128) ,
                                "tenant_desc" varchar(256) ,
                                "create_source" varchar(32) ,
-                               "gmt_create" int8 NOT NULL,
-                               "gmt_modified" int8 NOT NULL
+                               "gmt_create" BIGINT NOT NULL,
+                               "gmt_modified" BIGINT NOT NULL
 )
 ;
 COMMENT ON COLUMN "tenant_info"."id" IS 'id';
