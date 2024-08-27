@@ -1,1 +1,3 @@
-DROP schema if EXISTS nacos CASCADE;
+DROP SCHEMA if EXISTS nacos CASCADE;
+CREATE SCHEMA nacos;
+/
