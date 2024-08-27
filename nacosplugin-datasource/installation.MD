@@ -46,7 +46,8 @@ nacosplugin-datasource-sqlscripts/resources/sql/ 目录下
 想要执行SQL脚本文件，需要提供的命令行工具：${dmdbms}/disql
 
 ```shell
-./disql SYSDBA/dameng777@localhost:5236 \`./nacos-schema.sql
+./disql SYSDBA/dameng777@localhost:5236 \`./create-schema.sql
+./disql SYSDBA/dameng777@localhost:5236 \`./create-tables.sql
 ```
 
 
