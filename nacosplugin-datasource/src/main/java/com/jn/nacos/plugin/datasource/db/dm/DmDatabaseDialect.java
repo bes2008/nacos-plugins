@@ -1,7 +1,7 @@
-package com.jn.nacos.plugin.datasource.db.dm.dialect;
+package com.jn.nacos.plugin.datasource.db.dm;
 
 import com.jn.nacos.plugin.datasource.DatabaseTypes;
-import com.jn.nacos.plugin.datasource.dialect.NacosDatabaseDialect;
+import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 
 import java.util.Map;
 

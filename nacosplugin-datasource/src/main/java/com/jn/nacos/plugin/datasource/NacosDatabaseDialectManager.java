@@ -1,4 +1,4 @@
-package com.jn.nacos.plugin.datasource.dialect;
+package com.jn.nacos.plugin.datasource;
 
 import com.alibaba.nacos.common.spi.NacosServiceLoader;
 import com.jn.langx.util.collection.Maps;

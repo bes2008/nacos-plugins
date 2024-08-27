@@ -1,4 +1,4 @@
-package com.jn.nacos.plugin.datasource.dialect;
+package com.jn.nacos.plugin.datasource;
 
 import com.jn.langx.text.StringTemplates;
 import com.jn.langx.util.Objs;
@@ -40,11 +40,42 @@ public abstract class NacosDatabaseDialect {
         return customizedDialect;
     }
 
-    protected Map<String,String> initFunctionMap(){
+    private static Map<String,String> COMMON_FUNCTIONS = defineCommonFunctionMap();
+
+    /**
+     * <pre>
+     *  -----------------------定义公有函数-------------------------
+     *  在这里定义的是公有函数，没有必要必须在所有的数据库中存在，只保证在大部分数据库即可;
+     *  并且这里要将所有需要的函数全部定义上
+     *  </pre>
+     * @return 公有函数
+     */
+    private static Map<String,String> defineCommonFunctionMap(){
         Map<String,String> map = Maps.newHashMap();
         // 需要获取到毫秒
         map.put("NOW()", "CURRENT_TIMESTAMP");
+
         return map;
+    }
+
+    private Map<String,String> initFunctionMap(){
+        Map<String,String> map = Maps.newHashMap();
+        map.putAll(COMMON_FUNCTIONS);
+
+        Map<String,String> specifiedFunctions = specifiedFunctions();
+        if(specifiedFunctions!=null){
+            map.putAll(specifiedFunctions);
+        }
+        return map;
+    }
+
+    /**
+     * -----------------------定义特定函数-------------------------
+     * 对于特定的数据库，如果一个函数，与公有函数定义的有所不同时，需要在这里定义
+     * @return 特定函数集
+     */
+    protected Map<String,String> specifiedFunctions(){
+        return null;
     }
     public String getFunction(String functionName){
         String func =this.functionMap.get(functionName);
