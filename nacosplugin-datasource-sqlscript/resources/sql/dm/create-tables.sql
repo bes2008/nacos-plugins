@@ -5,7 +5,7 @@ ALTER SESSION SET CURRENT_SCHEMA=nacos;
 -- ----------------------------
 DROP TABLE IF EXISTS "config_info";
 CREATE TABLE "config_info" (
-                               "id" BIGINT NOT NULL,
+                               "id" BIGINT NOT NULL IDENTITY(1,1),
                                "data_id" varchar(255)  NOT NULL,
                                "group_id" varchar(255) ,
                                "content" text  NOT NULL,
@@ -57,7 +57,7 @@ ALTER TABLE "config_info" ADD CONSTRAINT "config_info_pkey" PRIMARY KEY ("id");
 -- ----------------------------
 DROP TABLE IF EXISTS "config_info_aggr";
 CREATE TABLE "config_info_aggr" (
-                                    "id" BIGINT NOT NULL,
+                                    "id" BIGINT NOT NULL IDENTITY(1,1),
                                     "data_id" varchar(255)  NOT NULL,
                                     "group_id" varchar(255)  NOT NULL,
                                     "datum_id" varchar(255)  NOT NULL,
@@ -94,7 +94,7 @@ ALTER TABLE "config_info_aggr" ADD CONSTRAINT "config_info_aggr_pkey" PRIMARY KE
 -- ----------------------------
 DROP TABLE IF EXISTS "config_info_beta";
 CREATE TABLE "config_info_beta" (
-                                    "id" BIGINT NOT NULL,
+                                    "id" BIGINT NOT NULL IDENTITY(1,1),
                                     "data_id" varchar(255)  NOT NULL,
                                     "group_id" varchar(128)  NOT NULL,
                                     "app_name" varchar(128) ,
@@ -140,7 +140,7 @@ ALTER TABLE "config_info_beta" ADD CONSTRAINT "config_info_beta_pkey" PRIMARY KE
 -- ----------------------------
 DROP TABLE IF EXISTS "config_info_tag";
 CREATE TABLE "config_info_tag" (
-                                   "id" BIGINT NOT NULL,
+                                   "id" BIGINT NOT NULL IDENTITY(1,1),
                                    "data_id" varchar(255)  NOT NULL,
                                    "group_id" varchar(128)  NOT NULL,
                                    "tenant_id" varchar(128) ,
@@ -189,7 +189,7 @@ CREATE TABLE "config_tags_relation" (
                                         "data_id" varchar(255)  NOT NULL,
                                         "group_id" varchar(128)  NOT NULL,
                                         "tenant_id" varchar(128) ,
-                                        "nid" BIGINT NOT NULL
+                                        "nid" BIGINT NOT NULL IDENTITY(1,1)
 );
 
 COMMENT ON COLUMN "config_tags_relation"."id" IS 'id';
@@ -227,7 +227,7 @@ ALTER TABLE "config_tags_relation" ADD CONSTRAINT "config_tags_relation_pkey" PR
 -- ----------------------------
 DROP TABLE IF EXISTS "group_capacity";
 CREATE TABLE "group_capacity" (
-                                  "id" BIGINT NOT NULL,
+                                  "id" BIGINT NOT NULL IDENTITY(1,1),
                                   "group_id" varchar(128)  NOT NULL,
                                   "quota" INT NOT NULL,
                                   "usage" INT NOT NULL,
@@ -272,7 +272,7 @@ ALTER TABLE "group_capacity" ADD CONSTRAINT "group_capacity_pkey" PRIMARY KEY ("
 DROP TABLE IF EXISTS "his_config_info";
 CREATE TABLE "his_config_info" (
                                    "id" BIGINT NOT NULL,
-                                   "nid" BIGINT NOT NULL,
+                                   "nid" BIGINT NOT NULL IDENTITY(1,1),
                                    "data_id" varchar(255)  NOT NULL,
                                    "group_id" varchar(128)  NOT NULL,
                                    "app_name" varchar(128) ,
@@ -316,7 +316,7 @@ ALTER TABLE "his_config_info" ADD CONSTRAINT "his_config_info_pkey" PRIMARY KEY 
 -- ----------------------------
 DROP TABLE IF EXISTS "tenant_capacity";
 CREATE TABLE "tenant_capacity" (
-                                   "id" BIGINT NOT NULL,
+                                   "id" BIGINT NOT NULL IDENTITY(1,1),
                                    "tenant_id" varchar(128)  NOT NULL,
                                    "quota" INT NOT NULL,
                                    "usage" INT NOT NULL,
@@ -360,7 +360,7 @@ ALTER TABLE "tenant_capacity" ADD CONSTRAINT "tenant_capacity_pkey" PRIMARY KEY 
 -- ----------------------------
 DROP TABLE IF EXISTS "tenant_info";
 CREATE TABLE "tenant_info" (
-                               "id" BIGINT NOT NULL,
+                               "id" BIGINT NOT NULL IDENTITY(1,1),
                                "kp" varchar(128)  NOT NULL,
                                "tenant_id" varchar(128) ,
                                "tenant_name" varchar(128) ,
