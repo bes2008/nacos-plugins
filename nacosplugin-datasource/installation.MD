@@ -31,6 +31,16 @@ nacosplugin-datasource-sqlscripts/resources/sql/ 目录下
 1. postgresql 相关依赖要放全，且要与服务端兼容，建议 >= 42.2.0 版本。
 2. 使用Oracle JDK 8，使用 OpenJDK 8可能会遇到 PostgreSQL SCRAM 认证相关问题
 3. 驱动[下载地址](https://mvnrepository.com/artifact/org.postgresql/postgresql)
+4. JDBC 配置
+```properties
+# PostgreSQL
+spring.sql.init.platform=postgresql
+db.num=1
+db.url.0=jdbc:postgresql://192.168.188.131:5432/db1?currentSchema=nacos
+db.user.0=postgresql
+db.password.0=postgresql
+db.pool.config.driverClassName=org.postgresql.Driver
+```
 
 ## DM 测试时，注意事项
 1. jdbc驱动选择：
@@ -49,5 +59,16 @@ nacosplugin-datasource-sqlscripts/resources/sql/ 目录下
 ./disql SYSDBA/dameng777@localhost:5236 \`./create-schema.sql
 ./disql SYSDBA/dameng777@localhost:5236 \`./create-tables.sql
 ```
+3. JDBC 配置
+```properties
 
+# DM
+spring.sql.init.platform=dm
+db.num=1
+db.url.0=jdbc:dm://192.168.137.133:5236?schema=nacos
+db.user.0=SYSDBA
+db.password.0=dameng777
+db.pool.config.driverClassName=dm.jdbc.driver.DmDriver
+
+```
 
