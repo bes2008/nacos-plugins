@@ -7,6 +7,7 @@ com.jn.nacos.plugin.datasource.db.oracle.mapper.ConfigInfoAggrMapper
 com.jn.nacos.plugin.datasource.db.oscar.mapper.ConfigInfoAggrMapper
 com.jn.nacos.plugin.datasource.db.postgresql.mapper.ConfigInfoAggrMapper
 
+
 com.jn.nacos.plugin.datasource.db.dm.mapper.ConfigInfoBetaMapper
 com.jn.nacos.plugin.datasource.db.kingbase.mapper.ConfigInfoBetaMapper
 com.jn.nacos.plugin.datasource.db.magicdata.mapper.ConfigInfoBetaMapper
@@ -15,6 +16,7 @@ com.jn.nacos.plugin.datasource.db.opengauss.mapper.ConfigInfoBetaMapper
 com.jn.nacos.plugin.datasource.db.oracle.mapper.ConfigInfoBetaMapper
 com.jn.nacos.plugin.datasource.db.oscar.mapper.ConfigInfoBetaMapper
 com.jn.nacos.plugin.datasource.db.postgresql.mapper.ConfigInfoBetaMapper
+
 
 com.jn.nacos.plugin.datasource.db.dm.mapper.ConfigInfoMapper
 com.jn.nacos.plugin.datasource.db.kingbase.mapper.ConfigInfoMapper
@@ -25,6 +27,7 @@ com.jn.nacos.plugin.datasource.db.oracle.mapper.ConfigInfoMapper
 com.jn.nacos.plugin.datasource.db.oscar.mapper.ConfigInfoMapper
 com.jn.nacos.plugin.datasource.db.postgresql.mapper.ConfigInfoMapper
 
+
 com.jn.nacos.plugin.datasource.db.dm.mapper.ConfigInfoTagMapper
 com.jn.nacos.plugin.datasource.db.kingbase.mapper.ConfigInfoTagMapper
 com.jn.nacos.plugin.datasource.db.magicdata.mapper.ConfigInfoTagMapper
@@ -33,6 +36,7 @@ com.jn.nacos.plugin.datasource.db.opengauss.mapper.ConfigInfoTagMapper
 com.jn.nacos.plugin.datasource.db.oracle.mapper.ConfigInfoTagMapper
 com.jn.nacos.plugin.datasource.db.oscar.mapper.ConfigInfoTagMapper
 com.jn.nacos.plugin.datasource.db.postgresql.mapper.ConfigInfoTagMapper
+
 
 com.jn.nacos.plugin.datasource.db.dm.mapper.ConfigTagRelationMapper
 com.jn.nacos.plugin.datasource.db.kingbase.mapper.ConfigTagRelationMapper
@@ -43,6 +47,7 @@ com.jn.nacos.plugin.datasource.db.oracle.mapper.ConfigTagRelationMapper
 com.jn.nacos.plugin.datasource.db.oscar.mapper.ConfigTagRelationMapper
 com.jn.nacos.plugin.datasource.db.postgresql.mapper.ConfigTagRelationMapper
 
+
 com.jn.nacos.plugin.datasource.db.dm.mapper.GroupCapacityMapper
 com.jn.nacos.plugin.datasource.db.kingbase.mapper.GroupCapacityMapper
 com.jn.nacos.plugin.datasource.db.magicdata.mapper.GroupCapacityMapper
@@ -51,6 +56,7 @@ com.jn.nacos.plugin.datasource.db.opengauss.mapper.GroupCapacityMapper
 com.jn.nacos.plugin.datasource.db.oracle.mapper.GroupCapacityMapper
 com.jn.nacos.plugin.datasource.db.oscar.mapper.GroupCapacityMapper
 com.jn.nacos.plugin.datasource.db.postgresql.mapper.GroupCapacityMapper
+
 
 com.jn.nacos.plugin.datasource.db.dm.mapper.HistoryConfigInfoMapper
 com.jn.nacos.plugin.datasource.db.kingbase.mapper.HistoryConfigInfoMapper
@@ -61,6 +67,7 @@ com.jn.nacos.plugin.datasource.db.oracle.mapper.HistoryConfigInfoMapper
 com.jn.nacos.plugin.datasource.db.oscar.mapper.HistoryConfigInfoMapper
 com.jn.nacos.plugin.datasource.db.postgresql.mapper.HistoryConfigInfoMapper
 
+
 com.jn.nacos.plugin.datasource.db.dm.mapper.TenantCapacityMapper
 com.jn.nacos.plugin.datasource.db.kingbase.mapper.TenantCapacityMapper
 com.jn.nacos.plugin.datasource.db.magicdata.mapper.TenantCapacityMapper
@@ -69,6 +76,7 @@ com.jn.nacos.plugin.datasource.db.opengauss.mapper.TenantCapacityMapper
 com.jn.nacos.plugin.datasource.db.oracle.mapper.TenantCapacityMapper
 com.jn.nacos.plugin.datasource.db.oscar.mapper.TenantCapacityMapper
 com.jn.nacos.plugin.datasource.db.postgresql.mapper.TenantCapacityMapper
+
 
 com.jn.nacos.plugin.datasource.db.dm.mapper.TenantInfoMapper
 com.jn.nacos.plugin.datasource.db.kingbase.mapper.TenantInfoMapper
