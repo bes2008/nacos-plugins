@@ -1,5 +1,6 @@
 package com.jn.nacos.plugin.datasource.db.dm;
 
+import com.google.common.collect.Maps;
 import com.jn.nacos.plugin.datasource.DatabaseTypes;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 
@@ -11,8 +12,8 @@ public class DmDatabaseDialect extends NacosDatabaseDialect {
     }
 
     @Override
-    protected Map<String, String> initFunctionMap() {
-        Map<String, String> map= super.initFunctionMap();
+    protected Map<String, String> specifiedFunctions() {
+        Map<String, String> map= Maps.newHashMap();
         map.put("NOW()", "CURRENT_TIMESTAMP(3)");
         return map;
     }

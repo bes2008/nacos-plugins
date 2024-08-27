@@ -62,9 +62,14 @@ public abstract class NacosDatabaseDialect {
         Map<String,String> map = Maps.newHashMap();
         map.putAll(COMMON_FUNCTIONS);
 
+        // 使用自定义的函数进行重写
         Map<String,String> specifiedFunctions = specifiedFunctions();
         if(specifiedFunctions!=null){
-            map.putAll(specifiedFunctions);
+            for (Map.Entry<String,String> entry : specifiedFunctions.entrySet()){
+                if(COMMON_FUNCTIONS.containsKey(entry.getKey())){
+                    map.put(entry.getKey(), entry.getValue());
+                }
+            }
         }
         return map;
     }
