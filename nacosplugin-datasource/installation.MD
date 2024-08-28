@@ -75,5 +75,19 @@ db.pool.config.driverClassName=dm.jdbc.driver.DmDriver
 ## 支持SqlServer
 1. jdbc 驱动选择：
 参考[微软官方说明](https://learn.microsoft.com/zh-cn/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server-support-matrix?view=sql-server-ver16)，建议选择`12.4.1`版本
-2. jdbc 配置
-3. 
+2. 使用database而不是schema
+```markdown
+在SqlServer中，每个Database都会默认创建一堆固定的schema，执行sql时，默认就会使用一个名为 dbo的schema。
+虽然也可以通过SQL方式创建 自定义的schema，但无法在session中指定默认schema的，所以不要使用schema，而是使用database。
+```
+
+3. jdbc 配置
+```properties
+# SqlServer
+spring.sql.init.platform=sqlserver
+db.num=1
+db.url.0=jdbc:sqlserver://192.168.137.133:1433;databaseName=nacos;encrypt=false
+db.user.0=sa
+db.password.0=SA123456Pswd
+db.pool.config.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+```   
