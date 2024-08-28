@@ -18,7 +18,7 @@ public abstract class BaseGroupCapacityMapper extends BaseMapper implements Grou
     @Override
     public MapperResult selectGroupInfoBySize(MapperContext context) {
         RowSelection rowSelection = new RowSelection(0, context.getPageSize());
-        String sql = "SELECT id, group_id FROM group_capacity WHERE id > ? ";
+        String sql = "SELECT id, group_id FROM group_capacity WHERE id > ? order by id asc";
         sql = getDialect().getLimitSql(sql, rowSelection);
         List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.ID));
         List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);

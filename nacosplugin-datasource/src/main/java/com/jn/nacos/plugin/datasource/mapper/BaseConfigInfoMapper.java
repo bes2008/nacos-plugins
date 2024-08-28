@@ -27,7 +27,7 @@ public abstract class BaseConfigInfoMapper extends BaseMapper implements ConfigI
         final String tenantId = (String) context.getWhereParameter(FieldConstant.TENANT_ID);
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
-        String sql = "SELECT ID,data_id,group_id,tenant_id,app_name,content FROM config_info WHERE tenant_id LIKE ? AND app_name = ?";
+        String sql = "SELECT ID,data_id,group_id,tenant_id,app_name,content FROM config_info WHERE tenant_id LIKE ? AND app_name = ? order by id asc";
 
         sql = getDialect().getLimitSql(sql, rowSelection);
         List<Object> pagedParams = getDialect().rebuildParameters(Lists.newArrayList(tenantId, appName), rowSelection);
@@ -130,7 +130,7 @@ public abstract class BaseConfigInfoMapper extends BaseMapper implements ConfigI
             where += " AND gmt_modified <=? ";
             paramList.add(endTime);
         }
-        String sql = sqlFetchRows + where;
+        String sql = sqlFetchRows + where +" order by id asc";
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         sql = getDialect().getLimitSql(sql, rowSelection);
@@ -170,7 +170,7 @@ public abstract class BaseConfigInfoMapper extends BaseMapper implements ConfigI
             where += " AND content LIKE ? ";
             paramList.add(tenant);
         }
-        String sql = sqlFetchRows + where;
+        String sql = sqlFetchRows + where + " order by id asc";
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         sql = getDialect().getLimitSql(sql, rowSelection);
@@ -210,7 +210,7 @@ public abstract class BaseConfigInfoMapper extends BaseMapper implements ConfigI
             paramList.add(content);
         }
 
-        sql = sql + where;
+        sql = sql + where + " order by id asc";
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         sql = getDialect().getLimitSql(sql, rowSelection);
 
@@ -222,7 +222,7 @@ public abstract class BaseConfigInfoMapper extends BaseMapper implements ConfigI
     public MapperResult findConfigInfoBaseByGroupFetchRows(MapperContext context) {
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
-        String sql = "SELECT id,data_id,group_id,content FROM config_info WHERE group_id=? AND tenant_id=?";
+        String sql = "SELECT id,data_id,group_id,content FROM config_info WHERE group_id=? AND tenant_id=? order by id asc";
 
         List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.GROUP_ID),
                 context.getWhereParameter(FieldConstant.TENANT_ID));
@@ -263,7 +263,7 @@ public abstract class BaseConfigInfoMapper extends BaseMapper implements ConfigI
         }
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
-        String sql = sqlFetchRows + where;
+        String sql = sqlFetchRows + where +" order by id asc";
         sql = getDialect().getLimitSql(sql, rowSelection);
         List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
         return new MapperResult(sql, pagedParams);

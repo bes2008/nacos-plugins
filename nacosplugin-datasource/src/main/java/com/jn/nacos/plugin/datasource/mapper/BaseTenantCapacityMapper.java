@@ -19,7 +19,7 @@ public abstract class BaseTenantCapacityMapper extends BaseMapper implements Ten
         int pageSize =  Integer.parseInt(context.getWhereParameter(FieldConstant.LIMIT_SIZE).toString());
         RowSelection rowSelection = new RowSelection(0, pageSize);
 
-        String sql = "SELECT id, tenant_id FROM tenant_capacity WHERE id>? ";
+        String sql = "SELECT id, tenant_id FROM tenant_capacity WHERE id>? order by id asc";
         sql = getDialect().getLimitSql(sql, rowSelection);
 
         List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.ID));

@@ -4,6 +4,7 @@ import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.ConfigTagsRelationMapper;
 import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.alibaba.nacos.plugin.datasource.model.MapperResult;
+import com.jn.langx.util.Objs;
 import com.jn.langx.util.Strings;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
@@ -49,18 +50,22 @@ public abstract class BaseConfigTagRelationMapper extends BaseMapper implements 
             where.append(" AND a.content LIKE ? ");
             paramList.add(content);
         }
-        where.append(" AND b.tag_name IN (");
-        for (int i = 0; i < tagArr.length; i++) {
-            if (i != 0) {
-                where.append(", ");
+
+        if(!Objs.isEmpty(tagArr)) {
+            where.append(" AND b.tag_name IN (");
+            for (int i = 0; i < tagArr.length; i++) {
+                if (i != 0) {
+                    where.append(", ");
+                }
+                where.append('?');
+                paramList.add(tagArr[i]);
             }
-            where.append('?');
-            paramList.add(tagArr[i]);
+            where.append(") ");
         }
-        where.append(") ");
+
+        String sql = baseSql + where + " order by id asc";
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
-        String sql = baseSql + where;
         sql = getDialect().getLimitSql(sql, rowSelection);
         List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
@@ -101,18 +106,22 @@ public abstract class BaseConfigTagRelationMapper extends BaseMapper implements 
             paramList.add(content);
         }
 
-        where.append(" AND b.tag_name IN (");
-        for (int i = 0; i < tagArr.length; i++) {
-            if (i != 0) {
-                where.append(", ");
+        if(!Objs.isEmpty(tagArr)) {
+            where.append(" AND b.tag_name IN (");
+            for (int i = 0; i < tagArr.length; i++) {
+                if (i != 0) {
+                    where.append(", ");
+                }
+                where.append('?');
+                paramList.add(tagArr[i]);
             }
-            where.append('?');
-            paramList.add(tagArr[i]);
+            where.append(") ");
         }
-        where.append(") ");
+
+        String sql = baseSql + where + " order by id asc";
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
-        String sql = baseSql + where;
+
         sql = getDialect().getLimitSql(sql, rowSelection);
         List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
