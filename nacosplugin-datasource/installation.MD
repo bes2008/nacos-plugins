@@ -100,5 +100,19 @@ sqlplus system/Oracle123_Pswd@localhost:1521/FREE @./create-schema.sql
 # 再用 C##NACOS用户创建表
 sqlplus C##NACOS/NACOS_PASSWORD@localhost:1521/FREE @./create-tables.sql
 ```
-2. 
+2. jdbc配置
+```properties
 
+# Oracle
+spring.sql.init.platform=oracle
+db.num=1
+# 在oracle中，schema就是用户名，所以不需要另外指定schema
+db.url.0=jdbc:oracle:thin:@//192.168.137.133:1521/FREE
+db.user.0=C##NACOS
+db.password.0=NACOS_PASSWORD
+db.pool.config.driverClassName=oracle.jdbc.OracleDriver
+
+```
+
+3. 目前使用Oracle的问题
+  + 目前nacos 适配Oracle已完毕，但在启动过程中，nacos.log中会有报错。原因是 nacos 启动是会判定 config_info_tag, config_info_beta表是否存在。 这个方法是直接定死的使用了limit 1，没有通过插件的方式。这个属于 nacos 的Bug，已在 github 上提交了相关问题。
