@@ -11,7 +11,7 @@
     <name>${project.groupId}:${project.artifactId}:${project.version}</name>
 
     <description>
-        nacos plugins
+        nacos plugins: datasource plugin (postgresql, oracle, sqlserver etc)
     </description>
     <modules>
         <module>nacosplugin-datasource</module>
@@ -30,6 +30,37 @@
         <nacos.version>2.4.1</nacos.version>
         <sqlhelper.version>5.0.2</sqlhelper.version>
     </properties>
+
+    <url>https://gitee.com/coderjn/nacos-plugins</url>
+    <developers>
+        <developer>
+            <id>coderjn</id>
+            <name>coderjn</name>
+        </developer>
+    </developers>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype_oss</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype_oss</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+    </distributionManagement>
+    <scm>
+        <tag>${project.version}</tag>
+        <url>scm:git:https://gitee.com/coderjn/nacos-plugins.git</url>
+        <connection>https://gitee.com/coderjn/nacos-plugins.git</connection>
+        <developerConnection>https://gitee.com/coderjn/nacos-plugins.git</developerConnection>
+    </scm>
+    <licenses>
+        <license>
+            <name>MulanPSL2</name>
+            <url>https://gitee.com/coderjn/nacos-plugins/blob/master/LICENSE</url>
+            <distribution>manual</distribution>
+        </license>
+    </licenses>
 
     <dependencyManagement>
         <dependencies>
@@ -164,4 +195,154 @@
             </testResource>
         </testResources>
     </build>
+
+    <profiles>
+        <profile>
+            <id>envHome</id>
+            <properties>
+                <gpg.executable>D:/Program Files (x86)/GnuPG/bin/gpg</gpg.executable>
+                <gpg.homedir>C:/Users/Administrator/AppData/Roaming/gnupg</gpg.homedir>
+                <!--
+                <gpg.passphrase>YOUR GPG PASSPHRASE</gpg.passphrase>
+                可以这样配置在pom.xml文件中，也可以在执行mvn 命令时，加上-Dgpg.passphrase=YOUR_GPG_PASSPHRASE
+                -->
+            </properties>
+        </profile>
+
+        <profile>
+            <id>envCompany</id>
+            <properties>
+                <gpg.executable>D:/Program Files (x86)/GNU/GnuPG/gpg2.exe</gpg.executable>
+                <gpg.homedir>C:/Users/Administrator/AppData/Roaming/gnupg</gpg.homedir>
+                <!--
+                <gpg.passphrase>YOUR GPG PASSPHRASE</gpg.passphrase>
+                可以这样配置在pom.xml文件中，也可以在执行mvn 命令时，加上-Dgpg.passphrase=YOUR_GPG_PASSPHRASE
+
+                gpg 下载地址：https://www.gnupg.org/download/ 在windows环境下，选择 gnupg-win32cli-${pgg.version}.exe 下载即可。
+                下载后使用 gpg2来创建 gpg 密钥对
+                -->
+            </properties>
+        </profile>
+
+        <profile>
+            <id>deploy</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.6</version>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>2.8.2</version>
+                        <executions>
+                            <execution>
+                                <id>deploy</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.8</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>sonatype_oss</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                            <sslAllowAll>true</sslAllowAll>
+                            <stagingProgressPauseDurationSeconds>5</stagingProgressPauseDurationSeconds>
+                            <stagingProgressTimeoutMinutes>5</stagingProgressTimeoutMinutes>
+                            <detectBuildFailures>false</detectBuildFailures>
+                            <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
+                            <keepStagingRepositoryOnFailure>true</keepStagingRepositoryOnFailure>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-scm-plugin</artifactId>
+                        <version>1.10.0</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <version>2.5.3</version>
+                        <configuration>
+                            <useReleaseProfile>false</useReleaseProfile>
+                            <pushChanges>false</pushChanges>
+                            <autoVersionSubmodules>true</autoVersionSubmodules>
+                            <useReleaseProfile>false</useReleaseProfile>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-scm-plugin</artifactId>
+                                <version>1.10.0</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <configuration>
+                            <aggregate>true</aggregate>
+                            <charset>UTF-8</charset>
+                            <encoding>UTF-8</encoding>
+                            <docencoding>UTF-8</docencoding>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                            <failOnError>false</failOnError>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
 </project>
