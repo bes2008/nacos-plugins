@@ -1,3 +1,6 @@
+SET ECHO ON;
+SET FEEDBACK ON;
+
 ALTER SESSION SET CURRENT_SCHEMA=C##NACOS;
 
 DROP TABLE IF EXISTS config_info;
@@ -44,6 +47,7 @@ before insert on config_info for each row
 begin
 select config_info_id_seq.nextval into:new.id from dual;
 end;
+/
 
 DROP TABLE IF EXISTS config_info_aggr;
 CREATE TABLE config_info_aggr (
@@ -77,6 +81,7 @@ before insert on config_info_aggr for each row
 begin
 select config_info_aggr_id_seq.nextval into:new.id from dual;
 end;
+/
 
 DROP TABLE IF EXISTS config_info_beta;
 CREATE TABLE config_info_beta (
@@ -122,6 +127,7 @@ before insert on config_info_beta for each row
 begin
 select config_info_beta_id_seq.nextval into:new.id from dual;
 end;
+/
 
 DROP TABLE IF EXISTS config_info_tag;
 CREATE TABLE config_info_tag (
@@ -164,6 +170,7 @@ before insert on config_info_tag for each row
 begin
 select config_info_tag_id_seq.nextval into:new.id from dual;
 end;
+/
 
 DROP TABLE IF EXISTS config_tags_relation;
 CREATE TABLE config_tags_relation (
@@ -195,6 +202,7 @@ before insert on config_tags_relation for each row
 begin
 select config_tags_relation_id_seq.nextval into:new.id from dual;
 end;
+/
 
 DROP TABLE IF EXISTS group_capacity;
 CREATE TABLE group_capacity (
@@ -234,6 +242,7 @@ before insert on group_capacity for each row
 begin
 select group_capacity_id_seq.nextval into:new.id from dual;
 end;
+/
 
 DROP TABLE IF EXISTS his_config_info;
 CREATE TABLE his_config_info (
@@ -269,19 +278,20 @@ before insert on his_config_info for each row
 begin
 select his_config_info_nid_seq.nextval into:new.nid from dual;
 end;
+/
 
 DROP TABLE IF EXISTS permissions;
 CREATE TABLE permissions (
-                             "ROLE" varchar2(50)  NOT NULL,
-                             "RESOURCE" varchar2(512)  NOT NULL,
-                             "ACTION" varchar2(8)  NOT NULL
+                             ROLE varchar2(50)  NOT NULL,
+                             RESOURCE varchar2(512)  NOT NULL,
+                             ACTION varchar2(8)  NOT NULL
 );
 
 
 DROP TABLE IF EXISTS roles;
 CREATE TABLE roles (
-                       "USERNAME" varchar2(50)  NOT NULL,
-                       "ROLE" varchar2(50)  NOT NULL
+                            USERNAME varchar2(50)  NOT NULL,
+                            ROLE varchar2(50)  NOT NULL
 );
 
 
@@ -323,6 +333,7 @@ before insert on tenant_capacity for each row
 begin
 select tenant_capacity_id_seq.nextval into:new.id from dual;
 end;
+/
 
 DROP TABLE IF EXISTS tenant_info;
 CREATE TABLE tenant_info (
@@ -356,6 +367,8 @@ before insert on tenant_info for each row
 begin
 select tenant_info_id_seq.nextval into:new.id from dual;
 end;
+/
+
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
                        username varchar2(50)  NOT NULL,
@@ -386,7 +399,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS uk_tenant_id ON tenant_capacity (tenant_id);
 ALTER TABLE tenant_capacity ADD CONSTRAINT tenant_capacity_pkey PRIMARY KEY (id);
 CREATE UNIQUE INDEX IF NOT EXISTS uk_tenant_info_kptenantid ON tenant_info (kp, tenant_id);
 
-BEGIN;
+
 INSERT INTO roles VALUES ('nacos', 'ROLE_ADMIN');
-INSERT INTO "users" VALUES ('nacos', '$2a$10$EuWPZHzz32dJN7jexM34MOeYirDdFAZm2kuWj7VEOJhhZkDrxfvUu', 1);
+INSERT INTO users VALUES ('nacos', '$2a$10$EuWPZHzz32dJN7jexM34MOeYirDdFAZm2kuWj7VEOJhhZkDrxfvUu', 1);
 COMMIT;
