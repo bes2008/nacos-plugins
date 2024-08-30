@@ -73,7 +73,15 @@ db.pool.config.driverClassName=dm.jdbc.driver.DmDriver
 ```
 
 ## 支持Kingbase
-
+1. jdbc配置
+```properties
+spring.sql.init.platform=kingbase
+db.num=1
+db.url.0=jdbc:kingbase8://192.168.137.133:5432/theDb?currentSchema=nacos&clientEncoding=utf8
+db.user.0=username
+db.password.0=thePassword
+db.pool.config.driverClassName=com.kingbase8.Driver
+```
 
 ## 支持magicdata
 
