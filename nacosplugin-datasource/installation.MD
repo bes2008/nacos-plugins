@@ -91,3 +91,12 @@ db.user.0=sa
 db.password.0=SA123456Pswd
 db.pool.config.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
 ```   
+
+## 支持Oracle
+1. 脚本执行
+```shell
+sqlplus system/Oracle123_Pswd@localhost:1521/FREE @./create-schema.sql
+sqlplus system/Oracle123_Pswd@localhost:1521/FREE @./create-tables.sql
+```
+2. 
+

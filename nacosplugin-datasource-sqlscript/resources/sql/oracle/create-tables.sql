@@ -1,8 +1,5 @@
 ALTER SESSION SET CURRENT_SCHEMA=C##NACOS;
 
--- ----------------------------
--- Table structure for config_info
--- ----------------------------
 DROP TABLE IF EXISTS config_info;
 CREATE TABLE config_info (
                              id int NOT NULL,
@@ -36,7 +33,6 @@ COMMENT ON COLUMN config_info.tenant_id IS '租户字段';
 COMMENT ON COLUMN config_info.encrypted_data_key IS '秘钥';
 COMMENT ON TABLE config_info IS 'config_info';
 
-
 DROP SEQUENCE IF EXISTS config_info_id_seq;
 create sequence config_info_id_seq
     minvalue 1
@@ -49,9 +45,6 @@ begin
 select config_info_id_seq.nextval into:new.id from dual;
 end;
 
--- ----------------------------
--- Table structure for config_info_aggr
--- ----------------------------
 DROP TABLE IF EXISTS config_info_aggr;
 CREATE TABLE config_info_aggr (
                                   id int NOT NULL,
@@ -84,11 +77,6 @@ before insert on config_info_aggr for each row
 begin
 select config_info_aggr_id_seq.nextval into:new.id from dual;
 end;
-
-
--- ----------------------------
--- Table structure for config_info_beta
--- ----------------------------
 
 DROP TABLE IF EXISTS config_info_beta;
 CREATE TABLE config_info_beta (
@@ -135,10 +123,6 @@ begin
 select config_info_beta_id_seq.nextval into:new.id from dual;
 end;
 
-
--- ----------------------------
--- Table structure for config_info_tag
--- ----------------------------
 DROP TABLE IF EXISTS config_info_tag;
 CREATE TABLE config_info_tag (
                                  id int NOT NULL,
@@ -181,10 +165,6 @@ begin
 select config_info_tag_id_seq.nextval into:new.id from dual;
 end;
 
-
--- ----------------------------
--- Table structure for config_tags_relation
--- ----------------------------
 DROP TABLE IF EXISTS config_tags_relation;
 CREATE TABLE config_tags_relation (
                                       id int NOT NULL,
@@ -215,10 +195,6 @@ before insert on config_tags_relation for each row
 begin
 select config_tags_relation_id_seq.nextval into:new.id from dual;
 end;
-
--- ----------------------------
--- Table structure for group_capacity
--- ----------------------------
 
 DROP TABLE IF EXISTS group_capacity;
 CREATE TABLE group_capacity (
@@ -259,10 +235,6 @@ begin
 select group_capacity_id_seq.nextval into:new.id from dual;
 end;
 
--- ----------------------------
--- Table structure for his_config_info
--- ----------------------------
-
 DROP TABLE IF EXISTS his_config_info;
 CREATE TABLE his_config_info (
                                  id int NOT NULL,
@@ -298,9 +270,6 @@ begin
 select his_config_info_nid_seq.nextval into:new.nid from dual;
 end;
 
--- ----------------------------
--- Table structure for permissions
--- ----------------------------
 DROP TABLE IF EXISTS permissions;
 CREATE TABLE permissions (
                              "ROLE" varchar2(50)  NOT NULL,
@@ -309,9 +278,6 @@ CREATE TABLE permissions (
 );
 
 
--- ----------------------------
--- Table structure for roles
--- ----------------------------
 DROP TABLE IF EXISTS roles;
 CREATE TABLE roles (
                        "USERNAME" varchar2(50)  NOT NULL,
@@ -319,9 +285,6 @@ CREATE TABLE roles (
 );
 
 
--- ----------------------------
--- Table structure for tenant_capacity
--- ----------------------------
 DROP TABLE IF EXISTS tenant_capacity;
 CREATE TABLE tenant_capacity (
                                  id int NOT NULL,
@@ -361,9 +324,6 @@ begin
 select tenant_capacity_id_seq.nextval into:new.id from dual;
 end;
 
--- ----------------------------
--- Table structure for tenant_info
--- ----------------------------
 DROP TABLE IF EXISTS tenant_info;
 CREATE TABLE tenant_info (
                              id int NOT NULL,
@@ -396,10 +356,6 @@ before insert on tenant_info for each row
 begin
 select tenant_info_id_seq.nextval into:new.id from dual;
 end;
-
--- ----------------------------
--- Table structure for users
--- ----------------------------
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
                        username varchar2(50)  NOT NULL,
@@ -407,144 +363,30 @@ CREATE TABLE users (
                        enabled NUMBER(1) NOT NULL
 );
 
-
--- ----------------------------
--- Indexes structure for table config_info
--- ----------------------------
-
 CREATE UNIQUE INDEX IF NOT EXISTS uk_configinfo_datagrouptenant ON config_info (data_id,group_id,tenant_id);
-
--- ----------------------------
--- Primary Key structure for table config_info
--- ----------------------------
 ALTER TABLE config_info ADD CONSTRAINT config_info_pkey PRIMARY KEY (id);
-
--- ----------------------------
--- Indexes structure for table config_info_aggr
--- ----------------------------
 CREATE UNIQUE INDEX IF NOT EXISTS uk_configinfoaggr_datagrouptenantdatum ON config_info_aggr (data_id,group_id,tenant_id,datum_id);
-
--- ----------------------------
--- Primary Key structure for table config_info_aggr
--- ----------------------------
 ALTER TABLE config_info_aggr ADD CONSTRAINT config_info_aggr_pkey PRIMARY KEY (id);
-
--- ----------------------------
--- Indexes structure for table config_info_beta
--- ----------------------------
 CREATE UNIQUE INDEX IF NOT EXISTS uk_configinfobeta_datagrouptenant ON config_info_beta (data_id,group_id,tenant_id);
-
--- ----------------------------
--- Primary Key structure for table config_info_beta
--- ----------------------------
 ALTER TABLE config_info_beta ADD CONSTRAINT config_info_beta_pkey PRIMARY KEY (id);
-
--- ----------------------------
--- Indexes structure for table config_info_tag
--- ----------------------------
 CREATE UNIQUE INDEX IF NOT EXISTS uk_configinfotag_datagrouptenanttag ON config_info_tag (data_id,group_id,tenant_id,tag_id);
-
--- ----------------------------
--- Primary Key structure for table config_info_tag
--- ----------------------------
 ALTER TABLE config_info_tag ADD CONSTRAINT config_info_tag_pkey PRIMARY KEY (id);
-
--- ----------------------------
--- Indexes structure for table config_tags_relation
--- ----------------------------
-CREATE INDEX IF NOT EXISTS idx_tenant_id ON config_tags_relation (
-  tenant_id
-);
-CREATE UNIQUE INDEX IF NOT EXISTS uk_configtagrelation_configidtag ON config_tags_relation (
-  id,
-  tag_name,
-  tag_type
-);
-
--- ----------------------------
--- Primary Key structure for table config_tags_relation
--- ----------------------------
+CREATE INDEX IF NOT EXISTS idx_tenant_id ON config_tags_relation (tenant_id);
+CREATE UNIQUE INDEX IF NOT EXISTS uk_configtagrelation_configidtag ON config_tags_relation (id,tag_name,tag_type);
 ALTER TABLE config_tags_relation ADD CONSTRAINT config_tags_relation_pkey PRIMARY KEY (nid);
-
--- ----------------------------
--- Indexes structure for table group_capacity
--- ----------------------------
-CREATE UNIQUE INDEX IF NOT EXISTS uk_group_id ON group_capacity (
-  group_id
-);
-
--- ----------------------------
--- Primary Key structure for table group_capacity
--- ----------------------------
+CREATE UNIQUE INDEX IF NOT EXISTS uk_group_id ON group_capacity (group_id);
 ALTER TABLE group_capacity ADD CONSTRAINT group_capacity_pkey PRIMARY KEY (id);
-
--- ----------------------------
--- Indexes structure for table his_config_info
--- ----------------------------
-CREATE INDEX IF NOT EXISTS idx_did ON his_config_info (
-  data_id
-);
-CREATE INDEX IF NOT EXISTS idx_gmt_create ON his_config_info (
-  gmt_create
-);
-CREATE INDEX IF NOT EXISTS idx_gmt_modified ON his_config_info (
-  gmt_modified
-);
-
--- ----------------------------
--- Primary Key structure for table his_config_info
--- ----------------------------
+CREATE INDEX IF NOT EXISTS idx_did ON his_config_info (data_id);
+CREATE INDEX IF NOT EXISTS idx_gmt_create ON his_config_info (gmt_create);
+CREATE INDEX IF NOT EXISTS idx_gmt_modified ON his_config_info (gmt_modified);
 ALTER TABLE his_config_info ADD CONSTRAINT his_config_info_pkey PRIMARY KEY (nid);
-
--- ----------------------------
--- Indexes structure for table permissions
--- ----------------------------
-CREATE UNIQUE INDEX IF NOT EXISTS uk_role_permission ON permissions (
-  "ROLE",
-  "RESOURCE",
-  "ACTION"
-);
-
--- ----------------------------
--- Indexes structure for table roles
--- ----------------------------
-CREATE UNIQUE INDEX IF NOT EXISTS uk_username_role ON roles (
-  "USERNAME",
-  "ROLE"
-);
-
--- ----------------------------
--- Indexes structure for table tenant_capacity
--- ----------------------------
-CREATE UNIQUE INDEX IF NOT EXISTS uk_tenant_id ON tenant_capacity (
-  tenant_id
-);
-
--- ----------------------------
--- Primary Key structure for table tenant_capacity
--- ----------------------------
+CREATE UNIQUE INDEX IF NOT EXISTS uk_role_permission ON permissions ("ROLE","RESOURCE","ACTION");
+CREATE UNIQUE INDEX IF NOT EXISTS uk_username_role ON roles ("USERNAME", "ROLE");
+CREATE UNIQUE INDEX IF NOT EXISTS uk_tenant_id ON tenant_capacity (tenant_id);
 ALTER TABLE tenant_capacity ADD CONSTRAINT tenant_capacity_pkey PRIMARY KEY (id);
-
--- ----------------------------
--- Indexes structure for table tenant_info
--- ----------------------------
-CREATE UNIQUE INDEX IF NOT EXISTS uk_tenant_info_kptenantid ON tenant_info (
-  kp,
-  tenant_id
-);
-
+CREATE UNIQUE INDEX IF NOT EXISTS uk_tenant_info_kptenantid ON tenant_info (kp, tenant_id);
 
 BEGIN;
--- ----------------------------
--- Records of roles
--- ----------------------------
-
 INSERT INTO roles VALUES ('nacos', 'ROLE_ADMIN');
-
--- ----------------------------
--- Records of users
--- ----------------------------
 INSERT INTO "users" VALUES ('nacos', '$2a$10$EuWPZHzz32dJN7jexM34MOeYirDdFAZm2kuWj7VEOJhhZkDrxfvUu', 1);
-
-
 COMMIT;
