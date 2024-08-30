@@ -72,6 +72,22 @@ db.pool.config.driverClassName=dm.jdbc.driver.DmDriver
 
 ```
 
+## 支持Kingbase
+
+
+## 支持magicdata
+
+1. jdbc配置
+```properties
+spring.sql.init.platform=magicdata
+db.num=1
+db.url.0=jdbc:magicdata://192.168.137.133:3660/theDb?currentSchema=nacos&clientEncoding=utf8
+db.user.0=username
+db.password.0=thePassword
+db.pool.config.driverClassName=com.bes.magicdata.Driver
+```
+
+
 ## 支持SqlServer
 1. jdbc 驱动选择：
 参考[微软官方说明](https://learn.microsoft.com/zh-cn/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server-support-matrix?view=sql-server-ver16)，建议选择`12.4.1`版本
