@@ -95,8 +95,10 @@ db.pool.config.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
 ## 支持Oracle
 1. 脚本执行
 ```shell
+# 先用 system 创建 C##NACOS用户
 sqlplus system/Oracle123_Pswd@localhost:1521/FREE @./create-schema.sql
-sqlplus system/Oracle123_Pswd@localhost:1521/FREE @./create-tables.sql
+# 再用 C##NACOS用户创建表
+sqlplus C##NACOS/NACOS_PASSWORD@localhost:1521/FREE @./create-tables.sql
 ```
 2. 
 

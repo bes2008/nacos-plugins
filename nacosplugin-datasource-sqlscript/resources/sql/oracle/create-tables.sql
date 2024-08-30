@@ -403,3 +403,5 @@ CREATE UNIQUE INDEX IF NOT EXISTS uk_tenant_info_kptenantid ON tenant_info (kp, 
 INSERT INTO roles VALUES ('nacos', 'ROLE_ADMIN');
 INSERT INTO users VALUES ('nacos', '$2a$10$EuWPZHzz32dJN7jexM34MOeYirDdFAZm2kuWj7VEOJhhZkDrxfvUu', 1);
 COMMIT;
+
+exit
