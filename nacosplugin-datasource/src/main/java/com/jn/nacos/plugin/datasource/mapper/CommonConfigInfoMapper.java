@@ -15,11 +15,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseConfigInfoMapper extends BaseMapper implements ConfigInfoMapper {
+public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapper {
 
-    protected BaseConfigInfoMapper(String databaseId) {
-        super(databaseId);
-    }
 
     @Override
     public MapperResult findConfigInfoByAppFetchRows(MapperContext context) {

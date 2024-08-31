@@ -9,10 +9,7 @@ import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.util.List;
 
-public abstract class BaseConfigInfoAggrMapper extends BaseMapper implements ConfigInfoAggrMapper {
-    protected BaseConfigInfoAggrMapper(String databaseId) {
-        super(databaseId);
-    }
+public class CommonConfigInfoAggrMapper extends BaseMapper implements ConfigInfoAggrMapper {
 
     @Override
     public MapperResult findConfigInfoAggrByPageFetchRows(MapperContext context) {

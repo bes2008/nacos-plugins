@@ -9,10 +9,7 @@ import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.util.List;
 
-public abstract class BaseHistoryConfigInfoMapper extends BaseMapper implements HistoryConfigInfoMapper {
-    protected BaseHistoryConfigInfoMapper(String databaseId) {
-        super(databaseId);
-    }
+public class CommonHistoryConfigInfoMapper extends BaseMapper implements HistoryConfigInfoMapper {
 
     @Override
     public MapperResult removeConfigHistory(MapperContext context) {

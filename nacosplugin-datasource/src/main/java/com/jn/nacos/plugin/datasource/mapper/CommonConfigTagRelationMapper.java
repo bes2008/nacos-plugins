@@ -11,10 +11,7 @@ import com.jn.sqlhelper.dialect.pagination.RowSelection;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseConfigTagRelationMapper extends BaseMapper implements ConfigTagsRelationMapper {
-    protected BaseConfigTagRelationMapper(String databaseId) {
-        super(databaseId);
-    }
+public class CommonConfigTagRelationMapper extends BaseMapper implements ConfigTagsRelationMapper {
 
     @Override
     public MapperResult findConfigInfo4PageFetchRows(MapperContext context) {

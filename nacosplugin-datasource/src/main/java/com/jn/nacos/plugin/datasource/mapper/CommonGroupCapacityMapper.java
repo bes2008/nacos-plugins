@@ -10,10 +10,7 @@ import com.jn.sqlhelper.dialect.pagination.RowSelection;
 import java.util.List;
 
 @SuppressWarnings("all")
-public abstract class BaseGroupCapacityMapper extends BaseMapper implements GroupCapacityMapper {
-    protected BaseGroupCapacityMapper(String databaseId) {
-        super(databaseId);
-    }
+public class CommonGroupCapacityMapper extends BaseMapper implements GroupCapacityMapper {
 
     @Override
     public MapperResult selectGroupInfoBySize(MapperContext context) {

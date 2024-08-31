@@ -8,10 +8,7 @@ import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.util.List;
 
-public abstract class BaseConfigInfoTagMapper extends BaseMapper implements ConfigInfoTagMapper {
-    protected BaseConfigInfoTagMapper(String databaseId) {
-        super(databaseId);
-    }
+public class CommonConfigInfoTagMapper extends BaseMapper implements ConfigInfoTagMapper {
 
     @Override
     public MapperResult findAllConfigInfoTagForDumpAllFetchRows(MapperContext context) {

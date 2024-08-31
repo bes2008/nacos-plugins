@@ -28,6 +28,7 @@
         <langx-java.version>5.4.4</langx-java.version>
         <commons-codec.version>1.17.0</commons-codec.version>
         <nacos.version>2.4.1</nacos.version>
+        <spring.version>5.3.34</spring.version>
         <sqlhelper.version>5.0.2</sqlhelper.version>
     </properties>
 
@@ -123,6 +124,38 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-sys</artifactId>
+                <version>2.2.4.3.alpha-4</version>
+                <scope>provided</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-test</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-test</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.alibaba.nacos</groupId>
+                        <artifactId>nacos-common</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.codehaus.jackson</groupId>
+                        <artifactId>jackson-core-asl</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.alibaba.nacos</groupId>
+                        <artifactId>nacos-custom-environment-plugin</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
                 <version>${commons-codec.version}</version>
@@ -133,8 +166,25 @@
                 <artifactId>sqlhelper-dialect</artifactId>
                 <version>${sqlhelper.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>Volcengine</id>
+            <name>Volcengine( used for nacos-sys )</name>
+            <url>https://artifact.bytedance.com/repository/Volcengine/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>

@@ -11,4 +11,6 @@ public class DatabaseTypes extends DataSourceConstant {
     public static final String MSSQL = "sqlserver";
     public static final String POSTGRESQL = "postgresql";
     public static final String OSCAR = "oscar";
+
+    public static final String UNSUPPORTED = "unsupported";
 }

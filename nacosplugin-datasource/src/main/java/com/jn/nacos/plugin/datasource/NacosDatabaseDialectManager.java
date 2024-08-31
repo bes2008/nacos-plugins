@@ -28,7 +28,7 @@ public class NacosDatabaseDialectManager {
     public NacosDatabaseDialect getDialect(String databaseType){
         NacosDatabaseDialect dialect = this.dialectMap.get(databaseType);
         if(dialect==null){
-            throw new RuntimeException("unsupported database dialect: " + databaseType);
+            dialect = new DefaultNacosDatabaseDialect(databaseType);
         }
         return dialect;
     }

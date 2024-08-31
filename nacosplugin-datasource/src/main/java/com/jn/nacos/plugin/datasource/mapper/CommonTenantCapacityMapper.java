@@ -9,10 +9,7 @@ import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.util.List;
 
-public abstract class BaseTenantCapacityMapper extends BaseMapper implements TenantCapacityMapper {
-    protected BaseTenantCapacityMapper(String databaseId) {
-        super(databaseId);
-    }
+public class CommonTenantCapacityMapper extends BaseMapper implements TenantCapacityMapper {
 
     @Override
     public MapperResult getCapacityList4CorrectUsage(MapperContext context) {
