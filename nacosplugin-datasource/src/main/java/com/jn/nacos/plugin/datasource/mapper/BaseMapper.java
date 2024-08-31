@@ -17,7 +17,7 @@ public abstract class BaseMapper extends AbstractMapper {
 
     protected BaseMapper() {
         this.databaseId = getConfiguredDatabaseId();
-        Preconditions.checkArgument(Objs.equals(DatabaseTypes.UNSUPPORTED, databaseId), "database {} is unsupported");
+        Preconditions.checkTrue(!Objs.equals(DatabaseTypes.UNSUPPORTED, this.databaseId), "database {} is unsupported", this.databaseId);
         this.dialect = NacosDatabaseDialectManager.getInstance().getDialect(this.databaseId);
     }
 

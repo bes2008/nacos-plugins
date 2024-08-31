@@ -1,8 +1,1 @@
-com.jn.nacos.plugin.datasource.db.dm.DmDatabaseDialect
-com.jn.nacos.plugin.datasource.db.kingbase.KingbaseDatabaseDialect
-com.jn.nacos.plugin.datasource.db.magicdata.MagicDataDatabaseDialect
 com.jn.nacos.plugin.datasource.db.mssql.MssqlDatabaseDialect
-com.jn.nacos.plugin.datasource.db.opengauss.OpenGaussDatabaseDialect
-com.jn.nacos.plugin.datasource.db.oracle.OracleDatabaseDialect
-com.jn.nacos.plugin.datasource.db.oscar.OscarDatabaseDialect
-com.jn.nacos.plugin.datasource.db.postgresql.PostgresqlDatabaseDialect
