@@ -49,6 +49,9 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         return new MapperResult(sql, pagedParams);
     }
 
+    /**
+     * unused
+     */
     @Override
     public MapperResult findAllConfigKey(MapperContext context) {
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
@@ -61,6 +64,10 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         return new MapperResult(sql, pagedParams);
     }
 
+
+    /**
+     * unused
+     */
     @Override
     public MapperResult findAllConfigInfoBaseFetchRows(MapperContext context) {
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
@@ -135,6 +142,9 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         return new MapperResult(sql, pagedParams);
     }
 
+    /**
+     * unused
+     */
     @Override
     public MapperResult listGroupKeyMd5ByPageFetchRows(MapperContext context) {
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
@@ -266,6 +276,9 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         return new MapperResult(sql, pagedParams);
     }
 
+    /**
+     * unused
+     */
     @Override
     public MapperResult findAllConfigInfoFetchRows(MapperContext context) {
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
