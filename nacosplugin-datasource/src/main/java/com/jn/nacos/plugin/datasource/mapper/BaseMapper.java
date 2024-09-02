@@ -24,6 +24,10 @@ public abstract class BaseMapper extends AbstractMapper {
     private String getConfiguredDatabaseId(){
         String databaseId = EnvUtil.getProperty("spring.sql.init.platform");
         if(Strings.isBlank(databaseId)){
+            // 这个是 nacos 中更早的配置 datasource 类型的方式
+            databaseId = EnvUtil.getProperty("spring.datasource.platform");
+        }
+        if(Strings.isBlank(databaseId)){
             // 内嵌数据库 derby
             if (EnvUtil.getStandaloneMode()){
                 databaseId = DatabaseTypes.DERBY;
@@ -36,6 +40,11 @@ public abstract class BaseMapper extends AbstractMapper {
             if(dialect==null){
                 databaseId = DatabaseTypes.UNSUPPORTED;
             }
+        }
+
+        // 因为 mysql 不支持 在子查询中 的limit，所以 不使用自定义的SQL，而使用官方的插件
+        if(Strings.isBlank(databaseId) || Objs.equals(DatabaseTypes.DERBY, databaseId) || Objs.equals(DatabaseTypes.MYSQL, databaseId)){
+            databaseId=DatabaseTypes.UNDEFINED;
         }
         return databaseId;
     }
