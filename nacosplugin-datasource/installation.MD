@@ -116,9 +116,29 @@ db.password.0=SA123456Pswd
 db.pool.config.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
 ```   
 
+## MySQL
+
+1. schema初始化
+```shell
+mysql --password=root_password --host=localhost --port=3306 --user root < create_schema.sql
+mysql --password=root_password --host=localhost --port=3306 --user root < create_tables.sql
+```
+2. JDBC配置
+```properties
+# MySQL
+spring.sql.init.platform=mysql
+db.num=1
+db.url.0=jdbc:mysql://192.168.137.133:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=30000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+db.user.0=root
+db.password.0=root_password
+db.pool.config.driverClassName=com.mysql.cj.jdbc.Driver
+```
+
+
+
 ## 支持Oracle
 1. 脚本执行
-```shell
+:q:q```shell
 # 先用 system 创建 C##NACOS用户
 sqlplus system/Oracle123_Pswd@localhost:1521/FREE @./create-schema.sql
 # 再用 C##NACOS用户创建表
