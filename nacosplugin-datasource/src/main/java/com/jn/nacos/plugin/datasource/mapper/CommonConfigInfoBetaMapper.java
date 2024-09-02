@@ -6,6 +6,7 @@ import com.alibaba.nacos.plugin.datasource.model.MapperResult;
 import com.jn.langx.util.collection.Lists;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommonConfigInfoBetaMapper extends BaseMapper implements ConfigInfoBetaMapper {
@@ -17,13 +18,13 @@ public class CommonConfigInfoBetaMapper extends BaseMapper implements ConfigInfo
 
         RowSelection rowSelection = new RowSelection(startRow, pageSize);
         String subquery = "SELECT id FROM config_info_beta ORDER BY id ";
-        subquery = getDialect().getLimitSql(subquery, rowSelection);
+        subquery = getDialect().getLimitSql(subquery, true, rowSelection);
         String sql = "SELECT t.id,data_id,group_id,tenant_id,app_name,content,md5,gmt_modified,beta_ips "
                 + " FROM ( " + subquery + " )" + " g, config_info_beta t WHERE g.id = t.id";
 
         List<Object> paramList = Lists.newArrayList();
-        List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
+        List pagedParams = getDialect().rebuildParameters(true,paramList, rowSelection);
 
-        return new MapperResult(sql, paramList);
+        return new MapperResult(sql, pagedParams);
     }
 }

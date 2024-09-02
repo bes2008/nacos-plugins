@@ -53,11 +53,11 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
     public MapperResult findAllConfigKey(MapperContext context) {
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         String subquery = "SELECT id FROM config_info WHERE tenant_id LIKE ? ORDER BY id ";
-        String pagedSubquery = getDialect().getLimitSql(subquery, rowSelection);
+        String pagedSubquery = getDialect().getLimitSql(subquery, true, rowSelection);
         String sql = " SELECT data_id,group_id,app_name FROM ( " + pagedSubquery + " ) g, config_info t  WHERE g.id = t.id ";
 
         List queryParams = Lists.newArrayList(context.getWhereParameter(FieldConstant.TENANT_ID));
-        List pagedParams = getDialect().rebuildParameters(queryParams, rowSelection);
+        List pagedParams = getDialect().rebuildParameters(true, queryParams, rowSelection);
         return new MapperResult(sql, pagedParams);
     }
 
@@ -65,9 +65,9 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
     public MapperResult findAllConfigInfoBaseFetchRows(MapperContext context) {
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         String subquery = "SELECT id FROM config_info ORDER BY id ";
-        String pagedSubquery = getDialect().getLimitSql(subquery, rowSelection);
+        String pagedSubquery = getDialect().getLimitSql(subquery,true, rowSelection);
         String sql = "SELECT t.id,data_id,group_id,content,md5 " + " FROM ( " + pagedSubquery + " ) g, config_info t WHERE g.id = t.id ";
-        List pagedParams = getDialect().rebuildParameters(Collects.emptyArrayList(), rowSelection);
+        List pagedParams = getDialect().rebuildParameters(true, Collects.emptyArrayList(), rowSelection);
         return new MapperResult(sql, pagedParams);
     }
 
@@ -139,10 +139,10 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
     public MapperResult listGroupKeyMd5ByPageFetchRows(MapperContext context) {
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         String subquery = "SELECT id FROM config_info ORDER BY id ";
-        String pagedSubquery = getDialect().getLimitSql(subquery, rowSelection);
+        String pagedSubquery = getDialect().getLimitSql(subquery,true, rowSelection);
         String sql = " SELECT t.id,data_id,group_id,tenant_id,app_name,type,md5,gmt_modified FROM ( " + pagedSubquery + " ) g, config_info t WHERE g.id = t.id";
 
-        List pagedParams = getDialect().rebuildParameters(Collects.emptyArrayList(), rowSelection);
+        List pagedParams = getDialect().rebuildParameters(true, Collects.emptyArrayList(), rowSelection);
         return new MapperResult(sql, pagedParams);
     }
 
@@ -270,11 +270,11 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
     public MapperResult findAllConfigInfoFetchRows(MapperContext context) {
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         String subquery = "SELECT id FROM config_info  WHERE tenant_id LIKE ? ORDER BY id ";
-        String pagedSubquery = getDialect().getLimitSql(subquery, rowSelection);
+        String pagedSubquery = getDialect().getLimitSql(subquery,true, rowSelection);
         String sql = " SELECT t.id,data_id,group_id,tenant_id,app_name,content,md5 FROM ( " + pagedSubquery + " )  g, config_info t  WHERE g.id = t.id ";
         List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.TENANT_ID), context.getStartRow(),
                 context.getPageSize());
-        List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
+        List pagedParams = getDialect().rebuildParameters(true, paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
     }
 

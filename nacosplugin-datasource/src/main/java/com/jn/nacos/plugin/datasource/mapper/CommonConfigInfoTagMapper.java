@@ -14,9 +14,9 @@ public class CommonConfigInfoTagMapper extends BaseMapper implements ConfigInfoT
     public MapperResult findAllConfigInfoTagForDumpAllFetchRows(MapperContext context) {
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         String subquery = " SELECT id FROM config_info_tag  ORDER BY id ";
-        String pagedSubquery = getDialect().getLimitSql(subquery, rowSelection);
+        String pagedSubquery = getDialect().getLimitSql(subquery, true, rowSelection);
         String sql = "SELECT t.id,data_id,group_id,tenant_id,tag_id,app_name,content,md5,gmt_modified FROM ( " + pagedSubquery + " ) g, config_info_tag t  WHERE g.id = t.id";
-        List pagedParams = getDialect().rebuildParameters(Collects.emptyArrayList(), rowSelection);
+        List pagedParams = getDialect().rebuildParameters(true, Collects.emptyArrayList(), rowSelection);
 
         return new MapperResult(sql, pagedParams);
     }
