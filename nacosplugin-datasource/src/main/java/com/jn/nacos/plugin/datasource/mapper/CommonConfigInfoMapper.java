@@ -18,6 +18,9 @@ import java.util.List;
 public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapper {
 
 
+    /**
+     * 该方法没有被调用
+     */
     @Override
     public MapperResult findConfigInfoByAppFetchRows(MapperContext context) {
         final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
@@ -50,7 +53,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
     }
 
     /**
-     * unused
+     * 该方法没有被调用
      */
     @Override
     public MapperResult findAllConfigKey(MapperContext context) {
@@ -66,7 +69,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
 
 
     /**
-     * unused
+     * 该方法没有被调用
      */
     @Override
     public MapperResult findAllConfigInfoBaseFetchRows(MapperContext context) {
@@ -92,6 +95,9 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         return new MapperResult(sql, pagedParams);
     }
 
+    /**
+     * 该方法没有被调用
+     */
     @Override
     public MapperResult findChangeConfigFetchRows(MapperContext context) {
         final String tenant = (String) context.getWhereParameter(FieldConstant.TENANT);
@@ -143,7 +149,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
     }
 
     /**
-     * unused
+     * 该方法没有被调用
      */
     @Override
     public MapperResult listGroupKeyMd5ByPageFetchRows(MapperContext context) {
@@ -156,6 +162,9 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         return new MapperResult(sql, pagedParams);
     }
 
+    /**
+     * 该方法没有被调用
+     */
     @Override
     public MapperResult findConfigInfoBaseLikeFetchRows(MapperContext context) {
         final String tenant = (String) context.getWhereParameter(FieldConstant.TENANT);
@@ -225,6 +234,9 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         return new MapperResult(sql, pagedParams);
     }
 
+    /**
+     * 该方法没有被调用
+     */
     @Override
     public MapperResult findConfigInfoBaseByGroupFetchRows(MapperContext context) {
 
@@ -277,7 +289,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
     }
 
     /**
-     * unused
+     * 该方法没有被调用
      */
     @Override
     public MapperResult findAllConfigInfoFetchRows(MapperContext context) {
