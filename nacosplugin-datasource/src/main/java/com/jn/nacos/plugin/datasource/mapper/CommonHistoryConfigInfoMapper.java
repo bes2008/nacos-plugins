@@ -24,6 +24,9 @@ public class CommonHistoryConfigInfoMapper extends BaseMapper implements History
         return new MapperResult(sql, pagedParams);
     }
 
+    /**
+     * 当前nacos版本，不能使用 ? 用作 limit, offset 参数
+     */
     @Override
     public MapperResult pageFindConfigHistoryFetchRows(MapperContext context) {
 
@@ -32,12 +35,12 @@ public class CommonHistoryConfigInfoMapper extends BaseMapper implements History
                 "SELECT nid,data_id,group_id,tenant_id,app_name,src_ip,src_user,op_type,gmt_create,gmt_modified FROM his_config_info "
                         + "WHERE data_id = ? AND group_id = ? AND tenant_id = ? ORDER BY nid DESC  ";
 
-        sql = getDialect().getLimitSql(sql, rowSelection);
+        sql = getDialect().getLimitSql(sql, false, false, rowSelection);
 
         List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.DATA_ID),
                 context.getWhereParameter(FieldConstant.GROUP_ID), context.getWhereParameter(FieldConstant.TENANT_ID));
 
-        List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
+        List pagedParams = getDialect().rebuildParameters(false, false,paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
     }
 

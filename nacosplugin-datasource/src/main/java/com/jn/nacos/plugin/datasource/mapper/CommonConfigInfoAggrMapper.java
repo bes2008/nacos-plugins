@@ -23,9 +23,9 @@ public class CommonConfigInfoAggrMapper extends BaseMapper implements ConfigInfo
         String sql = "SELECT data_id,group_id,tenant_id,datum_id,app_name,content FROM config_info_aggr WHERE data_id=? AND group_id=? AND tenant_id=? ORDER BY datum_id ";
         List<Object> paramList = Lists.newArrayList(dataId, groupId, tenantId);
 
-        sql = getDialect().getLimitSql(sql, rowSelection);
+        sql = getDialect().getLimitSql(sql, false, true, rowSelection);
 
-        List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
+        List pagedParams = getDialect().rebuildParameters(false, true,paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
     }
 }
