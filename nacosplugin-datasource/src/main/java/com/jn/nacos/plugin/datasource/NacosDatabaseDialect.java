@@ -95,7 +95,7 @@ public abstract class NacosDatabaseDialect {
     }
 
     public String getLimitSql(String sql, boolean subQuery, boolean useLimitVariable, RowSelection rowSelection){
-        return this.delegate.getLimitSql(sql, subQuery, rowSelection);
+        return this.delegate.getLimitSql(sql,useLimitVariable, subQuery, rowSelection);
     }
 
     public List rebuildParameters(List queryParams, RowSelection selection){
