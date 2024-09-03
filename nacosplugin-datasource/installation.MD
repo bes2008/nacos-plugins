@@ -116,7 +116,7 @@ db.password.0=SA123456Pswd
 db.pool.config.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
 ```   
 
-## MySQL
+## 支持MySQL
 
 1. schema初始化
 ```shell
@@ -138,7 +138,7 @@ db.pool.config.driverClassName=com.mysql.cj.jdbc.Driver
 
 ## 支持Oracle
 1. 脚本执行
-:q:q```shell
+```shell
 # 先用 system 创建 C##NACOS用户
 sqlplus system/Oracle123_Pswd@localhost:1521/FREE @./create-schema.sql
 # 再用 C##NACOS用户创建表
