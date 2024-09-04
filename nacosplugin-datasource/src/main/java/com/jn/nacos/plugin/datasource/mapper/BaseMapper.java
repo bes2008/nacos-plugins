@@ -11,6 +11,8 @@ import com.jn.nacos.plugin.datasource.NacosDatabaseDialectManager;
 import com.jn.sqlhelper.dialect.Dialect;
 import com.jn.sqlhelper.dialect.DialectRegistry;
 
+import java.util.List;
+
 public abstract class BaseMapper extends AbstractMapper {
     private final String databaseId;
     protected NacosDatabaseDialect dialect;
@@ -62,5 +64,33 @@ public abstract class BaseMapper extends AbstractMapper {
     @Override
     public String getFunction(String functionName) {
         return this.dialect.getFunction(functionName);
+    }
+
+    /***************************************************************************
+     *  接下来是重写的父类的函数
+     ***************************************************************************/
+
+    /**
+     *
+     * @param columns The columns
+     * @param where The where params
+     * @return
+     */
+    @Override
+    public String select(List<String> columns, List<String> where) {
+        List<String> unwrapQuoteColumns = this.dialect.removeQuote(columns);
+        return super.select(unwrapQuoteColumns, where);
+    }
+
+    @Override
+    public String insert(List<String> columns) {
+        List<String> unwrapQuoteColumns = this.dialect.removeQuote(columns);
+        return super.insert(unwrapQuoteColumns);
+    }
+
+    @Override
+    public String update(List<String> columns, List<String> where) {
+        List<String> unwrapQuoteColumns = this.dialect.removeQuote(columns);
+        return super.update(unwrapQuoteColumns,where);
     }
 }

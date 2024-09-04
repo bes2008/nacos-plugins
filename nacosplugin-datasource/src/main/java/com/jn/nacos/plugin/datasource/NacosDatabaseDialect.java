@@ -5,6 +5,8 @@ import com.jn.langx.util.Objs;
 import com.jn.langx.util.Preconditions;
 import com.jn.langx.util.Strings;
 import com.jn.langx.util.collection.Maps;
+import com.jn.langx.util.collection.Pipeline;
+import com.jn.langx.util.function.Function;
 import com.jn.langx.util.reflect.Reflects;
 import com.jn.sqlhelper.dialect.Dialect;
 import com.jn.sqlhelper.dialect.DialectRegistry;
@@ -104,6 +106,28 @@ public abstract class NacosDatabaseDialect {
 
     public List rebuildParameters(boolean subquery, boolean useLimitVariable, List queryParams, RowSelection selection){
         return this.delegate.rebuildParameters(subquery,useLimitVariable, selection, queryParams);
+    }
+
+    private static String IDENTIFIER_BEFORE_QUOTES="\"'`[";
+    private static String IDENTIFIER_AFTER_QUOTES="\"'`]";
+
+
+    public List<String> removeQuote(List<String> identifiers){
+        return Pipeline.of(identifiers).map(new Function<String, String>() {
+            @Override
+            public String apply(String identifier) {
+                return removeQuote(identifier);
+            }
+        }).asList();
+    }
+
+    private static String removeQuote(String identifier){
+        if(Strings.isBlank(identifier)){
+            return identifier;
+        }
+        identifier=Strings.stripStart(identifier, IDENTIFIER_BEFORE_QUOTES);
+        identifier=Strings.stripEnd(identifier, IDENTIFIER_AFTER_QUOTES);
+        return identifier;
     }
 
     public String getName() {
