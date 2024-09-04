@@ -282,9 +282,9 @@ end;
 
 DROP TABLE IF EXISTS permissions;
 CREATE TABLE permissions (
-                             ROLE varchar2(50)  NOT NULL,
-                             RESOURCE varchar2(512)  NOT NULL,
-                             ACTION varchar2(8)  NOT NULL
+                             "ROLE" varchar2(50)  NOT NULL,
+                             "RESOURCE" varchar2(512)  NOT NULL,
+                             "ACTION" varchar2(8)  NOT NULL
 );
 
 
