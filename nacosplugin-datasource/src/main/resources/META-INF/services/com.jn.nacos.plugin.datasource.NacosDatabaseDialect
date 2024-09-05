@@ -1,2 +1,4 @@
 com.jn.nacos.plugin.datasource.db.mssql.MssqlDatabaseDialect
 com.jn.nacos.plugin.datasource.db.oracle.OracleDatabaseDialect
+com.jn.nacos.plugin.datasource.db.derby.DerbyDatabaseDialect
+com.jn.nacos.plugin.datasource.db.mysql.MysqlDatabaseDialect

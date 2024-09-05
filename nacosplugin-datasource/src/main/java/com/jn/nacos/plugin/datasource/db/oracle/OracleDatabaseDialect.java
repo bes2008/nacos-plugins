@@ -14,7 +14,7 @@ public class OracleDatabaseDialect extends NacosDatabaseDialect {
     }
 
     @Override
-    public String castNullToDefault(String expressionOrIdentifier, String defaultValue) {
+    public String genCastNullToDefaultExpression(String expressionOrIdentifier, String defaultValue) {
         return "NVL("+expressionOrIdentifier+", '"+defaultValue+"')";
     }
 }

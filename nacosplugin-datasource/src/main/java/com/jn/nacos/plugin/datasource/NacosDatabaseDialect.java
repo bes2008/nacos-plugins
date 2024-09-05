@@ -135,7 +135,7 @@ public abstract class NacosDatabaseDialect {
         return false;
     }
 
-    public String castNullToDefault(String expressionOrIdentifier,@Nullable String defaultValue){
+    public String genCastNullToDefaultExpression(String expressionOrIdentifier,@Nullable String defaultValue){
         return expressionOrIdentifier;
     }
 
