@@ -1,1 +1,2 @@
 com.jn.nacos.plugin.datasource.db.mssql.MssqlDatabaseDialect
+com.jn.nacos.plugin.datasource.db.oracle.OracleDatabaseDialect

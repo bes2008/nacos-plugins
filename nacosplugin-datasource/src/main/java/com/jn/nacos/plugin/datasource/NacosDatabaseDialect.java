@@ -1,5 +1,6 @@
 package com.jn.nacos.plugin.datasource;
 
+import com.jn.langx.annotation.Nullable;
 import com.jn.langx.text.StringTemplates;
 import com.jn.langx.util.Objs;
 import com.jn.langx.util.Preconditions;
@@ -128,6 +129,14 @@ public abstract class NacosDatabaseDialect {
         identifier=Strings.stripStart(identifier, IDENTIFIER_BEFORE_QUOTES);
         identifier=Strings.stripEnd(identifier, IDENTIFIER_AFTER_QUOTES);
         return identifier;
+    }
+
+    public boolean isAutoCastEmptyStringToNull(){
+        return false;
+    }
+
+    public String castNullToDefault(String expressionOrIdentifier,@Nullable String defaultValue){
+        return expressionOrIdentifier;
     }
 
     public String getName() {
