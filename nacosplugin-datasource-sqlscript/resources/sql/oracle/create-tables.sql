@@ -15,7 +15,7 @@ CREATE TABLE config_info (
                              src_user CLOB ,
                              src_ip varchar2(20) ,
                              app_name varchar2(128) ,
-                             tenant_id varchar2(128) DEFAULT 'PUBLIC',
+                             tenant_id varchar2(128) DEFAULT 'public',
                              c_desc varchar2(256) ,
                              c_use varchar2(64) ,
                              effect varchar2(64) ,
@@ -58,7 +58,7 @@ CREATE TABLE config_info_aggr (
                                   content CLOB  NOT NULL,
                                   gmt_modified timestamp(6) NOT NULL,
                                   app_name varchar2(128) ,
-                                  tenant_id varchar2(128) DEFAULT 'PUBLIC'
+                                  tenant_id varchar2(128) DEFAULT 'public'
 );
 COMMENT ON COLUMN config_info_aggr.id IS 'id';
 COMMENT ON COLUMN config_info_aggr.data_id IS 'data_id';
@@ -96,7 +96,7 @@ CREATE TABLE config_info_beta (
                                   gmt_modified timestamp(6) NOT NULL,
                                   src_user CLOB ,
                                   src_ip varchar2(20) ,
-                                  tenant_id varchar2(128) DEFAULT 'PUBLIC',
+                                  tenant_id varchar2(128) DEFAULT 'public',
                                   encrypted_data_key CLOB  NOT NULL
 );
 COMMENT ON COLUMN config_info_beta.id IS 'id';
@@ -134,7 +134,7 @@ CREATE TABLE config_info_tag (
                                  id int NOT NULL,
                                  data_id varchar2(255)  NOT NULL,
                                  group_id varchar2(128)  NOT NULL,
-                                 tenant_id varchar2(128) DEFAULT 'PUBLIC',
+                                 tenant_id varchar2(128) DEFAULT 'public',
                                  tag_id varchar2(128)  NOT NULL,
                                  app_name varchar2(128) ,
                                  content CLOB  NOT NULL,
@@ -179,7 +179,7 @@ CREATE TABLE config_tags_relation (
                                       tag_type varchar2(64) ,
                                       data_id varchar2(255)  NOT NULL,
                                       group_id varchar2(128)  NOT NULL,
-                                      tenant_id varchar2(128) DEFAULT 'PUBLIC',
+                                      tenant_id varchar2(128) DEFAULT 'public',
                                       nid int NOT NULL
 );
 COMMENT ON COLUMN config_tags_relation.id IS 'id';
@@ -258,7 +258,7 @@ CREATE TABLE his_config_info (
                                  src_user CLOB ,
                                  src_ip varchar2(20) ,
                                  op_type char(10) ,
-                                 tenant_id varchar2(128) DEFAULT 'PUBLIC',
+                                 tenant_id varchar2(128) DEFAULT 'public',
                                  encrypted_data_key CLOB  DEFAULT ''
 );
 COMMENT ON COLUMN his_config_info.app_name IS 'app_name';
@@ -339,7 +339,7 @@ DROP TABLE IF EXISTS tenant_info;
 CREATE TABLE tenant_info (
                              id int NOT NULL,
                              kp varchar2(128)  NOT NULL,
-                             tenant_id varchar2(128) DEFAULT 'PUBLIC',
+                             tenant_id varchar2(128) DEFAULT 'public',
                              tenant_name varchar2(128) ,
                              tenant_desc varchar2(256) ,
                              create_source varchar2(32) ,
