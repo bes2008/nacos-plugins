@@ -122,10 +122,16 @@ public abstract class BaseMapper extends AbstractMapper {
         sql.append(method);
         sql.append(getTableName());
 
+
+        int tenantIdColumnIndex = -1;
         int size = columns.size();
         sql.append("(");
         for (int i = 0; i < size; i++) {
-            sql.append(columns.get(i).split("@")[0]);
+            String columnName= columns.get(i).split("@")[0];
+            if(Objs.equals(columnName, "tenant_id")){
+                tenantIdColumnIndex = i;
+            }
+            sql.append(columnName);
             if (i != columns.size() - 1) {
                 sql.append(", ");
             }
@@ -139,7 +145,11 @@ public abstract class BaseMapper extends AbstractMapper {
             if (parts.length == 2) {
                 sql.append(getFunction(parts[1]));
             } else {
-                sql.append("?");
+                if(i==tenantIdColumnIndex){
+                    sql.append(getDialect().genCastNullToDefaultExpression("?", getDefaultTenantId()));
+                }else {
+                    sql.append("?");
+                }
             }
             if (i != columns.size() - 1) {
                 sql.append(",");
@@ -231,7 +241,7 @@ public abstract class BaseMapper extends AbstractMapper {
             String condition = where.get(i);
 
             if(Strings.equalsIgnoreCase(condition, "tenant_id") && getDialect().isAutoCastEmptyStringToNull()){
-                String castNullToDefaultExpression = getDialect().genCastNullToDefaultExpression("?", useDefaultTenantIdIfBlank(NamespaceUtil.getNamespaceDefaultId()));
+                String castNullToDefaultExpression = getDialect().genCastNullToDefaultExpression("?", getDefaultTenantId());
                 sql.append("tenant_id = ").append(castNullToDefaultExpression);
             }else{
                 sql.append(condition).append(" = ").append("?");
