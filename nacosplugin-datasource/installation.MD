@@ -11,7 +11,7 @@ io.github.bes2008.solution.nacosplugins:nacosplugin-all:jar:1.0.0
 # PostgreSQL
 spring.sql.init.platform=postgresql
 db.num=1
-db.url.0=jdbc:postgresql://192.168.188.131:5432/db1?currentSchema=nacos
+db.url.0=jdbc:postgresql://localhost:5432/db1?currentSchema=nacos
 db.user.0=postgresql
 db.password.0=postgresql
 db.pool.config.driverClassName=org.postgresql.Driver
@@ -36,7 +36,7 @@ nacosplugin-datasource-sqlscripts/resources/sql/ 目录下
 # PostgreSQL
 spring.sql.init.platform=postgresql
 db.num=1
-db.url.0=jdbc:postgresql://192.168.188.131:5432/db1?currentSchema=nacos
+db.url.0=jdbc:postgresql://localhost:5432/db1?currentSchema=nacos
 db.user.0=postgresql
 db.password.0=postgresql
 db.pool.config.driverClassName=org.postgresql.Driver
@@ -65,7 +65,7 @@ db.pool.config.driverClassName=org.postgresql.Driver
 # DM
 spring.sql.init.platform=dm
 db.num=1
-db.url.0=jdbc:dm://192.168.137.133:5236?schema=nacos
+db.url.0=jdbc:dm://localhost:5236?schema=nacos
 db.user.0=SYSDBA
 db.password.0=dameng777
 db.pool.config.driverClassName=dm.jdbc.driver.DmDriver
@@ -77,7 +77,7 @@ db.pool.config.driverClassName=dm.jdbc.driver.DmDriver
 ```properties
 spring.sql.init.platform=kingbase
 db.num=1
-db.url.0=jdbc:kingbase8://192.168.137.133:5432/theDb?currentSchema=nacos&clientEncoding=utf8
+db.url.0=jdbc:kingbase8://localhost:5432/theDb?currentSchema=nacos&clientEncoding=utf8
 db.user.0=username
 db.password.0=thePassword
 db.pool.config.driverClassName=com.kingbase8.Driver
@@ -89,7 +89,7 @@ db.pool.config.driverClassName=com.kingbase8.Driver
 ```properties
 spring.sql.init.platform=magicdata
 db.num=1
-db.url.0=jdbc:magicdata://192.168.137.133:3660/theDb?currentSchema=nacos&clientEncoding=utf8
+db.url.0=jdbc:magicdata://localhost:3660/theDb?currentSchema=nacos&clientEncoding=utf8
 db.user.0=username
 db.password.0=thePassword
 db.pool.config.driverClassName=com.bes.magicdata.Driver
@@ -110,7 +110,7 @@ db.pool.config.driverClassName=com.bes.magicdata.Driver
 # SqlServer
 spring.sql.init.platform=sqlserver
 db.num=1
-db.url.0=jdbc:sqlserver://192.168.137.133:1433;databaseName=nacos;encrypt=false
+db.url.0=jdbc:sqlserver://localhost:1433;databaseName=nacos;encrypt=false
 db.user.0=sa
 db.password.0=SA123456Pswd
 db.pool.config.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -128,7 +128,7 @@ mysql --password=root_password --host=localhost --port=3306 --user root < create
 # MySQL
 spring.sql.init.platform=mysql
 db.num=1
-db.url.0=jdbc:mysql://192.168.137.133:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=30000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+db.url.0=jdbc:mysql://localhost:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=30000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useServerPrepStmts=true
 db.user.0=root
 db.password.0=root_password
 db.pool.config.driverClassName=com.mysql.cj.jdbc.Driver
@@ -151,7 +151,7 @@ sqlplus C##NACOS/NACOS_PASSWORD@localhost:1521/FREE @./create-tables.sql
 spring.sql.init.platform=oracle
 db.num=1
 # 在oracle中，schema就是用户名，所以不需要另外指定schema
-db.url.0=jdbc:oracle:thin:@//192.168.137.133:1521/FREE
+db.url.0=jdbc:oracle:thin:@//localhost:1521/FREE
 db.user.0=C##NACOS
 db.password.0=NACOS_PASSWORD
 db.pool.config.driverClassName=oracle.jdbc.OracleDriver
