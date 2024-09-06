@@ -2,7 +2,9 @@ package com.jn.nacos.plugin.datasource.mapper;
 
 import com.alibaba.nacos.common.utils.NamespaceUtil;
 import com.alibaba.nacos.common.utils.VersionUtils;
+import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.AbstractMapper;
+import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.alibaba.nacos.sys.env.EnvUtil;
 import com.jn.langx.util.Objs;
 import com.jn.langx.util.Preconditions;
@@ -229,7 +231,7 @@ public abstract class BaseMapper extends AbstractMapper {
             String condition = where.get(i);
 
             if(Strings.equalsIgnoreCase(condition, "tenant_id") && getDialect().isAutoCastEmptyStringToNull()){
-                String castNullToDefaultExpression = getDialect().genCastNullToDefaultExpression("?", NamespaceUtil.getNamespaceDefaultId());
+                String castNullToDefaultExpression = getDialect().genCastNullToDefaultExpression("?", useDefaultTenantIdIfBlank(NamespaceUtil.getNamespaceDefaultId()));
                 sql.append("tenant_id = ").append(castNullToDefaultExpression);
             }else{
                 sql.append(condition).append(" = ").append("?");
@@ -245,5 +247,24 @@ public abstract class BaseMapper extends AbstractMapper {
     protected boolean hasEncryptedDataKeyColumn(){
         String currentVersion = VersionUtils.getFullClientVersion();
         return VersionUtils.compareVersion(currentVersion, "2.1.0")>=0;
+    }
+    private static final String NAMESPACE_PUBLIC_KEY = "public";
+    protected String getDefaultTenantId(){
+        if(getDialect().isAutoCastEmptyStringToNull()){
+            return NAMESPACE_PUBLIC_KEY;
+        }
+        return NamespaceUtil.getNamespaceDefaultId();
+    }
+    protected String useDefaultTenantIdIfBlank(String tenantId){
+        return Strings.useValueIfBlank(tenantId, getDefaultTenantId());
+    }
+
+    protected void useDefaultTenantIdWithWhereParameter(MapperContext context){
+        Object tenantIdObj= context.getWhereParameter(FieldConstant.TENANT_ID);
+        String tenantId=null;
+        if(tenantIdObj!=null){
+            tenantId = (String)tenantIdObj;
+        }
+        context.putWhereParameter(FieldConstant.TENANT_ID, useDefaultTenantIdIfBlank(tenantId));
     }
 }

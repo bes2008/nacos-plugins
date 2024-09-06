@@ -6,7 +6,7 @@ import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 
 
 public class MysqlDatabaseDialect extends NacosDatabaseDialect {
-    protected MysqlDatabaseDialect() {
+    public MysqlDatabaseDialect() {
         super(DatabaseTypes.MYSQL);
     }
 
