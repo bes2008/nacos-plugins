@@ -81,6 +81,27 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         return new MapperResult(sql, pagedParams);
     }
 
+
+
+
+
+
+    @Override
+    public MapperResult findChangeConfig(MapperContext context) {
+        RowSelection rowSelection = new RowSelection(0, context.getPageSize());
+        String sql = "SELECT id, data_id, group_id, tenant_id, app_name, content, gmt_modified, encrypted_data_key FROM config_info WHERE "
+                + "gmt_modified >= ? and id > ? order by id ";
+
+        sql = getDialect().getLimitSql(sql, rowSelection);
+
+        List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.START_TIME),
+                context.getWhereParameter(FieldConstant.LAST_MAX_ID),
+                context.getWhereParameter(FieldConstant.PAGE_SIZE));
+
+        List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
+        return new MapperResult(sql, pagedParams);
+    }
+
     @Override
     public MapperResult findAllConfigInfoFragment(MapperContext context) {
         String contextParameter = context.getContextParameter(ContextConstant.NEED_CONTENT);
@@ -88,12 +109,15 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         String sql = "SELECT id,data_id,group_id,tenant_id,app_name," + (needContent ? "content," : "")
-                + "md5,gmt_modified,type FROM config_info WHERE id > ? " + "ORDER BY id ASC ";
+                + "md5,gmt_modified,type "+ (hasEncryptedDataKeyColumn()? ",encrypted_data_key":"")
+                +" FROM config_info WHERE id > ? " + "ORDER BY id ASC ";
         sql = getDialect().getLimitSql(sql, rowSelection);
         List queryParams = Lists.newArrayList(context.getWhereParameter(FieldConstant.ID));
         List pagedParams = getDialect().rebuildParameters(queryParams, rowSelection);
         return new MapperResult(sql, pagedParams);
     }
+
+
 
     /**
      * 该方法没有被调用
@@ -144,25 +168,6 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         sql = getDialect().getLimitSql(sql, rowSelection);
-        List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
-        return new MapperResult(sql, pagedParams);
-    }
-
-
-
-
-    @Override
-    public MapperResult findChangeConfig(MapperContext context) {
-        RowSelection rowSelection = new RowSelection(0, context.getPageSize());
-        String sql = "SELECT id, data_id, group_id, tenant_id, app_name, content, gmt_modified, encrypted_data_key FROM config_info WHERE "
-                + "gmt_modified >= ? and id > ? order by id ";
-
-        sql = getDialect().getLimitSql(sql, rowSelection);
-
-        List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.START_TIME),
-                context.getWhereParameter(FieldConstant.LAST_MAX_ID),
-                context.getWhereParameter(FieldConstant.PAGE_SIZE));
-
         List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
     }
