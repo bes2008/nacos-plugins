@@ -105,7 +105,7 @@ public abstract class BaseMapper extends AbstractMapper {
             return sql.toString();
         }
 
-        appendWhereClause(where, sql);
+        sql.append(genWhereClause(where));
         return sql.toString();
     }
 
@@ -179,7 +179,7 @@ public abstract class BaseMapper extends AbstractMapper {
         }
 
         sql.append(" ");
-        appendWhereClause(where, sql);
+        sql.append(genWhereClause(where));
 
         return sql.toString();
     }
@@ -197,7 +197,7 @@ public abstract class BaseMapper extends AbstractMapper {
         if (Objs.isEmpty(where)) {
             return sql.toString();
         }
-        appendWhereClause(where, sql);
+        sql.append(genWhereClause(where));
         return sql.toString();
     }
 
@@ -219,13 +219,12 @@ public abstract class BaseMapper extends AbstractMapper {
             return sql.toString();
         }
 
-        appendWhereClause(where, sql);
-
+        sql.append(genWhereClause(where));
         return sql.toString();
     }
 
-    protected final void appendWhereClause(List<String> where, StringBuilder sql) {
-        sql.append("WHERE ");
+    protected final String genWhereClause(List<String> where) {
+        StringBuilder sql = new StringBuilder(" WHERE ");
         for (int i = 0; i < where.size(); i++) {
             String condition = where.get(i);
 
@@ -240,6 +239,7 @@ public abstract class BaseMapper extends AbstractMapper {
                 sql.append(" AND ");
             }
         }
+        return sql.toString();
     }
 
     protected boolean hasEncryptedDataKeyColumn(){
