@@ -249,6 +249,24 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         return new MapperResult(sql, pagedParams);
     }
 
+
+    @Override
+    public MapperResult findChangeConfig(MapperContext context) {
+        RowSelection rowSelection = new RowSelection(0, context.getPageSize());
+        String sql = "SELECT id, data_id, group_id, tenant_id, app_name, content, gmt_modified, encrypted_data_key FROM config_info WHERE "
+                + "gmt_modified >= ? and id > ? order by id ";
+
+        sql = getDialect().getLimitSql(sql, rowSelection);
+
+        List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.START_TIME),
+                context.getWhereParameter(FieldConstant.LAST_MAX_ID),
+                context.getWhereParameter(FieldConstant.PAGE_SIZE));
+
+        List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
+        return new MapperResult(sql, pagedParams);
+    }
+
+
     @Override
     public MapperResult findConfigInfoLike4PageFetchRows(MapperContext context) {
 
@@ -258,12 +276,17 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
         final String content = (String) context.getWhereParameter(FieldConstant.CONTENT);
 
-        List<Object> paramList = new ArrayList<>();
+        List<Object> paramList = Lists.newArrayList();
 
         final String sqlFetchRows = "SELECT id,data_id,group_id,tenant_id,app_name,content,encrypted_data_key FROM config_info";
         StringBuilder where = new StringBuilder(" WHERE ");
-        where.append(" tenant_id LIKE ? ");
-        paramList.add(tenantId);
+
+        if(Strings.isBlank(tenantId)){
+            where.append(" tenant_id='").append(NamespaceUtil.getNamespaceDefaultId()).append("' ");
+        }else{
+            where.append(" tenant_id LIKE ? ");
+            paramList.add(tenantId);
+        }
         if (!Strings.isBlank(dataId)) {
             where.append(" AND data_id LIKE ? ");
             paramList.add(dataId);
@@ -288,35 +311,34 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         return new MapperResult(sql, pagedParams);
     }
 
+
     /**
      * 该方法没有被调用
      */
     @Override
     public MapperResult findAllConfigInfoFetchRows(MapperContext context) {
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
-        String subquery = "SELECT id FROM config_info  WHERE tenant_id LIKE ? ORDER BY id ";
+
+        String tenantId =(String) context.getWhereParameter(FieldConstant.TENANT_ID);
+
+        List paramList = Lists.newArrayList();
+
+        StringBuilder subqueryBuilder = new StringBuilder("SELECT id FROM config_info  WHERE ");
+        if(Strings.isBlank(tenantId)){
+            subqueryBuilder.append(" tenant_id= '").append(NamespaceUtil.getNamespaceDefaultId()).append("' ");
+        }else{
+            subqueryBuilder.append("tenant_id LIKE ?");
+            paramList.add(tenantId);
+        }
+
+        String subquery = subqueryBuilder.append(" ORDER BY id ").toString();
         String pagedSubquery = getDialect().getLimitSql(subquery,true,true, rowSelection);
-        String sql = " SELECT t.id,data_id,group_id,tenant_id,app_name,content,md5 FROM ( " + pagedSubquery + " )  g, config_info t  WHERE g.id = t.id ";
-        List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.TENANT_ID), context.getStartRow(),
-                context.getPageSize());
+
+
         List pagedParams = getDialect().rebuildParameters(true,true, paramList, rowSelection);
+
+        String sql = " SELECT t.id,data_id,group_id,tenant_id,app_name,content,md5 FROM ( " + pagedSubquery + " ) g, config_info t  WHERE g.id = t.id ";
         return new MapperResult(sql, pagedParams);
     }
 
-
-    @Override
-    public MapperResult findChangeConfig(MapperContext context) {
-        RowSelection rowSelection = new RowSelection(0, context.getPageSize());
-        String sql = "SELECT id, data_id, group_id, tenant_id, app_name, content, gmt_modified, encrypted_data_key FROM config_info WHERE "
-                + "gmt_modified >= ? and id > ? order by id ";
-
-        sql = getDialect().getLimitSql(sql, rowSelection);
-
-        List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.START_TIME),
-                context.getWhereParameter(FieldConstant.LAST_MAX_ID),
-                context.getWhereParameter(FieldConstant.PAGE_SIZE));
-
-        List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
-        return new MapperResult(sql, pagedParams);
-    }
 }
