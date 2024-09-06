@@ -1,6 +1,7 @@
 package com.jn.nacos.plugin.datasource.mapper;
 
 import com.alibaba.nacos.common.utils.NamespaceUtil;
+import com.alibaba.nacos.common.utils.VersionUtils;
 import com.alibaba.nacos.plugin.datasource.mapper.AbstractMapper;
 import com.alibaba.nacos.sys.env.EnvUtil;
 import com.jn.langx.util.Objs;
@@ -239,5 +240,10 @@ public abstract class BaseMapper extends AbstractMapper {
                 sql.append(" AND ");
             }
         }
+    }
+
+    protected boolean hasEncryptedDataKeyColumn(){
+        String currentVersion = VersionUtils.getFullClientVersion();
+        return VersionUtils.compareVersion(currentVersion, "2.1.0")>=0;
     }
 }
