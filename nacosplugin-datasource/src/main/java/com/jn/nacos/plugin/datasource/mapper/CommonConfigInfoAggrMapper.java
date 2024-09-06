@@ -13,6 +13,7 @@ public class CommonConfigInfoAggrMapper extends BaseMapper implements ConfigInfo
 
     @Override
     public MapperResult findConfigInfoAggrByPageFetchRows(MapperContext context) {
+        useDefaultTenantIdWithWhereParameter(context);
         final int startRow = context.getStartRow();
         final int pageSize = context.getPageSize();
         final String dataId = (String) context.getWhereParameter(FieldConstant.DATA_ID);
@@ -23,7 +24,7 @@ public class CommonConfigInfoAggrMapper extends BaseMapper implements ConfigInfo
         List<String> columns = Lists.newArrayList("data_id","group_id","tenant_id","datum_id","app_name","content");
         List<String> where = Lists.newArrayList("data_id", "group_id", "tenant_id");
         String sql = select(columns, where) + " ORDER BY datum_id ";
-        List<Object> paramList = Lists.newArrayList(dataId, groupId, useDefaultTenantIdIfBlank(tenantId));
+        List<Object> paramList = Lists.newArrayList(dataId, groupId, tenantId);
 
         sql = getDialect().getLimitSql(sql, false, true, rowSelection);
 

@@ -30,7 +30,7 @@ public class CommonHistoryConfigInfoMapper extends BaseMapper implements History
      */
     @Override
     public MapperResult pageFindConfigHistoryFetchRows(MapperContext context) {
-
+        useDefaultTenantIdWithWhereParameter(context);
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
 
         List<String> selectedColumns = Lists.newArrayList("nid","data_id","group_id","tenant_id","app_name","src_ip","src_user","op_type","gmt_create","gmt_modified");
@@ -65,14 +65,7 @@ public class CommonHistoryConfigInfoMapper extends BaseMapper implements History
 
     @Override
     public MapperResult findConfigHistoryFetchRows(MapperContext context) {
-
-        List<String> where = Lists.newArrayList("data_id", "group_id", "tenant_id");
-        StringBuilder sql = new StringBuilder("SELECT nid,data_id,group_id,tenant_id,app_name,src_ip,src_user,op_type,gmt_create,gmt_modified FROM his_config_info ")
-                .append(genWhereClause(where))
-                .append(" ORDER BY nid DESC");
-        return new MapperResult(sql.toString(),
-                CollectionUtils.list(context.getWhereParameter(FieldConstant.DATA_ID),
-                        context.getWhereParameter(FieldConstant.GROUP_ID),
-                        context.getWhereParameter(FieldConstant.TENANT_ID)));
+        useDefaultTenantIdWithWhereParameter(context);
+        return HistoryConfigInfoMapper.super.findConfigHistoryFetchRows(context);
     }
 }
