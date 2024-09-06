@@ -1,3 +1,5 @@
+## 2.0.3
+1. 完善对oracle数据库的支持，重点针处理 oracle 会把 `''` 作为 `null` 处理。
 ## 2.0.2
 1. 兼容nacos中的不合理SQL，对应nacos [github上的bug](https://github.com/alibaba/nacos/issues/12598)
 2. 完善 oracle 的sql 脚本
