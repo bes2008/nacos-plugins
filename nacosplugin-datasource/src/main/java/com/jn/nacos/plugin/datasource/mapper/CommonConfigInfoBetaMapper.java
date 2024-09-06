@@ -35,7 +35,7 @@ public class CommonConfigInfoBetaMapper extends BaseMapper implements ConfigInfo
     @Override
     public MapperResult updateConfigInfo4BetaCas(MapperContext context) {
 
-        List<String> where = Lists.newArrayList("data_id", "group_id", "tenant_id",)
+        List<String> where = Lists.newArrayList("data_id", "group_id", "tenant_id");
         final String sql = "UPDATE config_info_beta SET content = ?,md5 = ?,beta_ips = ?,src_ip = ?,src_user = ?,gmt_modified = "
                 + getFunction("NOW()")
                 + ",app_name = ? " + genWhereClause(where)
