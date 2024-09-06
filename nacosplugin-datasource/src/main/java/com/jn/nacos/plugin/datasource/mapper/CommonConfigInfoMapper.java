@@ -84,24 +84,18 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
      */
     @Override
     public MapperResult findConfigInfoByAppFetchRows(MapperContext context) {
+        useDefaultTenantIdWithWhereParameter(context);
+
         final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
         final String tenantId = (String) context.getWhereParameter(FieldConstant.TENANT_ID);
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
 
-
         List paramList = Lists.newArrayList();
 
-        StringBuilder sqlBuilder = new StringBuilder("SELECT ID,data_id,group_id,tenant_id,app_name,content FROM config_info WHERE ");
-        if(Strings.isBlank(tenantId)){
-            sqlBuilder.append(" tenant_id= '").append(NamespaceUtil.getNamespaceDefaultId()).append("' ");
-        }else{
-            sqlBuilder.append(" tenant_id LIKE ?");
-            paramList.add(tenantId);
-        }
-        String sql = sqlBuilder.append(" AND app_name = ? order by id asc").toString();
+        String sql= "SELECT ID,data_id,group_id,tenant_id,app_name,content FROM config_info WHERE tenant_id LIKE ? AND app_name = ? order by id asc";
+        paramList.add(tenantId);
         paramList.add(appName);
-
         sql = getDialect().getLimitSql(sql, rowSelection);
         List<Object> pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
@@ -111,46 +105,40 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
 
     @Override
     public MapperResult getTenantIdList(MapperContext context) {
+        useDefaultTenantIdWithWhereParameter(context);
+        String tenantId = (String)context.getWhereParameter(FieldConstant.TENANT_ID);
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
-        String sql = "SELECT tenant_id FROM config_info WHERE tenant_id != '" + NamespaceUtil.getNamespaceDefaultId() + "' GROUP BY tenant_id ";
+        String sql = "SELECT tenant_id FROM config_info WHERE tenant_id != ? GROUP BY tenant_id ";
         sql = getDialect().getLimitSql(sql, rowSelection);
-        List pagedParams = getDialect().rebuildParameters(Lists.newArrayList(), rowSelection);
+        List pagedParams = getDialect().rebuildParameters(Lists.newArrayList(tenantId), rowSelection);
         return new MapperResult(sql, pagedParams);
     }
 
 
     @Override
     public MapperResult getGroupIdList(MapperContext context) {
+        useDefaultTenantIdWithWhereParameter(context);
+        String tenantId = (String)context.getWhereParameter(FieldConstant.TENANT_ID);
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
-        String sql = "SELECT group_id FROM config_info WHERE tenant_id ='" + NamespaceUtil.getNamespaceDefaultId() + "' GROUP BY group_id ";
+        String sql = "SELECT group_id FROM config_info WHERE tenant_id = ? GROUP BY group_id ";
         sql = getDialect().getLimitSql(sql, rowSelection);
-        List pagedParams = getDialect().rebuildParameters(Lists.newArrayList(), rowSelection);
+        List pagedParams = getDialect().rebuildParameters(Lists.newArrayList(tenantId), rowSelection);
         return new MapperResult(sql, pagedParams);
     }
-
-
 
     /**
      * 该方法没有被调用
      */
     @Override
     public MapperResult findAllConfigKey(MapperContext context) {
+        useDefaultTenantIdWithWhereParameter(context);
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
 
         String tenantId = (String)context.getWhereParameter(FieldConstant.TENANT_ID);
-
         List paramList = Lists.newArrayList();
 
-        StringBuilder subqueryBuilder = new StringBuilder("SELECT id FROM config_info  WHERE ");
-        if(Strings.isBlank(tenantId)){
-            subqueryBuilder.append(" tenant_id= '").append(NamespaceUtil.getNamespaceDefaultId()).append("' ");
-        }else{
-            subqueryBuilder.append("tenant_id LIKE ?");
-            paramList.add(tenantId);
-        }
-
-        String subquery = subqueryBuilder.append("ORDER BY id ").toString();
-
+        String subquery = "SELECT id FROM config_info WHERE tenant_id LIKE ? ORDER BY id ";
+        paramList.add(tenantId);
         String pagedSubquery = getDialect().getLimitSql(subquery, true,true, rowSelection);
         String sql = " SELECT data_id,group_id,app_name FROM ( " + pagedSubquery + " ) g, config_info t  WHERE g.id = t.id ";
 
@@ -188,7 +176,6 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         List pagedParams = getDialect().rebuildParameters(queryParams, rowSelection);
         return new MapperResult(sql, pagedParams);
     }
-
 
 
     /**
@@ -252,7 +239,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         String subquery = "SELECT id FROM config_info ORDER BY id ";
         String pagedSubquery = getDialect().getLimitSql(subquery,true,true, rowSelection);
-        String sql = " SELECT t.id,data_id,group_id,tenant_id,app_name,type,md5,gmt_modified FROM ( " + pagedSubquery + " ) g, config_info t WHERE g.id = t.id";
+        String sql = "SELECT t.id,data_id,group_id,tenant_id,app_name,type,md5,gmt_modified FROM ( " + pagedSubquery + " ) g, config_info t WHERE g.id = t.id";
 
         List pagedParams = getDialect().rebuildParameters(true, true, Collects.emptyArrayList(), rowSelection);
         return new MapperResult(sql, pagedParams);
@@ -264,13 +251,16 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
      */
     @Override
     public MapperResult findConfigInfoBaseLikeFetchRows(MapperContext context) {
+        useDefaultTenantIdWithWhereParameter(context);
+
         final String tenant = (String) context.getWhereParameter(FieldConstant.TENANT);
         final String dataId = (String) context.getWhereParameter(FieldConstant.DATA_ID);
         final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
 
         List<Object> paramList = new ArrayList<>();
         final String sqlFetchRows = "SELECT id,data_id,group_id,tenant_id,content FROM config_info WHERE ";
-        String where = " tenant_id='" + NamespaceUtil.getNamespaceDefaultId() + "' ";
+        String where = " tenant_id= ? ";
+        paramList.add(tenant);
         if (!Strings.isBlank(dataId)) {
             where += " AND data_id LIKE ? ";
             paramList.add(dataId);
@@ -294,6 +284,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
 
     @Override
     public MapperResult findConfigInfo4PageFetchRows(MapperContext context) {
+        useDefaultTenantIdWithWhereParameter(context);
         final String tenantId = (String) context.getWhereParameter(FieldConstant.TENANT_ID);
         final String dataId = (String) context.getWhereParameter(FieldConstant.DATA_ID);
         final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
@@ -304,7 +295,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
 
         String sql = "SELECT id,data_id,group_id,tenant_id,app_name,content,type FROM config_info";
         StringBuilder where = new StringBuilder(" WHERE ");
-        where.append(" tenant_id= " + getDialect().genCastNullToDefaultExpression("?", NamespaceUtil.getNamespaceDefaultId()));
+        where.append(" tenant_id= ?" );
         paramList.add(tenantId);
         if (Strings.isNotBlank(dataId)) {
             where.append(" AND data_id=? ");
@@ -339,12 +330,13 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
      */
     @Override
     public MapperResult findConfigInfoBaseByGroupFetchRows(MapperContext context) {
-
+        useDefaultTenantIdWithWhereParameter(context);
+        String tenantId = (String)context.getWhereParameter(FieldConstant.TENANT_ID);
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
-        String sql = "SELECT id,data_id,group_id,content FROM config_info WHERE group_id=? AND tenant_id="+getDialect().genCastNullToDefaultExpression("?", NamespaceUtil.getNamespaceDefaultId())+" order by id asc";
+        String sql = "SELECT id,data_id,group_id,content FROM config_info WHERE group_id=? AND tenant_id=? order by id asc";
 
         List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.GROUP_ID),
-                context.getWhereParameter(FieldConstant.TENANT_ID));
+                context.getWhereParameter(FieldConstant.TENANT_ID), tenantId);
         List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
     }
@@ -352,7 +344,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
 
     @Override
     public MapperResult findConfigInfoLike4PageFetchRows(MapperContext context) {
-
+        useDefaultTenantIdWithWhereParameter(context);
         final String tenantId = (String) context.getWhereParameter(FieldConstant.TENANT_ID);
         final String dataId = (String) context.getWhereParameter(FieldConstant.DATA_ID);
         final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
@@ -364,12 +356,8 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         final String sqlFetchRows = "SELECT id,data_id,group_id,tenant_id,app_name,content,encrypted_data_key FROM config_info";
         StringBuilder where = new StringBuilder(" WHERE ");
 
-        if(Strings.isBlank(tenantId)){
-            where.append(" tenant_id='").append(NamespaceUtil.getNamespaceDefaultId()).append("' ");
-        }else{
-            where.append(" tenant_id LIKE ? ");
-            paramList.add(tenantId);
-        }
+        where.append(" tenant_id LIKE ? ");
+        paramList.add(tenantId);
         if (!Strings.isBlank(dataId)) {
             where.append(" AND data_id LIKE ? ");
             paramList.add(dataId);
@@ -400,23 +388,16 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
      */
     @Override
     public MapperResult findAllConfigInfoFetchRows(MapperContext context) {
+        useDefaultTenantIdWithWhereParameter(context);
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
 
         String tenantId =(String) context.getWhereParameter(FieldConstant.TENANT_ID);
 
         List paramList = Lists.newArrayList();
+        String subquery = "SELECT id FROM config_info  WHERE tenant_id LIKE ?  ORDER BY id ";
 
-        StringBuilder subqueryBuilder = new StringBuilder("SELECT id FROM config_info  WHERE ");
-        if(Strings.isBlank(tenantId)){
-            subqueryBuilder.append(" tenant_id= '").append(NamespaceUtil.getNamespaceDefaultId()).append("' ");
-        }else{
-            subqueryBuilder.append("tenant_id LIKE ?");
-            paramList.add(tenantId);
-        }
-
-        String subquery = subqueryBuilder.append(" ORDER BY id ").toString();
         String pagedSubquery = getDialect().getLimitSql(subquery,true,true, rowSelection);
-
+        paramList.add(tenantId);
 
         List pagedParams = getDialect().rebuildParameters(true,true, paramList, rowSelection);
 
