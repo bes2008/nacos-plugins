@@ -39,209 +39,44 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
 
     @Override
     public MapperResult findConfigInfoByAppCountRows(MapperContext context) {
-        String tenantId = (String)context.getWhereParameter(FieldConstant.TENANT_ID);
-        String appName = (String)context.getWhereParameter(FieldConstant.APP_NAME);
-
-        StringBuilder sqlBuilder = new StringBuilder("SELECT count(*) FROM config_info WHERE ");
-        List paramList = Lists.newArrayList();
-        if(Strings.isBlank(tenantId)){
-            sqlBuilder.append(" tenant_id='").append(NamespaceUtil.getNamespaceDefaultId()).append("' ");
-        }else{
-            sqlBuilder.append(" tenant_id LIKE ?");
-            paramList.add(tenantId);
-        }
-        String sql = sqlBuilder.append(" AND app_name = ?").toString();
-        paramList.add(appName);
-        return new MapperResult(sql, paramList);
+        useDefaultTenantIdWithWhereParameter(context);
+        return ConfigInfoMapper.super.findConfigInfoByAppCountRows(context);
     }
 
     @Override
     public MapperResult configInfoLikeTenantCount(MapperContext context) {
-        String tenantId = (String) context.getWhereParameter(FieldConstant.TENANT_ID);
-
-        List paramList = Lists.newArrayList();
-        StringBuilder sqlBuilder= new StringBuilder("SELECT count(*) FROM config_info WHERE ");
-        if(Strings.isBlank(tenantId)){
-            sqlBuilder.append(" tenant_id='").append(NamespaceUtil.getNamespaceDefaultId()).append("' ");
-        }else{
-            sqlBuilder.append(" tenant_id LIKE ?");
-            paramList.add(tenantId);
-        }
-        String sql = sqlBuilder.toString();
-        return new MapperResult(sql, paramList);
+        useDefaultTenantIdWithWhereParameter(context);
+        return ConfigInfoMapper.super.configInfoLikeTenantCount(context);
     }
 
     @Override
     public MapperResult findAllConfigInfo4Export(MapperContext context) {
-        List<Long> ids = (List<Long>) context.getWhereParameter(FieldConstant.IDS);
-
-        String sql = "SELECT id,data_id,group_id,tenant_id,app_name,content,type,md5,gmt_create,gmt_modified,"
-                + "src_user,src_ip,c_desc,c_use,effect,c_schema,encrypted_data_key FROM config_info";
-        StringBuilder where = new StringBuilder(" WHERE ");
-
-        List<Object> paramList = new ArrayList<>();
-        if (!CollectionUtils.isEmpty(ids)) {
-            where.append(" id IN (");
-            for (int i = 0; i < ids.size(); i++) {
-                if (i != 0) {
-                    where.append(", ");
-                }
-                where.append('?');
-                paramList.add(ids.get(i));
-            }
-            where.append(") ");
-        } else {
-
-
-            String tenantId = (String)context.getWhereParameter(FieldConstant.TENANT_ID);
-            String dataId = (String) context.getWhereParameter(FieldConstant.DATA_ID);
-            String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
-            String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
-
-            where.append(" tenant_id = "+ getDialect().genCastNullToDefaultExpression("?", NamespaceUtil.getNamespaceDefaultId()));
-            paramList.add(tenantId);
-
-            if (StringUtils.isNotBlank(dataId)) {
-                where.append(" AND data_id LIKE ? ");
-                paramList.add(dataId);
-            }
-            if (StringUtils.isNotBlank(group)) {
-                where.append(" AND group_id= ? ");
-                paramList.add(group);
-            }
-            if (StringUtils.isNotBlank(appName)) {
-                where.append(" AND app_name= ? ");
-                paramList.add(appName);
-            }
-        }
-        return new MapperResult(sql + where, paramList);
+        useDefaultTenantIdWithWhereParameter(context);
+        return ConfigInfoMapper.super.findAllConfigInfo4Export(context);
     }
 
     @Override
     public MapperResult findConfigInfoBaseLikeCountRows(MapperContext context) {
-        final String dataId = (String) context.getWhereParameter(FieldConstant.DATA_ID);
-        final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
-        final String content = (String) context.getWhereParameter(FieldConstant.CONTENT);
-
-        final List<Object> paramList = new ArrayList<>();
-        final String sqlCountRows = "SELECT count(*) FROM config_info WHERE ";
-        String where = "tenant_id='" + NamespaceUtil.getNamespaceDefaultId() + "' ";
-
-        if (!StringUtils.isBlank(dataId)) {
-            where += " AND data_id LIKE ? ";
-            paramList.add(dataId);
-        }
-        if (!StringUtils.isBlank(group)) {
-            where += " AND group_id LIKE ? ";
-            paramList.add(group);
-        }
-        if (!StringUtils.isBlank(content)) {
-            where += " AND content LIKE ? ";
-            paramList.add(content);
-        }
-        return new MapperResult(sqlCountRows + where, paramList);
+        useDefaultTenantIdWithWhereParameter(context);
+        return ConfigInfoMapper.super.findConfigInfoBaseLikeCountRows(context);
     }
 
     @Override
     public MapperResult findConfigInfo4PageCountRows(MapperContext context) {
-        final String dataId = (String) context.getWhereParameter(FieldConstant.DATA_ID);
-        final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
-        final String content = (String) context.getWhereParameter(FieldConstant.CONTENT);
-        final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
-        final String tenantId = (String) context.getWhereParameter(FieldConstant.TENANT_ID);
-        final List<Object> paramList = new ArrayList<>();
-
-        final String sqlCount = "SELECT count(*) FROM config_info";
-        StringBuilder where = new StringBuilder(" WHERE ");
-        where.append(" tenant_id= " + getDialect().genCastNullToDefaultExpression("?", NamespaceUtil.getNamespaceDefaultId()));
-        paramList.add(tenantId);
-        if (StringUtils.isNotBlank(dataId)) {
-            where.append(" AND data_id=? ");
-            paramList.add(dataId);
-        }
-        if (StringUtils.isNotBlank(group)) {
-            where.append(" AND group_id=? ");
-            paramList.add(group);
-        }
-        if (StringUtils.isNotBlank(appName)) {
-            where.append(" AND app_name=? ");
-            paramList.add(appName);
-        }
-        if (!StringUtils.isBlank(content)) {
-            where.append(" AND content LIKE ? ");
-            paramList.add(content);
-        }
-        return new MapperResult(sqlCount + where, paramList);
+        useDefaultTenantIdWithWhereParameter(context);
+        return ConfigInfoMapper.super.findConfigInfo4PageCountRows(context);
     }
 
     @Override
     public MapperResult findConfigInfoLike4PageCountRows(MapperContext context) {
-        final String dataId = (String) context.getWhereParameter(FieldConstant.DATA_ID);
-        final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
-        final String content = (String) context.getWhereParameter(FieldConstant.CONTENT);
-        final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
-        final String tenantId = (String) context.getWhereParameter(FieldConstant.TENANT_ID);
-
-        final List<Object> paramList = new ArrayList<>();
-
-        final String sqlCountRows = "SELECT count(*) FROM config_info";
-        StringBuilder where = new StringBuilder(" WHERE ");
-
-        if(Strings.isBlank(tenantId)){
-            where.append(" tenant_id='").append(NamespaceUtil.getNamespaceDefaultId()).append("' ");
-        }else{
-            where.append(" tenant_id LIKE ? ");
-            paramList.add(tenantId);
-        }
-
-
-        if (!StringUtils.isBlank(dataId)) {
-            where.append(" AND data_id LIKE ? ");
-            paramList.add(dataId);
-        }
-        if (!StringUtils.isBlank(group)) {
-            where.append(" AND group_id LIKE ? ");
-            paramList.add(group);
-        }
-        if (!StringUtils.isBlank(appName)) {
-            where.append(" AND app_name = ? ");
-            paramList.add(appName);
-        }
-        if (!StringUtils.isBlank(content)) {
-            where.append(" AND content LIKE ? ");
-            paramList.add(content);
-        }
-        return new MapperResult(sqlCountRows + where, paramList);
+        useDefaultTenantIdWithWhereParameter(context);
+        return ConfigInfoMapper.super.findConfigInfoLike4PageCountRows(context);
     }
 
     @Override
     public MapperResult updateConfigInfoAtomicCas(MapperContext context) {
-        List<Object> paramList = new ArrayList<>();
-
-        paramList.add(context.getUpdateParameter(FieldConstant.CONTENT));
-        paramList.add(context.getUpdateParameter(FieldConstant.MD5));
-        paramList.add(context.getUpdateParameter(FieldConstant.SRC_IP));
-        paramList.add(context.getUpdateParameter(FieldConstant.SRC_USER));
-        paramList.add(context.getUpdateParameter(FieldConstant.APP_NAME));
-        paramList.add(context.getUpdateParameter(FieldConstant.C_DESC));
-        paramList.add(context.getUpdateParameter(FieldConstant.C_USE));
-        paramList.add(context.getUpdateParameter(FieldConstant.EFFECT));
-        paramList.add(context.getUpdateParameter(FieldConstant.TYPE));
-        paramList.add(context.getUpdateParameter(FieldConstant.C_SCHEMA));
-        if(hasEncryptedDataKeyColumn()) {
-            paramList.add(context.getUpdateParameter(FieldConstant.ENCRYPTED_DATA_KEY));
-        }
-        paramList.add(context.getWhereParameter(FieldConstant.DATA_ID));
-        paramList.add(context.getWhereParameter(FieldConstant.GROUP_ID));
-        paramList.add(context.getWhereParameter(FieldConstant.TENANT_ID));
-        paramList.add(context.getWhereParameter(FieldConstant.MD5));
-        String sql = "UPDATE config_info SET " + "content=?, md5=?, src_ip=?, src_user=?, gmt_modified="
-                + getFunction("NOW()")
-                + ", app_name=?, c_desc=?, c_use=?, effect=?, type=?, c_schema=?"
-                + (hasEncryptedDataKeyColumn()? ", encrypted_data_key=? ":"")
-                + "WHERE data_id=? AND group_id=? AND tenant_id="+getDialect().genCastNullToDefaultExpression("?", NamespaceUtil.getNamespaceDefaultId())
-                +" AND (md5=? OR md5 IS NULL OR md5='')";
-        return new MapperResult(sql, paramList);
+        useDefaultTenantIdWithWhereParameter(context);
+        return ConfigInfoMapper.super.updateConfigInfoAtomicCas(context);
     }
 
     /**
