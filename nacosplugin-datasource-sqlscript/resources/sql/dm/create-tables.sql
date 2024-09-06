@@ -451,3 +451,4 @@ INSERT INTO "users" VALUES ('nacos', '$2a$10$EuWPZHzz32dJN7jexM34MOeYirDdFAZm2ku
 
 INSERT INTO "roles" VALUES ('nacos', 'ROLE_ADMIN');
 
+exit
