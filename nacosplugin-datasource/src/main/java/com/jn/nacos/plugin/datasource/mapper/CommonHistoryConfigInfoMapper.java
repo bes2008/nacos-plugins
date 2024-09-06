@@ -1,5 +1,6 @@
 package com.jn.nacos.plugin.datasource.mapper;
 
+import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.HistoryConfigInfoMapper;
 import com.alibaba.nacos.plugin.datasource.model.MapperContext;
@@ -31,9 +32,10 @@ public class CommonHistoryConfigInfoMapper extends BaseMapper implements History
     public MapperResult pageFindConfigHistoryFetchRows(MapperContext context) {
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
-        String sql =
-                "SELECT nid,data_id,group_id,tenant_id,app_name,src_ip,src_user,op_type,gmt_create,gmt_modified FROM his_config_info "
-                        + "WHERE data_id = ? AND group_id = ? AND tenant_id = ? ORDER BY nid DESC  ";
+
+        List<String> selectedColumns = Lists.newArrayList("nid","data_id","group_id","tenant_id","app_name","src_ip","src_user","op_type","gmt_create","gmt_modified");
+        List<String> where = Lists.newArrayList("data_id", "group_id", "tenant_id");
+        String sql = select(selectedColumns, where)+ " ORDER BY nid DESC  ";
 
         sql = getDialect().getLimitSql(sql, false, false, rowSelection);
 
@@ -59,5 +61,18 @@ public class CommonHistoryConfigInfoMapper extends BaseMapper implements History
 
         List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
+    }
+
+    @Override
+    public MapperResult findConfigHistoryFetchRows(MapperContext context) {
+
+        List<String> where = Lists.newArrayList("data_id", "group_id", "tenant_id");
+        StringBuilder sql = new StringBuilder("SELECT nid,data_id,group_id,tenant_id,app_name,src_ip,src_user,op_type,gmt_create,gmt_modified FROM his_config_info ")
+                .append(genWhereClause(where))
+                .append(" ORDER BY nid DESC");
+        return new MapperResult(sql.toString(),
+                CollectionUtils.list(context.getWhereParameter(FieldConstant.DATA_ID),
+                        context.getWhereParameter(FieldConstant.GROUP_ID),
+                        context.getWhereParameter(FieldConstant.TENANT_ID)));
     }
 }
