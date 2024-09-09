@@ -1,14 +1,14 @@
 package com.jn.nacos.plugin.datasource.db.mssql;
 
 import com.jn.langx.util.collection.Maps;
-import com.jn.nacos.plugin.datasource.DatabaseTypes;
+import com.jn.nacos.plugin.datasource.DatabaseIds;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 
 import java.util.Map;
 
 public class MssqlDatabaseDialect extends NacosDatabaseDialect {
     public MssqlDatabaseDialect() {
-        super(DatabaseTypes.MSSQL);
+        super(DatabaseIds.MSSQL);
     }
 
     @Override

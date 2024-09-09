@@ -10,7 +10,7 @@ import com.jn.langx.util.Objs;
 import com.jn.langx.util.Preconditions;
 import com.jn.langx.util.Strings;
 import com.jn.langx.util.collection.Pipeline;
-import com.jn.nacos.plugin.datasource.DatabaseTypes;
+import com.jn.nacos.plugin.datasource.DatabaseIds;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialectManager;
 import com.jn.sqlhelper.dialect.Dialect;
@@ -24,7 +24,7 @@ public abstract class BaseMapper extends AbstractMapper {
 
     protected BaseMapper() {
         this.databaseId = getConfiguredDatabaseId();
-        Preconditions.checkTrue(!Objs.equals(DatabaseTypes.UNSUPPORTED, this.databaseId), "database {} is unsupported", this.databaseId);
+        Preconditions.checkTrue(!Objs.equals(DatabaseIds.UNSUPPORTED, this.databaseId), "database {} is unsupported", this.databaseId);
         this.dialect = NacosDatabaseDialectManager.getInstance().getDialect(this.databaseId);
     }
 
@@ -37,21 +37,21 @@ public abstract class BaseMapper extends AbstractMapper {
         if(Strings.isBlank(databaseId)){
             // 内嵌数据库 derby
             if (EnvUtil.getStandaloneMode()){
-                databaseId = DatabaseTypes.DERBY;
+                databaseId = DatabaseIds.DERBY;
             }
             else{ // 默认数据库 MySQL
-                databaseId = DatabaseTypes.MSSQL;
+                databaseId = DatabaseIds.MSSQL;
             }
         }else{
             Dialect dialect = DialectRegistry.getInstance().getDialectByName(databaseId);
             if(dialect==null){
-                databaseId = DatabaseTypes.UNSUPPORTED;
+                databaseId = DatabaseIds.UNSUPPORTED;
             }
         }
 
         // 因为 mysql 不支持 在子查询中 的limit，所以 不使用自定义的SQL，而使用官方的插件
-        if(Strings.isBlank(databaseId) || Objs.equals(DatabaseTypes.DERBY, databaseId) || Objs.equals(DatabaseTypes.MYSQL, databaseId)){
-            databaseId=DatabaseTypes.UNDEFINED;
+        if(Strings.isBlank(databaseId) || Objs.equals(DatabaseIds.DERBY, databaseId) || Objs.equals(DatabaseIds.MYSQL, databaseId)){
+            databaseId= DatabaseIds.UNDEFINED;
         }
         return databaseId;
     }

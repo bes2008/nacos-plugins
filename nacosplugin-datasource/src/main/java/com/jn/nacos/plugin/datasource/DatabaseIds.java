@@ -1,8 +1,10 @@
 package com.jn.nacos.plugin.datasource;
 
-import com.alibaba.nacos.plugin.datasource.constants.DataSourceConstant;
 
-public class DatabaseTypes extends DataSourceConstant {
+public class DatabaseIds {
+    public static final String MYSQL = "mysql";
+
+    public static final String DERBY = "derby";
     public static final String OPENGAUSS = "opengauss";
     public static final String KINGBASE = "kingbase";
     public static final String MAGICDATA = "magicdata";
