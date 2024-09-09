@@ -109,40 +109,14 @@ public abstract class NacosDatabaseDialect {
         return this.delegate.rebuildParameters(subquery,useLimitVariable, selection, queryParams);
     }
 
-    private static String IDENTIFIER_BEFORE_QUOTES="\"'`[";
-    private static String IDENTIFIER_AFTER_QUOTES="\"'`]";
-
 
     public List<String> wrapQuotes(List<String> identifiers){
         return Pipeline.of(identifiers).map(new Function<String, String>() {
             @Override
             public String apply(String identifier) {
-                return wrapQuote(identifier);
+                return NacosDatabaseDialect.this.delegate.getQuotedIdentifier(identifier);
             }
         }).asList();
-    }
-
-    private String wrapQuote(String identifier){
-        return this.delegate.getQuotedIdentifier(removeQuote(identifier));
-    }
-
-    @Deprecated
-    private final List<String> removeQuote(List<String> identifiers){
-        return Pipeline.of(identifiers).map(new Function<String, String>() {
-            @Override
-            public String apply(String identifier) {
-                return removeQuote(identifier);
-            }
-        }).asList();
-    }
-
-    private static String removeQuote(String identifier){
-        if(Strings.isBlank(identifier)){
-            return identifier;
-        }
-        identifier=Strings.stripStart(identifier, IDENTIFIER_BEFORE_QUOTES);
-        identifier=Strings.stripEnd(identifier, IDENTIFIER_AFTER_QUOTES);
-        return identifier;
     }
 
     public boolean isAutoCastEmptyStringToNull(){
