@@ -259,17 +259,17 @@ public abstract class BaseMapper extends AbstractMapper {
         return VersionUtils.compareVersion(currentVersion, "2.1.0")>=0;
     }
     private static final String NAMESPACE_PUBLIC_KEY = "public";
-    protected String getDefaultTenantId(){
+    protected final String getDefaultTenantId(){
         if(getDialect().isAutoCastEmptyStringToNull()){
             return NAMESPACE_PUBLIC_KEY;
         }
         return NamespaceUtil.getNamespaceDefaultId();
     }
-    protected String useDefaultTenantIdIfBlank(String tenantId){
+    protected final String useDefaultTenantIdIfBlank(String tenantId){
         return Strings.useValueIfBlank(tenantId, getDefaultTenantId());
     }
 
-    protected void useDefaultTenantIdWithWhereParameter(MapperContext context){
+    protected final void useDefaultTenantIdWithWhereParameter(MapperContext context){
         Object tenantIdObj= context.getWhereParameter(FieldConstant.TENANT_ID);
         String tenantId=null;
         if(tenantIdObj!=null){
