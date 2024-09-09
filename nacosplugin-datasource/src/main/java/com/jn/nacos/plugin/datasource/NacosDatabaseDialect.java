@@ -86,7 +86,7 @@ public abstract class NacosDatabaseDialect {
         return null;
     }
     public String getFunction(String functionName){
-        String func =this.functionMap.get(functionName);
+        String func = this.functionMap.get(functionName);
         if(Objs.isEmpty(func)){
             throw new RuntimeException(StringTemplates.formatWithPlaceholder("function {} in {} database dialect is not supported", functionName, this.getName()));
         }
@@ -113,7 +113,21 @@ public abstract class NacosDatabaseDialect {
     private static String IDENTIFIER_AFTER_QUOTES="\"'`]";
 
 
-    public List<String> removeQuote(List<String> identifiers){
+    public List<String> wrapQuotes(List<String> identifiers){
+        return Pipeline.of(identifiers).map(new Function<String, String>() {
+            @Override
+            public String apply(String identifier) {
+                return wrapQuote(identifier);
+            }
+        }).asList();
+    }
+
+    private String wrapQuote(String identifier){
+        return this.delegate.getQuotedIdentifier(removeQuote(identifier));
+    }
+
+    @Deprecated
+    private final List<String> removeQuote(List<String> identifiers){
         return Pipeline.of(identifiers).map(new Function<String, String>() {
             @Override
             public String apply(String identifier) {

@@ -82,7 +82,7 @@ public abstract class BaseMapper extends AbstractMapper {
      */
     @Override
     public String select(List<String> quotedColumns, List<String> where) {
-        List<String> columns = this.dialect.removeQuote(quotedColumns);
+        List<String> columns = this.dialect.wrapQuotes(quotedColumns);
         return generateSelectSql(columns, where);
     }
     private String generateSelectSql(List<String> columns, List<String> where){
@@ -113,7 +113,7 @@ public abstract class BaseMapper extends AbstractMapper {
 
     @Override
     public String insert(List<String> quotedColumns) {
-        List<String> columns = this.dialect.removeQuote(quotedColumns);
+        List<String> columns = this.dialect.wrapQuotes(quotedColumns);
         return genInsertSql(columns);
     }
     public String genInsertSql(List<String> columns) {
@@ -161,7 +161,7 @@ public abstract class BaseMapper extends AbstractMapper {
 
     @Override
     public String update(List<String> quotedColumns, List<String> where) {
-        List<String> columns = this.dialect.removeQuote(quotedColumns);
+        List<String> columns = this.dialect.wrapQuotes(quotedColumns);
         return genUpdateSql(columns, where);
     }
 
