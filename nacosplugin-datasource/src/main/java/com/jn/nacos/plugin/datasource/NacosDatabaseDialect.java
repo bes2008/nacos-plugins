@@ -114,6 +114,7 @@ public abstract class NacosDatabaseDialect {
         return Pipeline.of(identifiers).map(new Function<String, String>() {
             @Override
             public String apply(String identifier) {
+                // 数据库表名、列名的大小写，由 dialect 内部实现
                 return NacosDatabaseDialect.this.delegate.getQuotedIdentifier(identifier);
             }
         }).asList();
