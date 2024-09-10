@@ -7,7 +7,7 @@ import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 public class OracleDatabaseDialect extends NacosDatabaseDialect {
     public OracleDatabaseDialect(){
         super(DatabaseNames.ORACLE);
-        this.identifierQuotedMode = IdentifierQuotedMode.MIXED;
+        this.identifierQuotedMode = IdentifierQuotedMode.UNQUOTED;
     }
 
     @Override
