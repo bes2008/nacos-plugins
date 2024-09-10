@@ -1,7 +1,7 @@
 package com.jn.nacos.plugin.datasource;
 
 
-public class DatabaseIds {
+public class DatabaseNames {
     public static final String MYSQL = "mysql";
 
     public static final String DERBY = "derby";

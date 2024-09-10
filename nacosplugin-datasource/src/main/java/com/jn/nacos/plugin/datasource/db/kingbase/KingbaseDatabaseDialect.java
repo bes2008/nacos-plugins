@@ -1,11 +1,11 @@
-package com.jn.nacos.plugin.datasource.db.oracle;
+package com.jn.nacos.plugin.datasource.db.kingbase;
 
 import com.jn.nacos.plugin.datasource.DatabaseNames;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 
-public class OracleDatabaseDialect extends NacosDatabaseDialect {
-    public OracleDatabaseDialect(){
-        super(DatabaseNames.ORACLE);
+public class KingbaseDatabaseDialect extends NacosDatabaseDialect {
+    public KingbaseDatabaseDialect() {
+        super(DatabaseNames.KINGBASE);
     }
 
     @Override
