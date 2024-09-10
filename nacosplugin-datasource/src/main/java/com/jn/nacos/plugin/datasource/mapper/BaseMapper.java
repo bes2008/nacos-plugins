@@ -10,7 +10,9 @@ import com.jn.langx.util.Objs;
 import com.jn.langx.util.Preconditions;
 import com.jn.langx.util.Strings;
 import com.jn.langx.util.collection.Pipeline;
+import com.jn.langx.util.enums.Enums;
 import com.jn.nacos.plugin.datasource.DatabaseNames;
+import com.jn.nacos.plugin.datasource.IdentifierQuotedMode;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialectManager;
 import com.jn.sqlhelper.dialect.Dialect;
@@ -21,11 +23,25 @@ import java.util.List;
 public abstract class BaseMapper extends AbstractMapper {
     private final String databaseName;
     protected NacosDatabaseDialect dialect;
+    private IdentifierQuotedMode identifierQuotedModeInDDL;
 
     protected BaseMapper() {
         this.databaseName = getConfiguredDatabaseName();
+        this.identifierQuotedModeInDDL = getConfiguredIdentifierQuotedMode();
         Preconditions.checkTrue(!Objs.equals(DatabaseNames.UNSUPPORTED, this.databaseName), "database {} is unsupported", this.databaseName);
         this.dialect = NacosDatabaseDialectManager.getInstance().getDialect(this.databaseName);
+    }
+
+    private IdentifierQuotedMode getConfiguredIdentifierQuotedMode(){
+        String modeString = EnvUtil.getProperty("spring.sql.identifier.quoted.mode");
+        IdentifierQuotedMode mode = null;
+        if(Strings.isNotBlank(modeString)){
+            mode = Enums.ofName(IdentifierQuotedMode.class, modeString);
+        }
+        if(mode==null){
+            mode = IdentifierQuotedMode.QUOTED;
+        }
+        return mode;
     }
 
     private String getConfiguredDatabaseName(){
@@ -66,6 +82,24 @@ public abstract class BaseMapper extends AbstractMapper {
         return dialect;
     }
 
+    public String getIdentifierInDb(String identifier){
+        String string;
+        switch (identifierQuotedModeInDDL){
+            case QUOTED:
+                string = dialect.wrapQuote(identifier, Dialect.IdentifierCase.LOWER_CASE);
+                break;
+            case UNQUOTED:
+                // 没有加引号，则是按照数据库对未加引号的默认行为来处理
+                string = dialect.wrapQuote(identifier, null);
+                break;
+            case MIXED:
+            default:
+                string = dialect.wrapQuote(identifier, Dialect.IdentifierCase.UPPER_CASE);
+                break;
+        }
+        return string;
+    }
+
     @Override
     public String getFunction(String functionName) {
         return this.dialect.getFunction(functionName);
@@ -86,7 +120,7 @@ public abstract class BaseMapper extends AbstractMapper {
         String method = "SELECT ";
         sql.append(method);
         for (int i = 0; i < columns.size(); i++) {
-            sql.append(getDialect().wrapQuote(columns.get(i)));
+            sql.append(getIdentifierInDb(columns.get(i)));
             if (i == columns.size() - 1) {
                 sql.append(" ");
             } else {
@@ -123,7 +157,7 @@ public abstract class BaseMapper extends AbstractMapper {
             if(Strings.equalsIgnoreCase(columnName, "tenant_id")){
                 tenantIdColumnIndex = i;
             }
-            sql.append(getDialect().wrapQuote(columnName));
+            sql.append(getIdentifierInDb(columnName));
             if (i != columns.size() - 1) {
                 sql.append(", ");
             }
@@ -162,9 +196,9 @@ public abstract class BaseMapper extends AbstractMapper {
             String[] parts = columns.get(i).split("@");
             String column = getDialect().unwrapQuote(parts[0]);
             if (parts.length == 2) {
-                sql.append(getDialect().wrapQuote(column)).append(" = ").append(getFunction(parts[1]));
+                sql.append(getIdentifierInDb(column)).append(" = ").append(getFunction(parts[1]));
             } else {
-                sql.append(getDialect().wrapQuote(column)).append(" = ").append("?");
+                sql.append(getIdentifierInDb(column)).append(" = ").append("?");
             }
             if (i != columns.size() - 1) {
                 sql.append(",");
@@ -222,9 +256,9 @@ public abstract class BaseMapper extends AbstractMapper {
 
             if(Strings.equalsIgnoreCase(condition, "tenant_id") && getDialect().isAutoCastEmptyStringToNull()){
                 String castNullToDefaultExpression = getDialect().genCastNullToDefaultExpression("?", getDefaultTenantId());
-                sql.append(getDialect().wrapQuote(condition)).append(" = ").append(castNullToDefaultExpression);
+                sql.append(getIdentifierInDb(condition)).append(" = ").append(castNullToDefaultExpression);
             }else{
-                sql.append(getDialect().wrapQuote(condition)).append(" = ").append("?");
+                sql.append(getIdentifierInDb(condition)).append(" = ").append("?");
             }
 
             if (i != where.size() - 1) {
