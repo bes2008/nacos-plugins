@@ -8,7 +8,6 @@
   + MSSQL (SQLServer)
   + OpenGauss （高斯）
   + Oracle(8, 9, 10, 11, 12 ... )
-  + oscar （神通）
   + PostgreSQL
 
 #### 软件架构
