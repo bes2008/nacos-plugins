@@ -19,47 +19,47 @@ import com.jn.sqlhelper.dialect.DialectRegistry;
 import java.util.List;
 
 public abstract class BaseMapper extends AbstractMapper {
-    private final String databaseId;
+    private final String databaseName;
     protected NacosDatabaseDialect dialect;
 
     protected BaseMapper() {
-        this.databaseId = getConfiguredDatabaseId();
-        Preconditions.checkTrue(!Objs.equals(DatabaseNames.UNSUPPORTED, this.databaseId), "database {} is unsupported", this.databaseId);
-        this.dialect = NacosDatabaseDialectManager.getInstance().getDialect(this.databaseId);
+        this.databaseName = getConfiguredDatabaseName();
+        Preconditions.checkTrue(!Objs.equals(DatabaseNames.UNSUPPORTED, this.databaseName), "database {} is unsupported", this.databaseName);
+        this.dialect = NacosDatabaseDialectManager.getInstance().getDialect(this.databaseName);
     }
 
-    private String getConfiguredDatabaseId(){
-        String databaseId = EnvUtil.getProperty("spring.sql.init.platform");
-        if(Strings.isBlank(databaseId)){
+    private String getConfiguredDatabaseName(){
+        String databaseName = EnvUtil.getProperty("spring.sql.init.platform");
+        if(Strings.isBlank(databaseName)){
             // 这个是 nacos 中更早的配置 datasource 类型的方式
-            databaseId = EnvUtil.getProperty("spring.datasource.platform");
+            databaseName = EnvUtil.getProperty("spring.datasource.platform");
         }
-        if(Strings.isBlank(databaseId)){
+        if(Strings.isBlank(databaseName)){
             // 内嵌数据库 derby
             if (EnvUtil.getStandaloneMode()){
-                databaseId = DatabaseNames.DERBY;
+                databaseName = DatabaseNames.DERBY;
             }
             else{ // 默认数据库 MySQL
-                databaseId = DatabaseNames.MSSQL;
+                databaseName = DatabaseNames.MSSQL;
             }
         }else{
-            Dialect dialect = DialectRegistry.getInstance().getDialectByName(databaseId);
+            Dialect dialect = DialectRegistry.getInstance().getDialectByName(databaseName);
             if(dialect==null){
-                databaseId = DatabaseNames.UNSUPPORTED;
+                databaseName = DatabaseNames.UNSUPPORTED;
             }
         }
 
         // 因为 mysql 不支持 在子查询中 的limit，所以 不使用自定义的SQL，而使用官方的插件
-        if(Strings.isBlank(databaseId) || Objs.equals(DatabaseNames.DERBY, databaseId) || Objs.equals(DatabaseNames.MYSQL, databaseId)){
-            databaseId= DatabaseNames.UNDEFINED;
+        if(Strings.isBlank(databaseName) || Objs.equals(DatabaseNames.DERBY, databaseName) || Objs.equals(DatabaseNames.MYSQL, databaseName)){
+            databaseName = DatabaseNames.UNDEFINED;
         }
-        return databaseId;
+        return databaseName;
     }
 
 
     @Override
     public String getDataSource() {
-        return databaseId;
+        return databaseName;
     }
 
     public NacosDatabaseDialect getDialect() {
