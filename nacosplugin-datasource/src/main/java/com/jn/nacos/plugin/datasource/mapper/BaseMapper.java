@@ -90,14 +90,13 @@ public abstract class BaseMapper extends AbstractMapper {
                 string = dialect.wrapQuote(identifier, Dialect.IdentifierCase.LOWER_CASE);
                 break;
             case UNQUOTED:
-                // 没有加引号，则是按照数据库对未加引号的默认行为来处理
-                // 正常情况下，应该使用unwrapQuote去掉引号，但可能在某些数据库上出错，例如 mysql
-                string = dialect.wrapQuote(identifier, null);
+                // 去掉引号
+                string = dialect.unwrapQuote(identifier);
                 break;
             case MIXED:
             default:
-                // 在混合模式下，不加引号
-                string = dialect.unwrapQuote(identifier);
+                // 按照数据库对未加引号的默认行为来处理
+                string = dialect.wrapQuote(identifier, null);
                 break;
         }
         return string;
