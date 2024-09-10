@@ -114,10 +114,18 @@ public abstract class NacosDatabaseDialect {
         return Pipeline.of(identifiers).map(new Function<String, String>() {
             @Override
             public String apply(String identifier) {
-                // 数据库表名、列名的大小写，由 dialect 内部实现
-                return NacosDatabaseDialect.this.delegate.getQuotedIdentifier(identifier);
+                return wrapQuote(identifier);
             }
         }).asList();
+    }
+
+    public String wrapQuote(String identifier){
+        // 数据库表名、列名的大小写，由 dialect 内部实现
+        return this.delegate.getQuotedIdentifier(identifier);
+    }
+
+    public String unwrapQuote(String identifier){
+        return this.delegate.getUnquoteIdentifier(identifier);
     }
 
     public boolean isAutoCastEmptyStringToNull(){

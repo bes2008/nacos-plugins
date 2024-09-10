@@ -77,20 +77,16 @@ public abstract class BaseMapper extends AbstractMapper {
 
     /**
      *
-     * @param quotedColumns The columns
+     * @param columns The columns
      * @param where The where params
      */
     @Override
-    public String select(List<String> quotedColumns, List<String> where) {
-        List<String> columns = this.dialect.wrapQuotes(quotedColumns);
-        return generateSelectSql(columns, where);
-    }
-    private String generateSelectSql(List<String> columns, List<String> where){
+    public String select(List<String> columns, List<String> where) {
         StringBuilder sql = new StringBuilder();
         String method = "SELECT ";
         sql.append(method);
         for (int i = 0; i < columns.size(); i++) {
-            sql.append(columns.get(i));
+            sql.append(getDialect().wrapQuote(columns.get(i)));
             if (i == columns.size() - 1) {
                 sql.append(" ");
             } else {
@@ -112,11 +108,7 @@ public abstract class BaseMapper extends AbstractMapper {
     }
 
     @Override
-    public String insert(List<String> quotedColumns) {
-        List<String> columns = this.dialect.wrapQuotes(quotedColumns);
-        return genInsertSql(columns);
-    }
-    public String genInsertSql(List<String> columns) {
+    public String insert(List<String> columns) {
         StringBuilder sql = new StringBuilder();
         String method = "INSERT INTO ";
         sql.append(method);
@@ -127,11 +119,11 @@ public abstract class BaseMapper extends AbstractMapper {
         int size = columns.size();
         sql.append("(");
         for (int i = 0; i < size; i++) {
-            String columnName= columns.get(i).split("@")[0];
-            if(Objs.equals(columnName, "tenant_id")){
+            String columnName = getDialect().unwrapQuote(columns.get(i).split("@")[0]);
+            if(Strings.equalsIgnoreCase(columnName, "tenant_id")){
                 tenantIdColumnIndex = i;
             }
-            sql.append(columnName);
+            sql.append(getDialect().wrapQuote(columnName));
             if (i != columns.size() - 1) {
                 sql.append(", ");
             }
@@ -160,13 +152,7 @@ public abstract class BaseMapper extends AbstractMapper {
     }
 
     @Override
-    public String update(List<String> quotedColumns, List<String> where) {
-        List<String> columns = this.dialect.wrapQuotes(quotedColumns);
-        return genUpdateSql(columns, where);
-    }
-
-    public String genUpdateSql(List<String> columns, List<String> where) {
-
+    public String update(List<String> columns, List<String> where) {
         StringBuilder sql = new StringBuilder();
         String method = "UPDATE ";
         sql.append(method);
@@ -174,11 +160,11 @@ public abstract class BaseMapper extends AbstractMapper {
 
         for (int i = 0; i < columns.size(); i++) {
             String[] parts = columns.get(i).split("@");
-            String column = parts[0];
+            String column = getDialect().unwrapQuote(parts[0]);
             if (parts.length == 2) {
-                sql.append(column).append(" = ").append(getFunction(parts[1]));
+                sql.append(getDialect().wrapQuote(column)).append(" = ").append(getFunction(parts[1]));
             } else {
-                sql.append(column).append(" = ").append("?");
+                sql.append(getDialect().wrapQuote(column)).append(" = ").append("?");
             }
             if (i != columns.size() - 1) {
                 sql.append(",");
@@ -238,13 +224,13 @@ public abstract class BaseMapper extends AbstractMapper {
     protected final String genWhereClause(List<String> where) {
         StringBuilder sql = new StringBuilder(" WHERE ");
         for (int i = 0; i < where.size(); i++) {
-            String condition = where.get(i);
+            String condition = getDialect().unwrapQuote(where.get(i));
 
             if(Strings.equalsIgnoreCase(condition, "tenant_id") && getDialect().isAutoCastEmptyStringToNull()){
                 String castNullToDefaultExpression = getDialect().genCastNullToDefaultExpression("?", getDefaultTenantId());
-                sql.append("tenant_id = ").append(castNullToDefaultExpression);
+                sql.append(getDialect().wrapQuote(condition)).append(" = ").append(castNullToDefaultExpression);
             }else{
-                sql.append(condition).append(" = ").append("?");
+                sql.append(getDialect().wrapQuote(condition)).append(" = ").append("?");
             }
 
             if (i != where.size() - 1) {
