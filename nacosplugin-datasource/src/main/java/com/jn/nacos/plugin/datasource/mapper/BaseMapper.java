@@ -185,9 +185,6 @@ public abstract class BaseMapper extends AbstractMapper {
 
     @Override
     public String delete(List<String> where) {
-        return genDeleteSql(where);
-    }
-    private String genDeleteSql(List<String> where) {
         StringBuilder sql = new StringBuilder();
         String method = "DELETE ";
         sql.append(method).append("FROM ").append(getTableName()).append(" ");
@@ -202,9 +199,6 @@ public abstract class BaseMapper extends AbstractMapper {
 
     @Override
     public String count(List<String> where) {
-        return genCountSql(where);
-    }
-    private String genCountSql(List<String> where) {
         StringBuilder sql = new StringBuilder();
         String method = "SELECT ";
         sql.append(method);
