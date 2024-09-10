@@ -91,6 +91,7 @@ public abstract class BaseMapper extends AbstractMapper {
                 break;
             case UNQUOTED:
                 // 没有加引号，则是按照数据库对未加引号的默认行为来处理
+                // 正常情况下，应该使用unwrapQuote去掉引号，但可能在某些数据库上出错，例如 mysql
                 string = dialect.wrapQuote(identifier, null);
                 break;
             case MIXED:
