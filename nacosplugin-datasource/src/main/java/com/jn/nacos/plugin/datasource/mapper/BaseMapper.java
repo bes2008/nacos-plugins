@@ -27,16 +27,22 @@ public abstract class BaseMapper extends AbstractMapper {
 
     protected BaseMapper() {
         this.databaseName = getConfiguredDatabaseName();
-        this.identifierQuotedModeInDDL = getConfiguredIdentifierQuotedMode();
         Preconditions.checkTrue(!Objs.equals(DatabaseNames.UNSUPPORTED, this.databaseName), "database {} is unsupported", this.databaseName);
         this.dialect = NacosDatabaseDialectManager.getInstance().getDialect(this.databaseName);
+        this.identifierQuotedModeInDDL = getConfiguredIdentifierQuotedMode();
     }
 
+    /**
+     * 当使用的 create-schema.sql, create-tables.sql 不是插件提供的，需要指定该配置。
+     */
     private IdentifierQuotedMode getConfiguredIdentifierQuotedMode(){
         String modeString = EnvUtil.getProperty("db.sql.identifier.quoted.mode");
         IdentifierQuotedMode mode = null;
         if(Strings.isNotBlank(modeString)){
             mode = Enums.ofName(IdentifierQuotedMode.class, modeString);
+        }
+        if(mode==null){
+            mode = this.dialect.getPluginProvidedDDLIdentifierQuotedMode();
         }
         if(mode==null){
             mode = IdentifierQuotedMode.QUOTED;

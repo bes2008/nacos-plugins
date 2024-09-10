@@ -19,12 +19,23 @@ public abstract class NacosDatabaseDialect {
     private String name;
     private Dialect delegate;
     private Map<String, String> functionMap;
+
+    /**
+     * 插件中提供在 schema DDL 文件中， identifier 的默认模式
+     */
+    protected IdentifierQuotedMode identifierQuotedMode;
+
     protected NacosDatabaseDialect(String name){
         Preconditions.checkNotEmpty(name, "invalid dialect in class {}", Reflects.getFQNClassName(this.getClass()));
         this.name = name;
         String sqlhelperDialect = getCustomizedDialect(this.name);
         this.delegate = DialectRegistry.getInstance().gaussDialect(sqlhelperDialect);
         this.functionMap = initFunctionMap();
+        this.identifierQuotedMode = IdentifierQuotedMode.QUOTED;
+    }
+
+    public IdentifierQuotedMode getPluginProvidedDDLIdentifierQuotedMode(){
+        return identifierQuotedMode;
     }
 
     private static String getCustomizedDialect(String dialect){
