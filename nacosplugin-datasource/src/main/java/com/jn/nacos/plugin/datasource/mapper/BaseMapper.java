@@ -43,7 +43,7 @@ public abstract class BaseMapper extends AbstractMapper {
                 databaseName = DatabaseNames.MSSQL;
             }
         }else{
-            Dialect dialect = DialectRegistry.getInstance().getDialectByName(databaseName);
+            Dialect dialect = DialectRegistry.getInstance().gaussDialect(databaseName);
             if(dialect==null){
                 databaseName = DatabaseNames.UNSUPPORTED;
             }

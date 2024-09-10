@@ -25,7 +25,7 @@ public abstract class NacosDatabaseDialect {
         Preconditions.checkNotEmpty(name, "invalid dialect in class {}", Reflects.getFQNClassName(this.getClass()));
         this.name = name;
         String sqlhelperDialect = getCustomizedDialect(this.name);
-        this.delegate = DialectRegistry.getInstance().getDialectByName(sqlhelperDialect);
+        this.delegate = DialectRegistry.getInstance().gaussDialect(sqlhelperDialect);
         this.functionMap = initFunctionMap();
     }
 

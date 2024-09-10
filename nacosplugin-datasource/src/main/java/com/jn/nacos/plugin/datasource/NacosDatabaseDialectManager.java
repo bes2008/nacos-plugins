@@ -2,14 +2,11 @@ package com.jn.nacos.plugin.datasource;
 
 import com.alibaba.nacos.common.spi.NacosServiceLoader;
 import com.jn.langx.util.collection.Maps;
-import com.jn.langx.util.logging.Loggers;
-import org.slf4j.Logger;
 
 import java.util.Collection;
 import java.util.Map;
 
 public class NacosDatabaseDialectManager {
-    private static final Logger logger = Loggers.getLogger(NacosDatabaseDialectManager.class);
 
     private Map<String, NacosDatabaseDialect> dialectMap;
 
