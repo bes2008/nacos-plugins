@@ -9,11 +9,6 @@ public class KingbaseDatabaseDialect extends NacosDatabaseDialect {
     }
 
     @Override
-    public boolean isAutoCastEmptyStringToNull() {
-        return true;
-    }
-
-    @Override
     public String genCastNullToDefaultExpression(String expressionOrIdentifier, String defaultValue) {
         return " NVL("+expressionOrIdentifier+", '"+defaultValue+"') ";
     }
