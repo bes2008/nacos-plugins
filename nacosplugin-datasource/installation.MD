@@ -162,7 +162,7 @@ db.user.0=C##NACOS
 db.password.0=NACOS_PASSWORD
 db.pool.config.driverClassName=oracle.jdbc.OracleDriver
 # 指定为 MIXED、UNQUOTED 两种模式均可
-spring.sql.identifier.quoted.mode=MIXED
+db.sql.identifier.quoted.mode=MIXED
 ```
 
 3. 目前使用Oracle的问题

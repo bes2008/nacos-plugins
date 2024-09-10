@@ -33,7 +33,7 @@ public abstract class BaseMapper extends AbstractMapper {
     }
 
     private IdentifierQuotedMode getConfiguredIdentifierQuotedMode(){
-        String modeString = EnvUtil.getProperty("spring.sql.identifier.quoted.mode");
+        String modeString = EnvUtil.getProperty("db.sql.identifier.quoted.mode");
         IdentifierQuotedMode mode = null;
         if(Strings.isNotBlank(modeString)){
             mode = Enums.ofName(IdentifierQuotedMode.class, modeString);
