@@ -161,8 +161,6 @@ db.url.0=jdbc:oracle:thin:@//localhost:1521/FREE
 db.user.0=C##NACOS
 db.password.0=NACOS_PASSWORD
 db.pool.config.driverClassName=oracle.jdbc.OracleDriver
-# 指定为 MIXED、UNQUOTED 两种模式均可
-db.sql.identifier.quoted.mode=MIXED
 ```
 
 3. 目前使用Oracle的问题
