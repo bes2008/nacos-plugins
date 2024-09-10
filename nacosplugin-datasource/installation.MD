@@ -72,6 +72,12 @@ db.pool.config.driverClassName=dm.jdbc.driver.DmDriver
 
 ```
 
+4. 注意事项
+```markdown
+1） 要指定数据库忽略大小写
+```
+
+
 ## 支持Kingbase
 1. jdbc配置
 ```properties
@@ -155,7 +161,6 @@ db.url.0=jdbc:oracle:thin:@//localhost:1521/FREE
 db.user.0=C##NACOS
 db.password.0=NACOS_PASSWORD
 db.pool.config.driverClassName=oracle.jdbc.OracleDriver
-
 ```
 
 3. 目前使用Oracle的问题

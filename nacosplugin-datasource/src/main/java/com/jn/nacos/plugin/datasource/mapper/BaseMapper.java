@@ -95,8 +95,8 @@ public abstract class BaseMapper extends AbstractMapper {
                 break;
             case MIXED:
             default:
-                // 在混全模式下，则是按照 SQL-92 标准，统一使用大写形式
-                string = dialect.wrapQuote(identifier, Dialect.IdentifierCase.UPPER_CASE);
+                // 在混合模式下，不加引号
+                string = dialect.unwrapQuote(identifier);
                 break;
         }
         return string;
