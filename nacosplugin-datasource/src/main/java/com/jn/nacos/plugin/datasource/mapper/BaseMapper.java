@@ -86,6 +86,7 @@ public abstract class BaseMapper extends AbstractMapper {
         String string;
         switch (identifierQuotedModeInDDL){
             case QUOTED:
+                // 这个要求 DDL文件中，所有的表名、列名使用小写形式
                 string = dialect.wrapQuote(identifier, Dialect.IdentifierCase.LOWER_CASE);
                 break;
             case UNQUOTED:
@@ -94,6 +95,7 @@ public abstract class BaseMapper extends AbstractMapper {
                 break;
             case MIXED:
             default:
+                // 在混全模式下，则是按照 SQL-92 标准，统一使用大写形式
                 string = dialect.wrapQuote(identifier, Dialect.IdentifierCase.UPPER_CASE);
                 break;
         }
