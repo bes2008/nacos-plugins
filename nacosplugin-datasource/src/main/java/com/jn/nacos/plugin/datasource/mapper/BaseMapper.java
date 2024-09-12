@@ -277,8 +277,10 @@ public abstract class BaseMapper extends AbstractMapper {
     }
 
     protected boolean hasEncryptedDataKeyColumn(){
-        String currentVersion = VersionUtils.getFullClientVersion();
-        return VersionUtils.compareVersion(currentVersion, "2.1.0")>=0;
+        String currentVersion = VersionUtils.version;
+        String[] segments = Strings.split(currentVersion, ".");
+        String nacosVersion = Strings.join(".", segments, 0, 3);
+        return VersionUtils.compareVersion(nacosVersion, "2.1.0")>=0;
     }
     private static final String NAMESPACE_PUBLIC_KEY = "public";
     protected final String getDefaultTenantId(){
