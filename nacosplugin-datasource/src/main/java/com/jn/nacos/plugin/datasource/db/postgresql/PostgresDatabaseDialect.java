@@ -10,11 +10,7 @@ public class PostgresDatabaseDialect extends NacosDatabaseDialect {
 
     @Override
     public boolean isAutoCastEmptyStringToNull() {
-        return true;
-    }
-
-    @Override
-    public String genCastNullToDefaultExpression(String expressionOrIdentifier, String defaultValue) {
-        return " COALESCE("+expressionOrIdentifier+", '"+defaultValue+"') ";
+        // 此测试结果基于 postgresql 15
+        return false;
     }
 }
