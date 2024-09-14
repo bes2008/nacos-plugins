@@ -132,6 +132,9 @@ public abstract class NacosDatabaseDialect {
         return false;
     }
 
+    /**
+     * 为了应对存入 "" 字符串时，被当作 null 处理的情况
+     */
     public String genCastNullToDefaultExpression(String expressionOrIdentifier,@Nullable String defaultValue){
         return expressionOrIdentifier;
     }
