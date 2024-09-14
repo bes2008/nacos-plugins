@@ -71,9 +71,15 @@ public abstract class BaseMapper extends AbstractMapper {
             }
         }
 
-        // 因为 mysql 不支持 在子查询中 的limit，所以 不使用自定义的SQL，而使用官方的插件
-        if(Strings.isBlank(databaseName) || Objs.equals(DatabaseNames.DERBY, databaseName) || Objs.equals(DatabaseNames.MYSQL, databaseName)){
+        if(Strings.isBlank(databaseName)){
             databaseName = DatabaseNames.UNDEFINED;
+        }
+
+        if(Objs.equals(DatabaseNames.DERBY, databaseName) || Objs.equals(DatabaseNames.MYSQL, databaseName)){
+            boolean builtinDatasourcePluginEnabled = Boolean.parseBoolean(EnvUtil.getProperty("spring.datasource.plugin.builtin.enabled","true"));
+            if(builtinDatasourcePluginEnabled) {
+                databaseName = DatabaseNames.UNDEFINED;
+            }
         }
         return databaseName;
     }
