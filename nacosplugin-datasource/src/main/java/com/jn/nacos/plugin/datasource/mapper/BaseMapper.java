@@ -77,6 +77,8 @@ public abstract class BaseMapper extends AbstractMapper {
 
         if(Objs.equals(DatabaseNames.DERBY, databaseName) || Objs.equals(DatabaseNames.MYSQL, databaseName)){
             boolean builtinDatasourcePluginEnabled = Boolean.parseBoolean(EnvUtil.getProperty("spring.datasource.plugin.builtin.enabled","true"));
+            // 自定义的插件会优先于 内置的 derby, mysql 插件
+            // 放到 MapperRegistry 中使用了 map#putIfAbsent，所以要启用 内置的 derby, mysql，必须保证 自定义的插件名字不能是 mysql,derby
             if(builtinDatasourcePluginEnabled) {
                 databaseName = DatabaseNames.UNDEFINED;
             }
