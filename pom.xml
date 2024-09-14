@@ -29,7 +29,7 @@
         <commons-codec.version>1.17.0</commons-codec.version>
         <nacos.version>2.4.1</nacos.version>
         <spring.version>5.3.34</spring.version>
-        <sqlhelper.version>5.0.5</sqlhelper.version>
+        <sqlhelper.version>5.0.6</sqlhelper.version>
     </properties>
 
     <url>https://gitee.com/coderjn/nacos-plugins</url>
