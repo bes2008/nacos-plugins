@@ -1,3 +1,7 @@
+## 2.0.7
+1. 支持禁用nacos默认插件derby, mysql
+2. 提供derby 的sql schema
+3. 支持derby数据库
 ## 2.0.6
 1. 解决OpenGauss中将`''`处理成NULL的情况
 ## 2.0.5
