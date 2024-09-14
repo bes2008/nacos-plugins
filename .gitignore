@@ -24,3 +24,6 @@ hs_err_pid*
 .idea/
 .gitee/
 .git/
+target/
+
+dependency-reduced-pom.xml

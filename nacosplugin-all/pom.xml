@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.bes2008.solution.nacosplugins</groupId>
+        <artifactId>nacos-plugins</artifactId>
+        <version>2.0.6</version>
+    </parent>
+
+    <artifactId>nacosplugin-all</artifactId>
+    <name>${project.groupId}:${project.artifactId}:${project.version}</name>
+    <properties>
+        <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.bes2008.solution.nacosplugins</groupId>
+            <artifactId>nacosplugin-datasource</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>${maven-shade-plugin.version}</version>
+                <configuration>
+                    <createDependencyReducedPom>true</createDependencyReducedPom>
+                    <useDependencyReducedPomInJar>true</useDependencyReducedPomInJar>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>shade-all</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <useBaseVersion>true</useBaseVersion>
+                            <shadedArtifactAttached>false</shadedArtifactAttached>
+                            <artifactSet>
+                                <includes>
+                                    <include>io.github.bes2008.solution.nacosplugins</include>
+                                    <include>io.github.bes2008.solution.sqlhelper</include>
+                                    <include>io.github.bes2008.solution.langx:langx-java</include>
+                                </includes>
+                            </artifactSet>
+
+                            <filters>
+                                <filter>
+                                    <artifact>io.github.bes2008.solution.nacosplugins</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/maven/**</exclude>
+                                    </excludes>
+                                </filter>
+                                <filter>
+                                    <artifact>io.github.bes2008.solution.sqlhelper:sqlhelper-dialect</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/maven/**</exclude>
+
+                                        <exclude>com/jn/sqlhelper/dialect/config/**</exclude>
+                                        <exclude>com/jn/sqlhelper/dialect/expression/**</exclude>
+                                        <exclude>com/jn/sqlhelper/dialect/instrument/**</exclude>
+                                        <exclude>com/jn/sqlhelper/dialect/orderby/**</exclude>
+                                        <exclude>com/jn/sqlhelper/dialect/pagination/Paged*</exclude>
+                                        <exclude>com/jn/sqlhelper/dialect/pagination/*Pagin*</exclude>
+                                        <exclude>com/jn/sqlhelper/dialect/parameter/**</exclude>
+                                        <exclude>com/jn/sqlhelper/dialect/sqlparser/**</exclude>
+                                        <exclude>com/jn/sqlhelper/dialect/tenant/**</exclude>
+                                        <exclude>com/jn/sqlhelper/dialect/SelectRequest*</exclude>
+                                        <exclude>com/jn/sqlhelper/dialect/SqlRequest*</exclude>
+                                    </excludes>
+                                </filter>
+                                <filter>
+                                    <artifact>io.github.bes2008.solution.sqlhelper:sqlhelper-common</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/maven/**</exclude>
+
+                                        <exclude>com/jn/sqlhelper/common/batch/**</exclude>
+                                        <exclude>com/jn/sqlhelper/common/connection/**</exclude>
+                                        <exclude>com/jn/sqlhelper/common/er/**</exclude>
+                                        <exclude>com/jn/sqlhelper/common/formatter/**</exclude>
+                                        <exclude>com/jn/sqlhelper/common/jdbc/**</exclude>
+                                        <exclude>com/jn/sqlhelper/common/resultset/**</exclude>
+                                        <exclude>com/jn/sqlhelper/common/security/**</exclude>
+                                        <exclude>com/jn/sqlhelper/common/statement/**</exclude>
+                                        <exclude>com/jn/sqlhelper/common/symbolmapper/**</exclude>
+                                        <exclude>com/jn/sqlhelper/common/transaction/**</exclude>
+                                    </excludes>
+                                </filter>
+                                <filter>
+                                    <artifact>io.github.bes2008.solution.langx:langx-java</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/maven/**</exclude>
+
+                                        <exclude>com/jn/langx/accessor/**</exclude>
+                                        <exclude>com/jn/langx/beans/**</exclude>
+                                        <exclude>com/jn/langx/cache/**</exclude>
+                                        <exclude>com/jn/langx/chain/**</exclude>
+                                        <exclude>com/jn/langx/codec/**</exclude>
+                                        <exclude>com/jn/langx/configuration/**</exclude>
+                                        <exclude>com/jn/langx/environment/**</exclude>
+                                        <exclude>com/jn/langx/event/**</exclude>
+                                        <exclude>com/jn/langx/http/**</exclude>
+                                        <exclude>com/jn/langx/invocation/**</exclude>
+                                        <exclude>com/jn/langx/io/stream/bandwidthlimit/**</exclude>
+                                        <exclude>com/jn/langx/io/stream/obj/**</exclude>
+                                        <exclude>com/jn/langx/io/stream/BufferEx*</exclude>
+                                        <exclude>com/jn/langx/io/stream/ConsumerTo*</exclude>
+                                        <exclude>com/jn/langx/io/stream/IOStream*</exclude>
+                                        <exclude>com/jn/langx/io/stream/InputStream*</exclude>
+                                        <exclude>com/jn/langx/io/stream/OutputStream*</exclude>
+                                        <exclude>com/jn/langx/io/stream/Progress*</exclude>
+                                        <exclude>com/jn/langx/io/stream/Unicode*</exclude>
+                                        <exclude>com/jn/langx/io/stream/UnsyncByte*</exclude>
+                                        <exclude>com/jn/langx/io/stream/Wrapped*</exclude>
+                                        <exclude>com/jn/langx/management/**</exclude>
+                                        <exclude>com/jn/langx/navigation/**</exclude>
+                                        <exclude>com/jn/langx/pipeline/**</exclude>
+                                        <exclude>com/jn/langx/plugin/**</exclude>
+                                        <exclude>com/jn/langx/propertyset/**</exclude>
+                                        <exclude>com/jn/langx/repository/**</exclude>
+                                        <exclude>com/jn/langx/security/**</exclude>
+
+                                        <exclude>com/jn/langx/text/dfa/**</exclude>
+                                        <exclude>com/jn/langx/text/fragment/**</exclude>
+                                        <exclude>com/jn/langx/text/grok/**</exclude>
+                                        <exclude>com/jn/langx/text/i18n/**</exclude>
+                                        <exclude>com/jn/langx/text/ini/**</exclude>
+                                        <exclude>com/jn/langx/text/lexer/**</exclude>
+                                        <exclude>com/jn/langx/text/repository/**</exclude>
+                                        <exclude>com/jn/langx/text/sensitive/**</exclude>
+                                        <exclude>com/jn/langx/text/translate/**</exclude>
+                                        <exclude>com/jn/langx/text/xml/**</exclude>
+
+                                        <exclude>com/jn/langx/util/bean/**</exclude>
+                                        <exclude>com/jn/langx/util/bit/**</exclude>
+                                        <exclude>com/jn/langx/util/bloom/**</exclude>
+
+                                        <exclude>com/jn/langx/util/collection/exclusion/**</exclude>
+                                        <exclude>com/jn/langx/util/collection/forwarding/**</exclude>
+                                        <exclude>com/jn/langx/util/collection/graph/**</exclude>
+                                        <exclude>com/jn/langx/util/collection/list/**</exclude>
+                                        <exclude>com/jn/langx/util/collection/multivalue/**</exclude>
+                                        <exclude>com/jn/langx/util/collection/pushback/**</exclude>
+                                        <exclude>com/jn/langx/util/collection/stack/**</exclude>
+                                        <exclude>com/jn/langx/util/collection/tree/**</exclude>
+                                        <exclude>com/jn/langx/util/collection/trie/**</exclude>
+
+                                        <exclude>com/jn/langx/util/concurrent/async/**</exclude>
+                                        <exclude>com/jn/langx/util/concurrent/clhm/**</exclude>
+                                        <exclude>com/jn/langx/util/concurrent/executor/**</exclude>
+                                        <exclude>com/jn/langx/util/concurrent/lock/**</exclude>
+                                        <exclude>com/jn/langx/util/concurrent/ConcurrentCyclicSequence*</exclude>
+                                        <exclude>com/jn/langx/util/concurrent/CopyOnWrite*</exclude>
+                                        <exclude>com/jn/langx/util/concurrent/MpscQueue*</exclude>
+                                        <exclude>com/jn/langx/util/concurrent/ThreadPoolProperties*</exclude>
+
+                                        <exclude>com/jn/langx/util/converter/**</exclude>
+                                        <exclude>com/jn/langx/util/datetime/**</exclude>
+                                        <exclude>com/jn/langx/util/hash/*streming/**</exclude>
+                                        <exclude>com/jn/langx/util/hash/Hashing*Stream*</exclude>
+                                        <exclude>com/jn/langx/util/id/**</exclude>
+
+                                        <exclude>com/jn/langx/util/io/bytes/**</exclude>
+                                        <exclude>com/jn/langx/util/io/unicode/**</exclude>
+                                        <exclude>com/jn/langx/util/io/Channels</exclude>
+                                        <exclude>com/jn/langx/util/io/IODebugger</exclude>
+                                        <exclude>com/jn/langx/util/io/ObjectIOs</exclude>
+
+                                        <exclude>com/jn/langx/util/jar/**</exclude>
+                                        <exclude>com/jn/langx/util/jni/**</exclude>
+                                        <exclude>com/jn/langx/util/memory/**</exclude>
+                                        <exclude>com/jn/langx/util/net/**</exclude>
+                                        <exclude>com/jn/langx/util/pagination/**</exclude>
+                                        <exclude>com/jn/langx/util/pattern/**</exclude>
+                                        <exclude>com/jn/langx/util/progress/**</exclude>
+                                        <exclude>com/jn/langx/util/ranges/**</exclude>
+                                        <exclude>com/jn/langx/util/retry/**</exclude>
+                                        <exclude>com/jn/langx/util/reflect/classparse/**</exclude>
+                                        <exclude>com/jn/langx/util/script/**</exclude>
+                                        <exclude>com/jn/langx/util/timing/**</exclude>
+                                        <exclude>com/jn/langx/util/transformer/**</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

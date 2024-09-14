@@ -1,0 +1,5 @@
+DROP SCHEMA if EXISTS nacos CASCADE;
+CREATE SCHEMA nacos;
+/
+
+exit

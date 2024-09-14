@@ -1,0 +1,9 @@
+com.jn.nacos.plugin.datasource.mapper.CommonConfigInfoAggrMapper
+com.jn.nacos.plugin.datasource.mapper.CommonConfigInfoBetaMapper
+com.jn.nacos.plugin.datasource.mapper.CommonConfigInfoMapper
+com.jn.nacos.plugin.datasource.mapper.CommonConfigInfoTagMapper
+com.jn.nacos.plugin.datasource.mapper.CommonConfigTagRelationMapper
+com.jn.nacos.plugin.datasource.mapper.CommonGroupCapacityMapper
+com.jn.nacos.plugin.datasource.mapper.CommonHistoryConfigInfoMapper
+com.jn.nacos.plugin.datasource.mapper.CommonTenantCapacityMapper
+com.jn.nacos.plugin.datasource.mapper.CommonTenantInfoMapper

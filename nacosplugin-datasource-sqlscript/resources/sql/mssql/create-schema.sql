@@ -1,0 +1,6 @@
+-- DROP SCHEMA IF EXISTS nacos;
+
+-- IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name='nacos') EXEC('CREATE SCHEMA [nacos]');
+
+DROP DATABASE IF EXISTS nacos;
+CREATE DATABASE nacos COLLATE Chinese_PRC_CI_AS ;
