@@ -138,6 +138,7 @@ db.url.0=jdbc:mysql://localhost:3306/nacos?characterEncoding=utf8&connectTimeout
 db.user.0=root
 db.password.0=root_password
 db.pool.config.driverClassName=com.mysql.cj.jdbc.Driver
+# 要禁用 
 ```
 
 
