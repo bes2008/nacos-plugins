@@ -11,12 +11,15 @@ import com.jn.langx.util.Preconditions;
 import com.jn.langx.util.Strings;
 import com.jn.langx.util.collection.Pipeline;
 import com.jn.langx.util.enums.Enums;
+import com.jn.langx.util.logging.Loggers;
+import com.jn.langx.util.reflect.Reflects;
 import com.jn.nacos.plugin.datasource.DatabaseNames;
 import com.jn.nacos.plugin.datasource.IdentifierQuotedMode;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialectManager;
 import com.jn.sqlhelper.dialect.Dialect;
 import com.jn.sqlhelper.dialect.DialectRegistry;
+import org.slf4j.Logger;
 
 import java.util.List;
 
@@ -80,8 +83,11 @@ public abstract class BaseMapper extends AbstractMapper {
             boolean builtinDatasourcePluginEnabled = !Strings.equalsIgnoreCase(EnvUtil.getProperty("spring.datasource.plugin.builtin.enabled","true"),"false");
             // 自定义的插件会优先于 内置的 derby, mysql 插件
             // 放到 MapperManager 中使用了 map#putIfAbsent，所以要启用 内置的 derby, mysql，必须保证 自定义的插件名字不能是 mysql,derby
+            Logger logger = Loggers.getLogger(getClass());
+            logger.info("nacos builtin datasource plugin is {}", builtinDatasourcePluginEnabled?"enabled":"disabled");
             if(builtinDatasourcePluginEnabled) {
                 databaseName = DatabaseNames.UNDEFINED;
+                logger.info("rename the customized mapper {} to {}", Reflects.getFQNClassName(getClass()), databaseName);
             }
         }
         return databaseName;
