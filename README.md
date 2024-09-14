@@ -9,6 +9,7 @@
   + OpenGauss （高斯）
   + Oracle(8, 9, 10, 11, 12 ... )
   + PostgreSQL
+  + Derby
 
 #### 软件架构
 作为nacos的插件使用

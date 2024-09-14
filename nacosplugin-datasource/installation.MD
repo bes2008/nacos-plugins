@@ -138,7 +138,8 @@ db.url.0=jdbc:mysql://localhost:3306/nacos?characterEncoding=utf8&connectTimeout
 db.user.0=root
 db.password.0=root_password
 db.pool.config.driverClassName=com.mysql.cj.jdbc.Driver
-# 要禁用 
+# mysql默认使用nacos 内置的mysql插件，如果要禁用内置mysql插件，可以添加下面的配置
+spring.sql.plugin.builtin.enabled=false
 ```
 
 
@@ -170,3 +171,16 @@ db.pool.config.driverClassName=oracle.jdbc.OracleDriver
     + 问题归属：这个属于 nacos 的Bug，已在 [github 上提交了相关问题](https://github.com/alibaba/nacos/issues/12569)。
     + 问题版本：<=2.4.1
     + 影响范围：只会影响到dump接口，功能不受影响
+
+## 支持Derby
+
+1. 配置
+```properties
+# derby 默认使用 nacos 内置的 derby 插件，如果要禁用内置 derby 插件，可以添加下面的配置
+spring.sql.plugin.builtin.enabled=false
+```
+2. 启动
+```shell
+# 必须以 standalone 模式启动时，且不配置为其它数据库的情况下，才会启用 derby数据库
+<NACOS_HOME>/bin/startup.sh -m standalone 
+```
