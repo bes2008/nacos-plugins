@@ -13,10 +13,7 @@ import com.jn.langx.util.collection.Pipeline;
 import com.jn.langx.util.enums.Enums;
 import com.jn.langx.util.logging.Loggers;
 import com.jn.langx.util.reflect.Reflects;
-import com.jn.nacos.plugin.datasource.DatabaseNames;
-import com.jn.nacos.plugin.datasource.IdentifierQuotedMode;
-import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
-import com.jn.nacos.plugin.datasource.NacosDatabaseDialectManager;
+import com.jn.nacos.plugin.datasource.*;
 import com.jn.sqlhelper.dialect.Dialect;
 import com.jn.sqlhelper.dialect.DialectRegistry;
 import org.slf4j.Logger;
@@ -80,7 +77,8 @@ public abstract class BaseMapper extends AbstractMapper {
 
         if(Objs.equals(DatabaseNames.DERBY, databaseName) || Objs.equals(DatabaseNames.MYSQL, databaseName)){
             // 只要不是false|False 等，就是禁用，默认值为 true
-            boolean builtinDatasourcePluginEnabled = !Strings.equalsIgnoreCase(EnvUtil.getProperty("spring.sql.plugin.builtin.enabled","true"),"false");
+            boolean builtinDatasourcePluginEnabled = supportsBuiltinDatabasePluginReplaced() && (!Strings.equalsIgnoreCase(EnvUtil.getProperty("spring.sql.plugin.builtin.enabled","true"),"false")) ;
+
             // 自定义的插件会优先于 内置的 derby, mysql 插件
             // 放到 MapperManager 中使用了 map#putIfAbsent，所以要启用 内置的 derby, mysql，必须保证 自定义的插件名字不能是 mysql,derby
             Logger logger = Loggers.getLogger(getClass());
@@ -292,11 +290,17 @@ public abstract class BaseMapper extends AbstractMapper {
     }
 
     protected boolean hasEncryptedDataKeyColumn(){
-        String currentVersion = VersionUtils.version;
-        String[] segments = Strings.split(currentVersion, ".");
-        String nacosVersion = Strings.join(".", segments, 0, 3);
-        return VersionUtils.compareVersion(nacosVersion, "2.1.0")>=0;
+        return Utils.versionCompare("2.1.0")>=0;
     }
+
+    /**
+     * 内置 数据库插件 （derby, mysql） 是否可以被替换
+     * @return 是否可替换
+     */
+    protected boolean supportsBuiltinDatabasePluginReplaced(){
+        return Utils.versionCompare("2.3.0")>=0;
+    }
+
     private static final String NAMESPACE_PUBLIC_KEY = "public";
     protected final String getDefaultTenantId(){
         if(getDialect().isAutoCastEmptyStringToNull()){
