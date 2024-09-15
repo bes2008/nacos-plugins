@@ -169,7 +169,7 @@ db.pool.config.driverClassName=oracle.jdbc.OracleDriver
   + 目前nacos 适配Oracle已完毕，但在启动过程中，nacos.log中会有报错，这个错误并不影响 oracle 数据库上使用。
     + 问题原因：是 nacos 启动是会判定 config_info_tag, config_info_beta表是否存在。 这个方法是直接定死的使用了limit 1，没有通过插件的方式。
     + 问题归属：这个属于 nacos 的Bug，已在 [github 上提交了相关问题](https://github.com/alibaba/nacos/issues/12569)。
-    + 问题版本：<=2.4.1
+    + 问题版本：<=2.4.1，已于 nacos 2.4.2 版本修复
     + 影响范围：只会影响到dump接口，功能不受影响
 
 ## 支持Derby
