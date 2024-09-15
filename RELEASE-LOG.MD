@@ -1,3 +1,6 @@
+## 2.0.8
+1. 代码整理，简化 *Mapper 类
+2. 避免dialect等重复创建，重复打印日志
 ## 2.0.7
 1. 支持禁用nacos默认插件derby, mysql
 2. 提供derby 的sql schema
