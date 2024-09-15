@@ -141,8 +141,10 @@ db.pool.config.driverClassName=com.mysql.cj.jdbc.Driver
 # mysql默认使用nacos 内置的mysql插件，如果要禁用内置mysql插件，可以添加下面的配置
 spring.sql.plugin.builtin.enabled=false
 ```
-
-
+3. 版本限制
+```text
+nacos_version >= 2.3.0 时，支持将mysql替换为本插件。  
+```
 
 ## 支持Oracle
 1. 脚本执行
@@ -183,4 +185,8 @@ spring.sql.plugin.builtin.enabled=false
 ```shell
 # 必须以 standalone 模式启动时，且不配置为其它数据库的情况下，才会启用 derby数据库
 <NACOS_HOME>/bin/startup.sh -m standalone 
+```
+3. 版本限制
+```text
+nacos_version >= 2.3.0 时，支持将 derby 替换为本插件。  
 ```
