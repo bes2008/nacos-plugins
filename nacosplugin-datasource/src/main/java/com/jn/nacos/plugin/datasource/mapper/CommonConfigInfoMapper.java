@@ -8,6 +8,7 @@ import com.alibaba.nacos.plugin.datasource.model.MapperResult;
 import com.jn.langx.util.Strings;
 import com.jn.langx.util.collection.Collects;
 import com.jn.langx.util.collection.Lists;
+import com.jn.nacos.plugin.datasource.NacosEnvs;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.sql.Timestamp;
@@ -166,7 +167,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         String sql = "SELECT id,data_id,group_id,tenant_id,app_name," + (needContent ? "content," : "")
-                + "md5,gmt_modified,type "+ (hasEncryptedDataKeyColumn()? ",encrypted_data_key":"")
+                + "md5,gmt_modified,type "+ (NacosEnvs.hasEncryptedDataKeyColumn()? ",encrypted_data_key":"")
                 +" FROM config_info WHERE id > ? " + "ORDER BY id ASC ";
         sql = getDialect().getLimitSql(sql, rowSelection);
         List queryParams = Lists.newArrayList(context.getWhereParameter(FieldConstant.ID));

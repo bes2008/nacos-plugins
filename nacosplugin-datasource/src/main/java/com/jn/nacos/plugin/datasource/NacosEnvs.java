@@ -3,7 +3,7 @@ package com.jn.nacos.plugin.datasource;
 import com.alibaba.nacos.common.utils.VersionUtils;
 import com.jn.langx.util.Strings;
 
-public class Utils {
+public class NacosEnvs {
     public static int versionCompare(String comparedVersion){
         String currentVersion = toNacosStandardVersion(VersionUtils.version);
         String version2 = toNacosStandardVersion(comparedVersion);
@@ -20,7 +20,10 @@ public class Utils {
      * @return 是否可替换
      */
     public static boolean supportsBuiltinDatabasePluginReplaced(){
-        return Utils.versionCompare("2.3.0")>=0;
+        return versionCompare("2.3.0")>=0;
     }
 
+    public static boolean hasEncryptedDataKeyColumn(){
+        return versionCompare("2.1.0")>=0;
+    }
 }
