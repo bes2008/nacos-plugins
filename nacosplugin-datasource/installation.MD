@@ -1,12 +1,12 @@
 ## datasource 插件安装
-1. 将插件、数据库驱动 放到 `nacos/plugins` 目录
+1. 将插件、数据库驱动 放到 `<NACOS_HOME>/plugins` 目录
 ```text
 io.github.bes2008.solution.nacosplugins:nacosplugin-all:jar:VERSION           
 ```
 
 2. 在application.properties中配置数据库
 
-以postgresql 数据库为例，修改 `nacos/conf/application.properties` ：
+以postgresql 数据库为例，修改 `<NACOS_HOME>/conf/application.properties` ：
 ```properties
 # PostgreSQL
 spring.sql.init.platform=postgresql
@@ -19,9 +19,9 @@ db.pool.config.driverClassName=org.postgresql.Driver
 
 3. 初始数据库schema
 
-使用DBeaver 等工具，连接到数据库，执行相关schema初始化。脚本位置：
+使用DBeaver、 数据库 CLI 等工具，连接到数据库，执行相关schema初始化。脚本位置：
 ```text
-nacosplugin-datasource-sqlscripts/resources/sql/ 目录下
+代码仓库的nacosplugin-datasource-sqlscripts/resources/sql/ 目录下
 ```
 4. 启动nacos访问
 
@@ -147,9 +147,9 @@ spring.sql.plugin.builtin.enabled=false
 ## 支持Oracle
 1. 脚本执行
 ```shell
-# 先用 system 创建 C##NACOS用户
+# 先用 system 创建 "C##NACOS" 用户
 sqlplus system/Oracle123_Pswd@localhost:1521/FREE @./create-schema.sql
-# 再用 C##NACOS用户创建表
+# 再用 "C##NACOS" 用户创建表
 sqlplus C##NACOS/NACOS_PASSWORD@localhost:1521/FREE @./create-tables.sql
 ```
 2. jdbc配置
