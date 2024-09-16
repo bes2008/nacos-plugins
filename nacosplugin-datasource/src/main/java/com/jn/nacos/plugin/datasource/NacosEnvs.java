@@ -41,14 +41,7 @@ public class NacosEnvs {
         return nacosVersion;
     }
 
-    /**
-     * 内置 数据库插件 （derby, mysql） 是否可以被替换
-     *
-     * @return 是否可替换
-     */
-    public static boolean supportsBuiltinDatabasePluginReplaced() {
-        return versionCompare("2.3.0") >= 0;
-    }
+
 
     public static boolean hasEncryptedDataKeyColumn() {
         return versionCompare("2.1.0") >= 0;
@@ -110,6 +103,15 @@ public class NacosEnvs {
             }
         }
         return databaseName;
+    }
+
+    /**
+     * 内置 数据库插件 （derby, mysql） 是否可以被替换
+     *
+     * @return 是否可替换
+     */
+    public static boolean supportsBuiltinDatabasePluginReplaced() {
+        return versionCompare("2.3.0") >= 0;
     }
 
 }
