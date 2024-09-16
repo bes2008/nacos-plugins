@@ -16,11 +16,11 @@ public abstract class BaseMapper extends AbstractMapper {
     }
 
     @Override
-    public String getDataSource() {
+    public final String getDataSource() {
         return PluginContext.INSTANCE.getDatabaseName();
     }
 
-    public NacosDatabaseDialect getDialect() {
+    public final NacosDatabaseDialect getDialect() {
         return PluginContext.INSTANCE.getDialect();
     }
 
