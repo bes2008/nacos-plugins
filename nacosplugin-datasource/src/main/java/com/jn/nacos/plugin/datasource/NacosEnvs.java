@@ -12,6 +12,23 @@ import com.jn.sqlhelper.dialect.DialectRegistry;
 import org.slf4j.Logger;
 
 public class NacosEnvs {
+    /**
+     * 指定要使用什么数据源
+     */
+    @Deprecated
+    private static final String CONFIG_KEY_DATASOURCE_PLATFORM_DEPRECATED="spring.datasource.platform";
+    private static final String CONFIG_KEY_DATASOURCE_PLATFORM="spring.sql.init.platform";
+
+    /**
+     * 是否启用 nacos 默认的 datasource 插件。
+     */
+    private static final String CONFIG_KEY_DATASOURCE_PLUGIN_BUILTIN_ENABLED="spring.sql.plugin.builtin.enabled";
+
+    /**
+     * 创建数据库schema时，使用的DDL语句中，identifier 的引号模式
+     */
+    private static final String CONFIG_KEY_DB_DDL_IDENTIFIER_QUOTED_MODE="db.sql.identifier.quoted.mode";
+
     public static int versionCompare(String comparedVersion) {
         String currentVersion = toNacosStandardVersion(VersionUtils.version);
         String version2 = toNacosStandardVersion(comparedVersion);
@@ -41,7 +58,7 @@ public class NacosEnvs {
      * 当使用的 create-schema.sql, create-tables.sql 不是插件提供的，需要指定该配置。
      */
     public static IdentifierQuotedMode getConfiguredIdentifierQuotedMode(NacosDatabaseDialect dialect) {
-        String modeString = EnvUtil.getProperty("db.sql.identifier.quoted.mode");
+        String modeString = EnvUtil.getProperty(CONFIG_KEY_DB_DDL_IDENTIFIER_QUOTED_MODE);
         IdentifierQuotedMode mode = null;
         if (Strings.isNotBlank(modeString)) {
             mode = Enums.ofName(IdentifierQuotedMode.class, modeString);
@@ -56,10 +73,10 @@ public class NacosEnvs {
     }
 
     public static String getConfiguredDatabaseName() {
-        String databaseName = EnvUtil.getProperty("spring.sql.init.platform");
+        String databaseName = EnvUtil.getProperty(CONFIG_KEY_DATASOURCE_PLATFORM);
         if (Strings.isBlank(databaseName)) {
             // 这个是 nacos 中更早的配置 datasource 类型的方式
-            databaseName = EnvUtil.getProperty("spring.datasource.platform");
+            databaseName = EnvUtil.getProperty(CONFIG_KEY_DATASOURCE_PLATFORM_DEPRECATED);
         }
         if (Strings.isBlank(databaseName)) {
             // 内嵌数据库 derby
@@ -81,7 +98,7 @@ public class NacosEnvs {
 
         if (Objs.equals(DatabaseNames.DERBY, databaseName) || Objs.equals(DatabaseNames.MYSQL, databaseName)) {
             // 只要不是false|False 等，就是禁用，默认值为 true
-            boolean builtinDatasourcePluginEnabled = NacosEnvs.supportsBuiltinDatabasePluginReplaced() && (!Strings.equalsIgnoreCase(EnvUtil.getProperty("spring.sql.plugin.builtin.enabled", "true"), "false"));
+            boolean builtinDatasourcePluginEnabled = NacosEnvs.supportsBuiltinDatabasePluginReplaced() && (!Strings.equalsIgnoreCase(EnvUtil.getProperty(CONFIG_KEY_DATASOURCE_PLUGIN_BUILTIN_ENABLED, "true"), "false"));
 
             // 自定义的插件会优先于 内置的 derby, mysql 插件
             // 放到 MapperManager 中使用了 map#putIfAbsent，所以要启用 内置的 derby, mysql，必须保证 自定义的插件名字不能是 mysql,derby
