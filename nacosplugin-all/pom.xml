@@ -190,12 +190,6 @@
                                 </filter>
                             </filters>
                             <minimizeJar>true</minimizeJar>
-                            <!--
-                            <entryPoints>
-                                <entryPoint>com.jn.nacos.plugin.datasource.mapper.BaseMapper</entryPoint>
-                                <entryPoint>com.jn.nacos.plugin.datasource.NacosDatabaseDialectManager</entryPoint>
-                            </entryPoints>
-                            -->
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
                             </transformers>
