@@ -1,11 +1,13 @@
 package com.jn.nacos.plugin.datasource.db.postgresql;
 
 import com.jn.nacos.plugin.datasource.DatabaseNames;
+import com.jn.nacos.plugin.datasource.IdentifierQuotedMode;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 
 public class PostgresDatabaseDialect extends NacosDatabaseDialect {
     public PostgresDatabaseDialect() {
         super(DatabaseNames.POSTGRESQL);
+        this.identifierQuotedMode = IdentifierQuotedMode.QUOTED;
     }
 
     @Override

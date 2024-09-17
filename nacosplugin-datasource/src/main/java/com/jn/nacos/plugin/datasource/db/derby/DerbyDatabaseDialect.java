@@ -8,7 +8,6 @@ import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 public class DerbyDatabaseDialect extends NacosDatabaseDialect {
     public DerbyDatabaseDialect() {
         super(DatabaseNames.DERBY);
-        this.identifierQuotedMode = IdentifierQuotedMode.UNQUOTED;
     }
 
     @Override

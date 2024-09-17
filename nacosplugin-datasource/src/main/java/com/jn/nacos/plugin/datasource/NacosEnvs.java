@@ -60,7 +60,7 @@ public class NacosEnvs {
             mode = dialect.getPluginProvidedDDLIdentifierQuotedMode();
         }
         if (mode == null) {
-            mode = IdentifierQuotedMode.QUOTED;
+            mode = IdentifierQuotedMode.UNQUOTED;
         }
         return mode;
     }
