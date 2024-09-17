@@ -12,7 +12,7 @@
     <artifactId>nacosplugin-all</artifactId>
     <name>${project.groupId}:${project.artifactId}:${project.version}</name>
     <properties>
-        <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
+        <maven-shade-plugin.version>3.5.0</maven-shade-plugin.version>
     </properties>
 
 
@@ -189,6 +189,13 @@
                                     </excludes>
                                 </filter>
                             </filters>
+                            <minimizeJar>true</minimizeJar>
+                            <!--
+                            <entryPoints>
+                                <entryPoint>com.jn.nacos.plugin.datasource.mapper.BaseMapper</entryPoint>
+                                <entryPoint>com.jn.nacos.plugin.datasource.NacosDatabaseDialectManager</entryPoint>
+                            </entryPoints>
+                            -->
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
                             </transformers>

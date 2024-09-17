@@ -93,8 +93,6 @@
                 <groupId>com.alibaba.nacos</groupId>
                 <artifactId>nacos-datasource-plugin</artifactId>
                 <version>${nacos.version}</version>
-                <scope>provided</scope>
-
                 <exclusions>
                     <exclusion>
                         <groupId>com.google.guava</groupId>
