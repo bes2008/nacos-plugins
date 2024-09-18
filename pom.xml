@@ -6,7 +6,7 @@
 
     <groupId>io.github.bes2008.solution.nacosplugins</groupId>
     <artifactId>nacos-plugins</artifactId>
-    <version>2.0.6</version>
+    <version>2.0.8</version>
     <packaging>pom</packaging>
     <name>${project.groupId}:${project.artifactId}:${project.version}</name>
 
@@ -27,9 +27,9 @@
         <jmh.version>1.23</jmh.version>
         <langx-java.version>5.4.4</langx-java.version>
         <commons-codec.version>1.17.0</commons-codec.version>
-        <nacos.version>2.4.1</nacos.version>
-        <spring.version>5.3.34</spring.version>
-        <sqlhelper.version>5.0.5</sqlhelper.version>
+        <nacos.version>2.4.2</nacos.version>
+        <spring.version>5.3.39</spring.version>
+        <sqlhelper.version>5.0.7</sqlhelper.version>
     </properties>
 
     <url>https://gitee.com/coderjn/nacos-plugins</url>
@@ -93,8 +93,6 @@
                 <groupId>com.alibaba.nacos</groupId>
                 <artifactId>nacos-datasource-plugin</artifactId>
                 <version>${nacos.version}</version>
-                <scope>provided</scope>
-
                 <exclusions>
                     <exclusion>
                         <groupId>com.google.guava</groupId>

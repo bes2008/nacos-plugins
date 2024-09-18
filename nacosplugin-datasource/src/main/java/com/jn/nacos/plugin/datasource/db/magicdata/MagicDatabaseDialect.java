@@ -1,11 +1,13 @@
 package com.jn.nacos.plugin.datasource.db.magicdata;
 
 import com.jn.nacos.plugin.datasource.DatabaseNames;
+import com.jn.nacos.plugin.datasource.IdentifierQuotedMode;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 
 public class MagicDatabaseDialect extends NacosDatabaseDialect {
     public MagicDatabaseDialect() {
         super(DatabaseNames.MAGICDATA);
+        this.identifierQuotedMode = IdentifierQuotedMode.QUOTED;
     }
 
     @Override

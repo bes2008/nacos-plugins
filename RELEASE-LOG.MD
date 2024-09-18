@@ -1,3 +1,12 @@
+## 2.0.8
+1. 代码整理，简化 *Mapper 类
+2. 避免dialect等重复创建，重复打印日志
+3. 对介质瘦身
+4. 默认的 ddl identifier quote mode 修改为 unquoted
+## 2.0.7
+1. 支持禁用nacos默认插件derby, mysql
+2. 提供derby 的sql schema
+3. 支持derby数据库
 ## 2.0.6
 1. 解决OpenGauss中将`''`处理成NULL的情况
 ## 2.0.5

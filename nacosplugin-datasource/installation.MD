@@ -1,12 +1,12 @@
 ## datasource 插件安装
-1. 将插件、数据库驱动 放到 `nacos/plugins` 目录
+1. 将插件、数据库驱动 放到 `<NACOS_HOME>/plugins` 目录
 ```text
 io.github.bes2008.solution.nacosplugins:nacosplugin-all:jar:VERSION           
 ```
 
 2. 在application.properties中配置数据库
 
-以postgresql 数据库为例，修改 `nacos/conf/application.properties` ：
+以postgresql 数据库为例，修改 `<NACOS_HOME>/conf/application.properties` ：
 ```properties
 # PostgreSQL
 spring.sql.init.platform=postgresql
@@ -19,9 +19,9 @@ db.pool.config.driverClassName=org.postgresql.Driver
 
 3. 初始数据库schema
 
-使用DBeaver 等工具，连接到数据库，执行相关schema初始化。脚本位置：
+使用DBeaver、 数据库 CLI 等工具，连接到数据库，执行相关schema初始化。脚本位置：
 ```text
-nacosplugin-datasource-sqlscripts/resources/sql/ 目录下
+代码仓库的nacosplugin-datasource-sqlscripts/resources/sql/ 目录下
 ```
 4. 启动nacos访问
 
@@ -134,20 +134,24 @@ mysql --password=root_password --host=localhost --port=3306 --user root < create
 # MySQL
 spring.sql.init.platform=mysql
 db.num=1
-db.url.0=jdbc:mysql://localhost:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=30000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useServerPrepStmts=true
+db.url.0=jdbc:mysql://localhost:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=30000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useServerPrepStmts=true&allowPublicKeyRetrieval=true
 db.user.0=root
 db.password.0=root_password
 db.pool.config.driverClassName=com.mysql.cj.jdbc.Driver
+# mysql默认使用nacos 内置的mysql插件，如果要禁用内置mysql插件，可以添加下面的配置
+spring.sql.plugin.builtin.enabled=false
 ```
-
-
+3. 版本限制
+```text
+nacos_version >= 2.3.0 时，支持将mysql替换为本插件。  
+```
 
 ## 支持Oracle
 1. 脚本执行
 ```shell
-# 先用 system 创建 C##NACOS用户
+# 先用 system 创建 "C##NACOS" 用户
 sqlplus system/Oracle123_Pswd@localhost:1521/FREE @./create-schema.sql
-# 再用 C##NACOS用户创建表
+# 再用 "C##NACOS" 用户创建表
 sqlplus C##NACOS/NACOS_PASSWORD@localhost:1521/FREE @./create-tables.sql
 ```
 2. jdbc配置
@@ -164,8 +168,25 @@ db.pool.config.driverClassName=oracle.jdbc.OracleDriver
 ```
 
 3. 目前使用Oracle的问题
-  + 目前nacos 适配Oracle已完毕，但在启动过程中，nacos.log中会有报错。
+  + 目前nacos 适配Oracle已完毕，但在启动过程中，nacos.log中会有报错，这个错误并不影响 oracle 数据库上使用。
     + 问题原因：是 nacos 启动是会判定 config_info_tag, config_info_beta表是否存在。 这个方法是直接定死的使用了limit 1，没有通过插件的方式。
     + 问题归属：这个属于 nacos 的Bug，已在 [github 上提交了相关问题](https://github.com/alibaba/nacos/issues/12569)。
-    + 问题版本：<=2.4.1
+    + 问题版本：<=2.4.1，已于 nacos 2.4.2 版本修复
     + 影响范围：只会影响到dump接口，功能不受影响
+
+## 支持Derby
+
+1. 配置
+```properties
+# derby 默认使用 nacos 内置的 derby 插件，如果要禁用内置 derby 插件，可以添加下面的配置
+spring.sql.plugin.builtin.enabled=false
+```
+2. 启动
+```shell
+# 必须以 standalone 模式启动时，且不配置为其它数据库的情况下，才会启用 derby数据库
+<NACOS_HOME>/bin/startup.sh -m standalone 
+```
+3. 版本限制
+```text
+nacos_version >= 2.3.0 时，支持将 derby 替换为本插件。  
+```

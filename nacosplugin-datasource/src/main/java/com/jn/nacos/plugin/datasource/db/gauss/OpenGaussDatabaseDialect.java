@@ -1,11 +1,13 @@
 package com.jn.nacos.plugin.datasource.db.gauss;
 
 import com.jn.nacos.plugin.datasource.DatabaseNames;
+import com.jn.nacos.plugin.datasource.IdentifierQuotedMode;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 
 public class OpenGaussDatabaseDialect  extends NacosDatabaseDialect {
     public OpenGaussDatabaseDialect() {
         super(DatabaseNames.OPENGAUSS);
+        this.identifierQuotedMode = IdentifierQuotedMode.QUOTED;
     }
 
     @Override

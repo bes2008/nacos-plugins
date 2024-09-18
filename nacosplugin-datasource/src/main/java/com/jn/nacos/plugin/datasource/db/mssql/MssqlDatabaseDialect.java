@@ -2,6 +2,7 @@ package com.jn.nacos.plugin.datasource.db.mssql;
 
 import com.jn.langx.util.collection.Maps;
 import com.jn.nacos.plugin.datasource.DatabaseNames;
+import com.jn.nacos.plugin.datasource.IdentifierQuotedMode;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Map;
 public class MssqlDatabaseDialect extends NacosDatabaseDialect {
     public MssqlDatabaseDialect() {
         super(DatabaseNames.MSSQL);
+        this.identifierQuotedMode = IdentifierQuotedMode.QUOTED;
     }
 
     @Override

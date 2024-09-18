@@ -31,7 +31,7 @@ public abstract class NacosDatabaseDialect {
         String sqlhelperDialect = getCustomizedDialect(this.name);
         this.delegate = DialectRegistry.getInstance().gaussDialect(sqlhelperDialect);
         this.functionMap = initFunctionMap();
-        this.identifierQuotedMode = IdentifierQuotedMode.QUOTED;
+        this.identifierQuotedMode = IdentifierQuotedMode.UNQUOTED;
     }
 
     public IdentifierQuotedMode getPluginProvidedDDLIdentifierQuotedMode(){

@@ -1,108 +1,44 @@
 package com.jn.nacos.plugin.datasource.mapper;
 
 import com.alibaba.nacos.common.utils.NamespaceUtil;
-import com.alibaba.nacos.common.utils.VersionUtils;
 import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.AbstractMapper;
 import com.alibaba.nacos.plugin.datasource.model.MapperContext;
-import com.alibaba.nacos.sys.env.EnvUtil;
 import com.jn.langx.util.Objs;
-import com.jn.langx.util.Preconditions;
 import com.jn.langx.util.Strings;
 import com.jn.langx.util.collection.Pipeline;
-import com.jn.langx.util.enums.Enums;
-import com.jn.nacos.plugin.datasource.DatabaseNames;
-import com.jn.nacos.plugin.datasource.IdentifierQuotedMode;
-import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
-import com.jn.nacos.plugin.datasource.NacosDatabaseDialectManager;
+import com.jn.nacos.plugin.datasource.*;
 import com.jn.sqlhelper.dialect.Dialect;
-import com.jn.sqlhelper.dialect.DialectRegistry;
-
 import java.util.List;
 
 public abstract class BaseMapper extends AbstractMapper {
-    private final String databaseName;
-    protected NacosDatabaseDialect dialect;
-    private IdentifierQuotedMode identifierQuotedModeInDDL;
-
     protected BaseMapper() {
-        this.databaseName = getConfiguredDatabaseName();
-        Preconditions.checkTrue(!Objs.equals(DatabaseNames.UNSUPPORTED, this.databaseName), "database {} is unsupported", this.databaseName);
-        this.dialect = NacosDatabaseDialectManager.getInstance().getDialect(this.databaseName);
-        this.identifierQuotedModeInDDL = getConfiguredIdentifierQuotedMode();
     }
-
-    /**
-     * 当使用的 create-schema.sql, create-tables.sql 不是插件提供的，需要指定该配置。
-     */
-    private IdentifierQuotedMode getConfiguredIdentifierQuotedMode(){
-        String modeString = EnvUtil.getProperty("db.sql.identifier.quoted.mode");
-        IdentifierQuotedMode mode = null;
-        if(Strings.isNotBlank(modeString)){
-            mode = Enums.ofName(IdentifierQuotedMode.class, modeString);
-        }
-        if(mode==null){
-            mode = this.dialect.getPluginProvidedDDLIdentifierQuotedMode();
-        }
-        if(mode==null){
-            mode = IdentifierQuotedMode.QUOTED;
-        }
-        return mode;
-    }
-
-    private String getConfiguredDatabaseName(){
-        String databaseName = EnvUtil.getProperty("spring.sql.init.platform");
-        if(Strings.isBlank(databaseName)){
-            // 这个是 nacos 中更早的配置 datasource 类型的方式
-            databaseName = EnvUtil.getProperty("spring.datasource.platform");
-        }
-        if(Strings.isBlank(databaseName)){
-            // 内嵌数据库 derby
-            if (EnvUtil.getStandaloneMode()){
-                databaseName = DatabaseNames.DERBY;
-            }
-            else{ // 默认数据库 MySQL
-                databaseName = DatabaseNames.MSSQL;
-            }
-        }else{
-            Dialect dialect = DialectRegistry.getInstance().gaussDialect(databaseName);
-            if(dialect==null){
-                databaseName = DatabaseNames.UNSUPPORTED;
-            }
-        }
-
-        // 因为 mysql 不支持 在子查询中 的limit，所以 不使用自定义的SQL，而使用官方的插件
-        if(Strings.isBlank(databaseName) || Objs.equals(DatabaseNames.DERBY, databaseName) || Objs.equals(DatabaseNames.MYSQL, databaseName)){
-            databaseName = DatabaseNames.UNDEFINED;
-        }
-        return databaseName;
-    }
-
 
     @Override
-    public String getDataSource() {
-        return databaseName;
+    public final String getDataSource() {
+        return PluginContext.INSTANCE.getDatabaseName();
     }
 
-    public NacosDatabaseDialect getDialect() {
-        return dialect;
+    public final NacosDatabaseDialect getDialect() {
+        return PluginContext.INSTANCE.getDialect();
     }
 
     public String getIdentifierInDb(String identifier){
         String string;
-        switch (identifierQuotedModeInDDL){
+        switch (PluginContext.INSTANCE.getIdentifierQuotedModeInDDL()){
             case QUOTED:
                 // 这个要求 DDL文件中，所有的表名、列名使用小写形式
-                string = dialect.wrapQuote(identifier, Dialect.IdentifierCase.LOWER_CASE);
+                string = getDialect().wrapQuote(identifier, Dialect.IdentifierCase.LOWER_CASE);
                 break;
             case UNQUOTED:
                 // 去掉引号
-                string = dialect.unwrapQuote(identifier);
+                string = getDialect().unwrapQuote(identifier);
                 break;
             case MIXED:
             default:
                 // 按照数据库对未加引号的默认行为来处理
-                string = dialect.wrapQuote(identifier, null);
+                string = getDialect().wrapQuote(identifier, null);
                 break;
         }
         return string;
@@ -110,7 +46,7 @@ public abstract class BaseMapper extends AbstractMapper {
 
     @Override
     public String getFunction(String functionName) {
-        return this.dialect.getFunction(functionName);
+        return getDialect().getFunction(functionName);
     }
 
     /***************************************************************************
@@ -276,12 +212,6 @@ public abstract class BaseMapper extends AbstractMapper {
         return sql.toString();
     }
 
-    protected boolean hasEncryptedDataKeyColumn(){
-        String currentVersion = VersionUtils.version;
-        String[] segments = Strings.split(currentVersion, ".");
-        String nacosVersion = Strings.join(".", segments, 0, 3);
-        return VersionUtils.compareVersion(nacosVersion, "2.1.0")>=0;
-    }
     private static final String NAMESPACE_PUBLIC_KEY = "public";
     protected final String getDefaultTenantId(){
         if(getDialect().isAutoCastEmptyStringToNull()){
