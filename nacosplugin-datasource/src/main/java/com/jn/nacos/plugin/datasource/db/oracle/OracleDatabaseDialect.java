@@ -1,7 +1,6 @@
 package com.jn.nacos.plugin.datasource.db.oracle;
 
 import com.jn.nacos.plugin.datasource.DatabaseNames;
-import com.jn.nacos.plugin.datasource.IdentifierQuotedMode;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 
 public class OracleDatabaseDialect extends NacosDatabaseDialect {
