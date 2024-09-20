@@ -95,7 +95,7 @@ db.pool.config.driverClassName=com.kingbase8.Driver
 ```properties
 spring.sql.init.platform=magicdata
 db.num=1
-db.url.0=jdbc:magicdata://localhost:3660/theDb?currentSchema=nacos&clientEncoding=utf8
+db.url.0=jdbc:besmagicdata://localhost:3660/theDb?currentSchema=nacos&clientEncoding=utf8
 db.user.0=username
 db.password.0=thePassword
 db.pool.config.driverClassName=com.bes.magicdata.Driver
