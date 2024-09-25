@@ -12,13 +12,12 @@ public class OpenGaussDatabaseDialect  extends NacosDatabaseDialect {
     }
 
     @Override
-    public boolean isAutoCastEmptyStringToNull(SqlCompatibilityType sqlCompatibilityType) {
-        // 基于 opengauss 5.0.3 测试
-        return false;
+    public String genCastNullToDefaultExpression(String expressionOrIdentifier, String defaultValue) {
+        return " COALESCE("+expressionOrIdentifier+", '"+defaultValue+"') ";
     }
 
     @Override
-    public String genCastNullToDefaultExpression(String expressionOrIdentifier, String defaultValue) {
-        return " COALESCE("+expressionOrIdentifier+", '"+defaultValue+"') ";
+    public SqlCompatibilityType getDefaultCompatibilityType() {
+        return SqlCompatibilityType.ORACLE;
     }
 }

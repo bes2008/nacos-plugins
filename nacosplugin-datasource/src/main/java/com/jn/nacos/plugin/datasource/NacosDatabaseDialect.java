@@ -21,6 +21,10 @@ public abstract class NacosDatabaseDialect {
     private Dialect delegate;
     private Map<String, String> functionMap;
 
+    public Dialect getDelegate() {
+        return delegate;
+    }
+
     /**
      * 插件中提供在 schema DDL 文件中， identifier 的默认模式
      */
@@ -130,7 +134,7 @@ public abstract class NacosDatabaseDialect {
     }
 
     public boolean isAutoCastEmptyStringToNull(SqlCompatibilityType sqlCompatibilityType){
-        return false;
+        return sqlCompatibilityType == SqlCompatibilityType.ORACLE;
     }
 
     /**

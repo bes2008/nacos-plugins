@@ -74,7 +74,14 @@ public class NacosEnvs {
             compatibilityType = Enums.ofName(SqlCompatibilityType.class, modeString);
         }
 
-        if(compatibilityType==null){
+        if(compatibilityType!=null){
+            if(!dialect.getDelegate().isSupportedCompatibilityType(compatibilityType)){
+                Loggers.getLogger(NacosEnvs.class).warn("unsupported db compatibilityType: {}", compatibilityType);
+                compatibilityType = null;
+            }
+        }
+
+        if(compatibilityType == null){
             compatibilityType = dialect.getDefaultCompatibilityType();
         }
         return compatibilityType;

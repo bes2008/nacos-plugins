@@ -20,4 +20,9 @@ public class MagicDatabaseDialect extends NacosDatabaseDialect {
     public String genCastNullToDefaultExpression(String expressionOrIdentifier, String defaultValue) {
         return " COALESCE("+expressionOrIdentifier+", '"+defaultValue+"') ";
     }
+
+    @Override
+    public SqlCompatibilityType getDefaultCompatibilityType() {
+        return SqlCompatibilityType.ORACLE;
+    }
 }
