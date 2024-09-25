@@ -116,6 +116,8 @@ db.url.0=jdbc:besmagicdata://localhost:3660/theDb?currentSchema=nacos&clientEnco
 db.user.0=username
 db.password.0=thePassword
 db.pool.config.driverClassName=com.bes.magicdata.Driver
+# 需要根据实际情况配置，对于magicdata默认配置为 oracle
+db.sql.compatibility.type=postgresql
 ```
 
 
@@ -210,3 +212,18 @@ nacos_version >= 2.3.0 时，支持将 derby 替换为本插件。
 
 ### OpenGauss
 
+1. 配置
+```properties
+
+# OpenGauss
+spring.sql.init.platform=opengauss
+#spring.sql.plugin.builtin.enabled=false
+db.num=1
+db.url.0=jdbc:postgresql://localhost:15432/postgres?currentSchema=gaussdb&reWriteBatchedInserts=true
+db.user.0=gaussdb
+db.password.0=thePassword@123
+db.pool.config.driverClassName=org.postgresql.Driver
+# 需要根据实际情况配置，对于OpenGauss默认配置为 oracle
+db.sql.compatibility.type=postgresql
+
+```
