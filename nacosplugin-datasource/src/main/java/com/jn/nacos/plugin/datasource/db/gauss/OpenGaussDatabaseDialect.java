@@ -3,6 +3,7 @@ package com.jn.nacos.plugin.datasource.db.gauss;
 import com.jn.nacos.plugin.datasource.DatabaseNames;
 import com.jn.nacos.plugin.datasource.IdentifierQuotedMode;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
+import com.jn.sqlhelper.dialect.SqlCompatibilityType;
 
 public class OpenGaussDatabaseDialect  extends NacosDatabaseDialect {
     public OpenGaussDatabaseDialect() {
@@ -11,7 +12,7 @@ public class OpenGaussDatabaseDialect  extends NacosDatabaseDialect {
     }
 
     @Override
-    public boolean isAutoCastEmptyStringToNull() {
+    public boolean isAutoCastEmptyStringToNull(SqlCompatibilityType sqlCompatibilityType) {
         // 基于 opengauss 5.0.3 测试
         return false;
     }

@@ -5,12 +5,15 @@ import com.jn.langx.lifecycle.InitializationException;
 import com.jn.langx.util.Objs;
 import com.jn.langx.util.Preconditions;
 import com.jn.langx.util.logging.Loggers;
+import com.jn.sqlhelper.dialect.SqlCompatibilityType;
 import org.slf4j.Logger;
 
 public class PluginContext extends AbstractInitializable {
     private String databaseName;
     protected NacosDatabaseDialect dialect;
     private IdentifierQuotedMode identifierQuotedModeInDDL;
+    private SqlCompatibilityType sqlCompatibilityType;
+
     private PluginContext(){
        init();
     }
@@ -22,8 +25,9 @@ public class PluginContext extends AbstractInitializable {
         this.databaseName = NacosEnvs.getConfiguredDatabaseName();
         Preconditions.checkTrue(!Objs.equals(DatabaseNames.UNSUPPORTED, this.databaseName), "database {} is unsupported", this.databaseName);
         this.dialect = NacosDatabaseDialectManager.getInstance().getDialect(this.databaseName);
-        this.identifierQuotedModeInDDL = NacosEnvs.getConfiguredIdentifierQuotedMode(this.dialect);
-        logger.info("dialect: {}, identifierQuotedMode: {}", this.databaseName, this.identifierQuotedModeInDDL);
+        this.identifierQuotedModeInDDL = NacosEnvs.getIdentifierQuotedMode(this.dialect);
+        this.sqlCompatibilityType = NacosEnvs.getSqlCompatibilityType(this.dialect);
+        logger.info("dialect: {}, identifierQuotedMode: {}, sqlCompatibilityType: {}", this.databaseName, this.identifierQuotedModeInDDL, this.sqlCompatibilityType);
         logger.info("================== nacos datasource plugin context initial finished ==================");
     }
 
@@ -39,6 +43,10 @@ public class PluginContext extends AbstractInitializable {
 
     public NacosDatabaseDialect getDialect() {
         return dialect;
+    }
+
+    public SqlCompatibilityType getSqlCompatibilityType() {
+        return sqlCompatibilityType;
     }
 }
 

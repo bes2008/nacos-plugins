@@ -3,6 +3,7 @@ package com.jn.nacos.plugin.datasource.db.magicdata;
 import com.jn.nacos.plugin.datasource.DatabaseNames;
 import com.jn.nacos.plugin.datasource.IdentifierQuotedMode;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
+import com.jn.sqlhelper.dialect.SqlCompatibilityType;
 
 public class MagicDatabaseDialect extends NacosDatabaseDialect {
     public MagicDatabaseDialect() {
@@ -11,7 +12,7 @@ public class MagicDatabaseDialect extends NacosDatabaseDialect {
     }
 
     @Override
-    public boolean isAutoCastEmptyStringToNull() {
+    public boolean isAutoCastEmptyStringToNull(SqlCompatibilityType sqlCompatibilityType) {
         return true;
     }
 

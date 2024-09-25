@@ -9,6 +9,7 @@ import com.jn.langx.util.collection.Maps;
 import com.jn.langx.util.reflect.Reflects;
 import com.jn.sqlhelper.dialect.Dialect;
 import com.jn.sqlhelper.dialect.DialectRegistry;
+import com.jn.sqlhelper.dialect.SqlCompatibilityType;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.util.List;
@@ -128,7 +129,7 @@ public abstract class NacosDatabaseDialect {
         return this.delegate.getUnquoteIdentifier(identifier);
     }
 
-    public boolean isAutoCastEmptyStringToNull(){
+    public boolean isAutoCastEmptyStringToNull(SqlCompatibilityType sqlCompatibilityType){
         return false;
     }
 
@@ -141,5 +142,9 @@ public abstract class NacosDatabaseDialect {
 
     public String getName() {
         return name;
+    }
+
+    public SqlCompatibilityType getDefaultCompatibilityType(){
+        return delegate.getDefaultSqlCompatibilityType();
     }
 }

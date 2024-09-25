@@ -2,6 +2,7 @@ package com.jn.nacos.plugin.datasource.db.oracle;
 
 import com.jn.nacos.plugin.datasource.DatabaseNames;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
+import com.jn.sqlhelper.dialect.SqlCompatibilityType;
 
 public class OracleDatabaseDialect extends NacosDatabaseDialect {
     public OracleDatabaseDialect(){
@@ -9,7 +10,7 @@ public class OracleDatabaseDialect extends NacosDatabaseDialect {
     }
 
     @Override
-    public boolean isAutoCastEmptyStringToNull() {
+    public boolean isAutoCastEmptyStringToNull(SqlCompatibilityType sqlCompatibilityType) {
         return true;
     }
 
