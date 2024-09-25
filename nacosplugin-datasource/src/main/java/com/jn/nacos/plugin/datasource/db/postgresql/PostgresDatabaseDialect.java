@@ -13,7 +13,6 @@ public class PostgresDatabaseDialect extends NacosDatabaseDialect {
 
     @Override
     public boolean isAutoCastEmptyStringToNull(SqlCompatibilityType sqlCompatibilityType) {
-        // 此测试结果基于 postgresql 15
         return false;
     }
 
