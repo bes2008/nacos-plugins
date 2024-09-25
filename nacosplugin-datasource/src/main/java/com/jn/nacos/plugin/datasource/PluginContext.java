@@ -27,7 +27,7 @@ public class PluginContext extends AbstractInitializable {
         this.dialect = NacosDatabaseDialectManager.getInstance().getDialect(this.databaseName);
         this.identifierQuotedModeInDDL = NacosEnvs.getIdentifierQuotedMode(this.dialect);
         this.sqlCompatibilityType = NacosEnvs.getSqlCompatibilityType(this.dialect);
-        logger.info("dialect: {}, identifierQuotedMode: {}, sqlCompatibilityType: {}", this.databaseName, this.identifierQuotedModeInDDL, this.sqlCompatibilityType);
+        logger.info("dialect: {}, identifierQuotedMode: {}, sqlCompatibilityType: {}", this.databaseName, this.identifierQuotedModeInDDL, this.sqlCompatibilityType.getName());
         logger.info("================== nacos datasource plugin context initial finished ==================");
     }
 
