@@ -15,4 +15,9 @@ public class PostgresDatabaseDialect extends NacosDatabaseDialect {
         // 此测试结果基于 postgresql 15
         return false;
     }
+
+    @Override
+    public String genCastNullToDefaultExpression(String expressionOrIdentifier, String defaultValue) {
+        return " COALESCE("+expressionOrIdentifier+", '"+defaultValue+"') ";
+    }
 }

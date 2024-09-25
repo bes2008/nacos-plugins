@@ -12,7 +12,8 @@ public class OpenGaussDatabaseDialect  extends NacosDatabaseDialect {
 
     @Override
     public boolean isAutoCastEmptyStringToNull() {
-        return true;
+        // 基于 opengauss 5.0.3 测试
+        return false;
     }
 
     @Override

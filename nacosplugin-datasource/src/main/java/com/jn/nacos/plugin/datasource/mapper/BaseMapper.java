@@ -115,7 +115,7 @@ public abstract class BaseMapper extends AbstractMapper {
             if (parts.length == 2) {
                 sql.append(getFunction(parts[1]));
             } else {
-                if(i==tenantIdColumnIndex){
+                if(i==tenantIdColumnIndex && getDialect().isAutoCastEmptyStringToNull()){
                     sql.append(getDialect().genCastNullToDefaultExpression("?", getDefaultTenantId()));
                 }else {
                     sql.append("?");
