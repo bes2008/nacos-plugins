@@ -35,7 +35,7 @@ db.pool.config.driverClassName=org.postgresql.Driver
   + `QUOTED`：代表了所有的表名、字段都使用了引号。
   + `UNQUOTED`：代表了所有的表名、字段都没有使用引号。
   + `MIXED`：代表了表名、字段名，有的使用了引号，有的没有使用引号。
-+ `db.sql.compatibility.type`：指定数据库所采用的兼容模式，目前主要解决兼容`ORACLE`模式时，会自动将 `''` 设定为 `NULL`的情况。从功能上来看，主要解决的是Oracle兼容模式下，在nacos的`public`租户下创建配置，查询不到的情况。如果不会在nacos的`public`租户下创建配置时，可以不关注该配置。可选值有：
++ `db.sql.compatibility.type`：指定数据库所采用的兼容模式，目前主要解决兼容`ORACLE`模式时，会自动将 `''` 设定为 `NULL`的情况。从功能上来看，主要解决的是Oracle兼容模式下，在nacos的`public`租户下创建配置，查询不到的情况。如果不会在nacos的`public`租户下创建配置时，可以不关注该配置。默认情况下，也都根据数据库本身的默认兼容模式做了配置。可选值有：
   + `oracle`：当创建数据库时，指定兼容了Oracle模式时。
   + `postgresql`: 当创建数据库时，指定兼容了postgresql (简称PG) 模式时。
   + `mysql`: 当创建数据库时，指定兼容了 mysql 模式时。
@@ -207,3 +207,6 @@ spring.sql.plugin.builtin.enabled=false
 ```text
 nacos_version >= 2.3.0 时，支持将 derby 替换为本插件。  
 ```
+
+### OpenGauss
+
