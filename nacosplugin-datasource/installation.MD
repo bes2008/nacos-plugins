@@ -31,7 +31,7 @@ db.pool.config.driverClassName=org.postgresql.Driver
 为了更好的适配各种数据为库，插件提供了如下自定义配置：
 
 + `spring.sql.plugin.builtin.enabled`: 是否启用内置的datasource插件，只针对于 `derby, mysql`数据库，默认值为 `true`。nacos介质中默认提供了 `derby, mysql` 的mapper。如果你不想使用默认的mapper或者nacos提供的 mapper 有bug时，可以将该配置设置为 `false`。
-+ `db.sql.identifier.quoted.mode`: 指定创建数据库表的DDL语句中，使用的表名、字段名是否使用了引号。每个数据库的情况并不统一，本插件会根据 `nacosplugin-datasource-sqlscript`模拟中提供的ddl脚本，指定默认值，当没有使用`nacosplugin-datasource-sqlscript`提供的ddl脚本时，可能需要配置。可选值有3个：
++ `db.sql.identifier.quoted.mode`: 指定创建数据库表的DDL语句中，使用的表名、字段名使用引号的情况。每个数据库的情况并不统一，本插件会根据 `nacosplugin-datasource-sqlscript`模拟中提供的ddl脚本，指定默认值，当没有使用`nacosplugin-datasource-sqlscript`提供的ddl脚本时，可能需要配置。可选值有3个：
   + `QUOTED`：代表了所有的表名、字段都使用了引号。
   + `UNQUOTED`：代表了所有的表名、字段都没有使用引号。
   + `MIXED`：代表了表名、字段名，有的使用了引号，有的没有使用引号。
