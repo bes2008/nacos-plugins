@@ -27,7 +27,24 @@ db.pool.config.driverClassName=org.postgresql.Driver
 
 ---
 
-## 支持PostgreSQL
+## 自定义配置 
+为了更好的适配各种数据为库，插件提供了如下自定义配置：
+
++ `spring.sql.plugin.builtin.enabled`: 是否启用内置的datasource插件，只针对于 `derby, mysql`数据库，默认值为 `true`。nacos介质中默认提供了 `derby, mysql` 的mapper。如果你不想使用默认的mapper或者nacos提供的 mapper 有bug时，可以将该配置设置为 `false`。
++ `db.sql.identifier.quoted.mode`: 指定创建数据库表的DDL语句中，使用的表名、字段名是否使用了引号。每个数据库的情况并不统一，本插件会根据 `nacosplugin-datasource-sqlscript`模拟中提供的ddl脚本，指定默认值，当没有使用`nacosplugin-datasource-sqlscript`提供的ddl脚本时，可能需要配置。可选值有3个：
+  + `QUOTED`：代表了所有的表名、字段都使用了引号。
+  + `UNQUOTED`：代表了所有的表名、字段都没有使用引号。
+  + `MIXED`：代表了表名、字段名，有的使用了引号，有的没有使用引号。
++ `db.sql.compatibility.type`：指定数据库所采用的兼容模式，目前主要解决兼容`ORACLE`模式时，会自动将 `''` 设定为 `NULL`的情况。从功能上来看，主要解决的是Oracle兼容模式下，在nacos的`public`租户下创建配置，查询不到的情况。如果不会在nacos的`public`租户下创建配置时，可以不关注该配置。可选值有：
+  + `oracle`：当创建数据库时，指定兼容了Oracle模式时。
+  + `postgresql`: 当创建数据库时，指定兼容了postgresql (简称PG) 模式时。
+  + `mysql`: 当创建数据库时，指定兼容了 mysql 模式时。
+  + `sqlserver`: 当创建数据库时，指定兼容了 sqlserver 模式时。
+  + `teradata`: 当创建数据库时，指定兼容了 teradata 模式时。
+
+## 数据库支持
+
+### PostgreSQL
 1. postgresql 相关依赖要放全，且要与服务端兼容，建议 >= 42.2.0 版本。
 2. 使用Oracle JDK 8，使用 OpenJDK 8可能会遇到 PostgreSQL SCRAM 认证相关问题
 3. 驱动[下载地址](https://mvnrepository.com/artifact/org.postgresql/postgresql)
@@ -42,7 +59,7 @@ db.password.0=postgresql
 db.pool.config.driverClassName=org.postgresql.Driver
 ```
 
-## 支持DM
+### DM
 1. jdbc驱动选择：
 ```markdown
 + 在JDK8上运行时，选择：com.dameng:DmJdbcDriver18:8.1.3.140
@@ -78,7 +95,7 @@ db.pool.config.driverClassName=dm.jdbc.driver.DmDriver
 ```
 
 
-## 支持Kingbase
+### Kingbase
 1. jdbc配置
 ```properties
 spring.sql.init.platform=kingbase
@@ -89,7 +106,7 @@ db.password.0=thePassword
 db.pool.config.driverClassName=com.kingbase8.Driver
 ```
 
-## 支持magicdata
+### magicdata
 
 1. jdbc配置
 ```properties
@@ -102,7 +119,7 @@ db.pool.config.driverClassName=com.bes.magicdata.Driver
 ```
 
 
-## 支持SqlServer
+### SqlServer
 1. jdbc 驱动选择：
 参考[微软官方说明](https://learn.microsoft.com/zh-cn/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server-support-matrix?view=sql-server-ver16)，建议选择`12.4.1`版本
 2. 使用database而不是schema
@@ -122,7 +139,7 @@ db.password.0=SA123456Pswd
 db.pool.config.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
 ```   
 
-## 支持MySQL
+### MySQL
 
 1. schema初始化
 ```shell
@@ -146,7 +163,7 @@ spring.sql.plugin.builtin.enabled=false
 nacos_version >= 2.3.0 时，支持将mysql替换为本插件。  
 ```
 
-## 支持Oracle
+### Oracle
 1. 脚本执行
 ```shell
 # 先用 system 创建 "C##NACOS" 用户
@@ -174,7 +191,7 @@ db.pool.config.driverClassName=oracle.jdbc.OracleDriver
     + 问题版本：<=2.4.1，已于 nacos 2.4.2 版本修复
     + 影响范围：只会影响到dump接口，功能不受影响
 
-## 支持Derby
+### Derby
 
 1. 配置
 ```properties
