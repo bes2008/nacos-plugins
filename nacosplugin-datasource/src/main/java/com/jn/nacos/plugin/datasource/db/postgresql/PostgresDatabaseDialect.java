@@ -3,6 +3,7 @@ package com.jn.nacos.plugin.datasource.db.postgresql;
 import com.jn.nacos.plugin.datasource.DatabaseNames;
 import com.jn.nacos.plugin.datasource.IdentifierQuotedMode;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
+import com.jn.sqlhelper.dialect.SqlCompatibilityType;
 
 public class PostgresDatabaseDialect extends NacosDatabaseDialect {
     public PostgresDatabaseDialect() {
@@ -11,8 +12,12 @@ public class PostgresDatabaseDialect extends NacosDatabaseDialect {
     }
 
     @Override
-    public boolean isAutoCastEmptyStringToNull() {
-        // 此测试结果基于 postgresql 15
+    public boolean isAutoCastEmptyStringToNull(SqlCompatibilityType sqlCompatibilityType) {
         return false;
+    }
+
+    @Override
+    public String genCastNullToDefaultExpression(String expressionOrIdentifier, String defaultValue) {
+        return " COALESCE("+expressionOrIdentifier+", '"+defaultValue+"') ";
     }
 }

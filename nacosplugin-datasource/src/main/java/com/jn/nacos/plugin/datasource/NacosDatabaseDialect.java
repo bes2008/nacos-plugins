@@ -9,6 +9,7 @@ import com.jn.langx.util.collection.Maps;
 import com.jn.langx.util.reflect.Reflects;
 import com.jn.sqlhelper.dialect.Dialect;
 import com.jn.sqlhelper.dialect.DialectRegistry;
+import com.jn.sqlhelper.dialect.SqlCompatibilityType;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.util.List;
@@ -19,6 +20,10 @@ public abstract class NacosDatabaseDialect {
     private String name;
     private Dialect delegate;
     private Map<String, String> functionMap;
+
+    public Dialect getDelegate() {
+        return delegate;
+    }
 
     /**
      * 插件中提供在 schema DDL 文件中， identifier 的默认模式
@@ -128,8 +133,8 @@ public abstract class NacosDatabaseDialect {
         return this.delegate.getUnquoteIdentifier(identifier);
     }
 
-    public boolean isAutoCastEmptyStringToNull(){
-        return false;
+    public boolean isAutoCastEmptyStringToNull(SqlCompatibilityType sqlCompatibilityType){
+        return sqlCompatibilityType == SqlCompatibilityType.ORACLE;
     }
 
     /**
@@ -141,5 +146,9 @@ public abstract class NacosDatabaseDialect {
 
     public String getName() {
         return name;
+    }
+
+    public SqlCompatibilityType getDefaultCompatibilityType(){
+        return delegate.getDefaultSqlCompatibilityType();
     }
 }

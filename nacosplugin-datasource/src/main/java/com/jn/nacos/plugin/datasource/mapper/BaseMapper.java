@@ -9,6 +9,8 @@ import com.jn.langx.util.Strings;
 import com.jn.langx.util.collection.Pipeline;
 import com.jn.nacos.plugin.datasource.*;
 import com.jn.sqlhelper.dialect.Dialect;
+import com.jn.sqlhelper.dialect.SqlCompatibilityType;
+
 import java.util.List;
 
 public abstract class BaseMapper extends AbstractMapper {
@@ -22,6 +24,10 @@ public abstract class BaseMapper extends AbstractMapper {
 
     public final NacosDatabaseDialect getDialect() {
         return PluginContext.INSTANCE.getDialect();
+    }
+
+    public final SqlCompatibilityType getSqlCompatibilityType(){
+        return PluginContext.INSTANCE.getSqlCompatibilityType();
     }
 
     public String getIdentifierInDb(String identifier){
@@ -115,7 +121,7 @@ public abstract class BaseMapper extends AbstractMapper {
             if (parts.length == 2) {
                 sql.append(getFunction(parts[1]));
             } else {
-                if(i==tenantIdColumnIndex){
+                if(i==tenantIdColumnIndex && getDialect().isAutoCastEmptyStringToNull(getSqlCompatibilityType())){
                     sql.append(getDialect().genCastNullToDefaultExpression("?", getDefaultTenantId()));
                 }else {
                     sql.append("?");
@@ -198,7 +204,7 @@ public abstract class BaseMapper extends AbstractMapper {
         for (int i = 0; i < where.size(); i++) {
             String condition = getDialect().unwrapQuote(where.get(i));
 
-            if(Strings.equalsIgnoreCase(condition, "tenant_id") && getDialect().isAutoCastEmptyStringToNull()){
+            if(Strings.equalsIgnoreCase(condition, "tenant_id") && getDialect().isAutoCastEmptyStringToNull(getSqlCompatibilityType())){
                 String castNullToDefaultExpression = getDialect().genCastNullToDefaultExpression("?", getDefaultTenantId());
                 sql.append(getIdentifierInDb(condition)).append(" = ").append(castNullToDefaultExpression);
             }else{
@@ -214,7 +220,7 @@ public abstract class BaseMapper extends AbstractMapper {
 
     private static final String NAMESPACE_PUBLIC_KEY = "public";
     protected final String getDefaultTenantId(){
-        if(getDialect().isAutoCastEmptyStringToNull()){
+        if(getDialect().isAutoCastEmptyStringToNull(getSqlCompatibilityType())){
             return NAMESPACE_PUBLIC_KEY;
         }
         return NamespaceUtil.getNamespaceDefaultId();

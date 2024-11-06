@@ -9,6 +9,7 @@ import com.jn.langx.util.logging.Loggers;
 import com.jn.langx.util.reflect.Reflects;
 import com.jn.sqlhelper.dialect.Dialect;
 import com.jn.sqlhelper.dialect.DialectRegistry;
+import com.jn.sqlhelper.dialect.SqlCompatibilityType;
 import org.slf4j.Logger;
 
 public class NacosEnvs {
@@ -29,6 +30,8 @@ public class NacosEnvs {
      */
     private static final String CONFIG_KEY_DB_DDL_IDENTIFIER_QUOTED_MODE="db.sql.identifier.quoted.mode";
 
+    private static final String CONFIG_KEY_DB_COMPATIBILITY="db.sql.compatibility.type";
+
     public static int versionCompare(String comparedVersion) {
         String currentVersion = toNacosStandardVersion(VersionUtils.version);
         String version2 = toNacosStandardVersion(comparedVersion);
@@ -41,8 +44,6 @@ public class NacosEnvs {
         return nacosVersion;
     }
 
-
-
     public static boolean hasEncryptedDataKeyColumn() {
         return versionCompare("2.1.0") >= 0;
     }
@@ -50,7 +51,7 @@ public class NacosEnvs {
     /**
      * 当使用的 create-schema.sql, create-tables.sql 不是插件提供的，需要指定该配置。
      */
-    public static IdentifierQuotedMode getConfiguredIdentifierQuotedMode(NacosDatabaseDialect dialect) {
+    public static IdentifierQuotedMode getIdentifierQuotedMode(NacosDatabaseDialect dialect) {
         String modeString = EnvUtil.getProperty(CONFIG_KEY_DB_DDL_IDENTIFIER_QUOTED_MODE);
         IdentifierQuotedMode mode = null;
         if (Strings.isNotBlank(modeString)) {
@@ -63,6 +64,27 @@ public class NacosEnvs {
             mode = IdentifierQuotedMode.UNQUOTED;
         }
         return mode;
+    }
+
+    public static SqlCompatibilityType getSqlCompatibilityType(NacosDatabaseDialect dialect){
+        String modeString = EnvUtil.getProperty(CONFIG_KEY_DB_COMPATIBILITY);
+
+        SqlCompatibilityType compatibilityType= null;
+        if(!Strings.isBlank(modeString)){
+            compatibilityType = Enums.ofName(SqlCompatibilityType.class, modeString);
+        }
+
+        if(compatibilityType!=null){
+            if(!dialect.getDelegate().isSupportedCompatibilityType(compatibilityType)){
+                Loggers.getLogger(NacosEnvs.class).warn("unsupported db compatibilityType: {}", compatibilityType);
+                compatibilityType = null;
+            }
+        }
+
+        if(compatibilityType == null){
+            compatibilityType = dialect.getDefaultCompatibilityType();
+        }
+        return compatibilityType;
     }
 
     public static String getConfiguredDatabaseName() {
