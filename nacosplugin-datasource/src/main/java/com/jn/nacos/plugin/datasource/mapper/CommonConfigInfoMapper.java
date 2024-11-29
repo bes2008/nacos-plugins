@@ -1,14 +1,18 @@
 package com.jn.nacos.plugin.datasource.mapper;
 
+import com.alibaba.nacos.common.utils.ArrayUtils;
+import com.alibaba.nacos.common.utils.StringUtils;
 import com.alibaba.nacos.plugin.datasource.constants.ContextConstant;
 import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.ConfigInfoMapper;
 import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.alibaba.nacos.plugin.datasource.model.MapperResult;
+import com.jn.langx.util.Objs;
 import com.jn.langx.util.Strings;
 import com.jn.langx.util.collection.Collects;
 import com.jn.langx.util.collection.Lists;
 import com.jn.nacos.plugin.datasource.NacosEnvs;
+import com.jn.nacos.plugin.datasource.tools.WhereBuilder;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.sql.Timestamp;
@@ -62,13 +66,81 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
     @Override
     public MapperResult findConfigInfo4PageCountRows(MapperContext context) {
         useDefaultTenantIdWithWhereParameter(context);
-        return ConfigInfoMapper.super.findConfigInfo4PageCountRows(context);
+
+        final String dataId = (String) context.getWhereParameter(FieldConstant.DATA_ID);
+        final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
+        final String content = (String) context.getWhereParameter(FieldConstant.CONTENT);
+        final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
+        final String tenantId = (String) context.getWhereParameter(FieldConstant.TENANT_ID);
+        final String[] types = (String[]) context.getWhereParameter(FieldConstant.TYPE);
+
+        final List<Object> paramList = new ArrayList<>();
+
+        final String sqlCount = "SELECT count(*) FROM config_info";
+        StringBuilder where = new StringBuilder(" WHERE ");
+        where.append(" tenant_id=? ");
+        paramList.add(tenantId);
+        if (StringUtils.isNotBlank(dataId)) {
+            where.append(" AND data_id=? ");
+            paramList.add(dataId);
+        }
+        if (StringUtils.isNotBlank(group)) {
+            where.append(" AND group_id=? ");
+            paramList.add(group);
+        }
+        if (StringUtils.isNotBlank(appName)) {
+            where.append(" AND app_name=? ");
+            paramList.add(appName);
+        }
+        if (!StringUtils.isBlank(content)) {
+            where.append(" AND content LIKE ? ");
+            paramList.add(content);
+        }
+
+        if(Objs.isNotEmpty(types)){
+            where.append(" and a.type in (");
+            for (int i = 0; i < types.length; i++) {
+                if(i!=0){
+                    where.append(", ");
+                }
+                where.append('?');
+                paramList.add(types[i]);
+            }
+            where.append(") ");
+        }
+
+        return new MapperResult(sqlCount + where, paramList);
     }
 
     @Override
     public MapperResult findConfigInfoLike4PageCountRows(MapperContext context) {
         useDefaultTenantIdWithWhereParameter(context);
-        return ConfigInfoMapper.super.findConfigInfoLike4PageCountRows(context);
+        final String dataId = (String) context.getWhereParameter(FieldConstant.DATA_ID);
+        final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
+        final String content = (String) context.getWhereParameter(FieldConstant.CONTENT);
+        final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
+        final String tenantId = (String) context.getWhereParameter(FieldConstant.TENANT_ID);
+        final String[] types = (String[]) context.getWhereParameter(FieldConstant.TYPE);
+
+        WhereBuilder where = new WhereBuilder("SELECT count(*) FROM config_info");
+
+        where.like("tenant_id", tenantId);
+        if (StringUtils.isNotBlank(dataId)) {
+            where.and().like("data_id", dataId);
+        }
+        if (StringUtils.isNotBlank(group)) {
+            where.and().like("group_id", group);
+        }
+        if (StringUtils.isNotBlank(appName)) {
+            where.and().eq("app_name", appName);
+        }
+        if (StringUtils.isNotBlank(content)) {
+            where.and().like("content", content);
+        }
+        if (!Objs.isEmpty(types)) {
+            where.and().in("type", types);
+        }
+        return where.build();
     }
 
     @Override
@@ -288,6 +360,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
         final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
         final String content = (String) context.getWhereParameter(FieldConstant.CONTENT);
+        final String[] types = (String[]) context.getWhereParameter(FieldConstant.TYPE);
 
         List<Object> paramList = new ArrayList<>();
 
@@ -311,6 +384,18 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         if (!Strings.isBlank(content)) {
             where.append(" AND content LIKE ? ");
             paramList.add(content);
+        }
+
+        if(Objs.isNotEmpty(types)){
+            where.append(" and a.type in (");
+            for (int i = 0; i < types.length; i++) {
+                if(i!=0){
+                    where.append(", ");
+                }
+                where.append('?');
+                paramList.add(types[i]);
+            }
+            where.append(") ");
         }
 
         sql = sql + where + " order by id asc";
@@ -348,6 +433,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
         final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
         final String content = (String) context.getWhereParameter(FieldConstant.CONTENT);
+        final String[] types = (String[]) context.getWhereParameter(FieldConstant.TYPE);
 
         List<Object> paramList = Lists.newArrayList();
 
@@ -371,6 +457,18 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         if (!Strings.isBlank(content)) {
             where.append(" AND content LIKE ? ");
             paramList.add(content);
+        }
+
+        if(Objs.isNotEmpty(types)){
+            where.append(" and a.type in (");
+            for (int i = 0; i < types.length; i++) {
+                if(i!=0){
+                    where.append(", ");
+                }
+                where.append('?');
+                paramList.add(types[i]);
+            }
+            where.append(") ");
         }
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
