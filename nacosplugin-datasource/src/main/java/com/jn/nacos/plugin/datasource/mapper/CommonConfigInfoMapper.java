@@ -1,7 +1,5 @@
 package com.jn.nacos.plugin.datasource.mapper;
 
-import com.alibaba.nacos.common.utils.ArrayUtils;
-import com.alibaba.nacos.common.utils.StringUtils;
 import com.alibaba.nacos.plugin.datasource.constants.ContextConstant;
 import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.ConfigInfoMapper;
@@ -80,19 +78,19 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         StringBuilder where = new StringBuilder(" WHERE ");
         where.append(" tenant_id=? ");
         paramList.add(tenantId);
-        if (StringUtils.isNotBlank(dataId)) {
+        if (Strings.isNotBlank(dataId)) {
             where.append(" AND data_id=? ");
             paramList.add(dataId);
         }
-        if (StringUtils.isNotBlank(group)) {
+        if (Strings.isNotBlank(group)) {
             where.append(" AND group_id=? ");
             paramList.add(group);
         }
-        if (StringUtils.isNotBlank(appName)) {
+        if (Strings.isNotBlank(appName)) {
             where.append(" AND app_name=? ");
             paramList.add(appName);
         }
-        if (!StringUtils.isBlank(content)) {
+        if (Strings.isNotBlank(content)) {
             where.append(" AND content LIKE ? ");
             paramList.add(content);
         }
@@ -125,16 +123,16 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         WhereBuilder where = new WhereBuilder("SELECT count(*) FROM config_info");
 
         where.like("tenant_id", tenantId);
-        if (StringUtils.isNotBlank(dataId)) {
+        if (Strings.isNotBlank(dataId)) {
             where.and().like("data_id", dataId);
         }
-        if (StringUtils.isNotBlank(group)) {
+        if (Strings.isNotBlank(group)) {
             where.and().like("group_id", group);
         }
-        if (StringUtils.isNotBlank(appName)) {
+        if (Strings.isNotBlank(appName)) {
             where.and().eq("app_name", appName);
         }
-        if (StringUtils.isNotBlank(content)) {
+        if (Strings.isNotBlank(content)) {
             where.and().like("content", content);
         }
         if (!Objs.isEmpty(types)) {
