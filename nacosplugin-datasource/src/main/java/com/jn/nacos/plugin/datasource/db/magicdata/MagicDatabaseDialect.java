@@ -12,17 +12,13 @@ public class MagicDatabaseDialect extends NacosDatabaseDialect {
     }
 
     @Override
-    public boolean isAutoCastEmptyStringToNull(SqlCompatibilityType sqlCompatibilityType) {
-        return true;
-    }
-
-    @Override
     public String genCastNullToDefaultExpression(String expressionOrIdentifier, String defaultValue) {
         return " COALESCE("+expressionOrIdentifier+", '"+defaultValue+"') ";
     }
 
     @Override
     public SqlCompatibilityType getDefaultCompatibilityType() {
+        // Magicdata 本身的默认兼容类型为 POSTGRESQL，但 BES公司在使用时，默认使用 ORACLE
         return SqlCompatibilityType.ORACLE;
     }
 }

@@ -133,6 +133,9 @@ public abstract class NacosDatabaseDialect {
         return this.delegate.getUnquoteIdentifier(identifier);
     }
 
+    /**
+     * 通常是在 ORACLE 兼容模式下，会将 空字符串""转换成 NULL
+     */
     public boolean isAutoCastEmptyStringToNull(SqlCompatibilityType sqlCompatibilityType){
         return sqlCompatibilityType == SqlCompatibilityType.ORACLE;
     }

@@ -22,7 +22,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
     @Override
     public MapperResult findChangeConfig(MapperContext context) {
         RowSelection rowSelection = new RowSelection(0, context.getPageSize());
-        String sql = "SELECT id, data_id, group_id, tenant_id, app_name, content, gmt_modified, encrypted_data_key FROM config_info WHERE "
+        String sql = "SELECT id, data_id, group_id, tenant_id, app_name, content, gmt_modified,type "+ (NacosEnvs.hasEncryptedDataKeyColumn()? ",encrypted_data_key":"")+" FROM config_info WHERE "
                 + "gmt_modified >= ? and id > ? order by id ";
 
         sql = getDialect().getLimitSql(sql, rowSelection);
@@ -91,7 +91,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
 
         List paramList = Lists.newArrayList();
 
-        String sql= "SELECT ID,data_id,group_id,tenant_id,app_name,content FROM config_info WHERE tenant_id LIKE ? AND app_name = ? order by id asc";
+        String sql= "SELECT ID,data_id,group_id,tenant_id,app_name,content,type FROM config_info WHERE tenant_id LIKE ? AND app_name = ? order by id asc";
         paramList.add(tenantId);
         paramList.add(appName);
         sql = getDialect().getLimitSql(sql, rowSelection);
@@ -153,7 +153,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         String subquery = "SELECT id FROM config_info ORDER BY id ";
         String pagedSubquery = getDialect().getLimitSql(subquery,true,true, rowSelection);
-        String sql = "SELECT t.id,data_id,group_id,content,md5 " + " FROM ( " + pagedSubquery + " ) g, config_info t WHERE g.id = t.id ";
+        String sql = "SELECT t.id,data_id,group_id,content,md5,type " + " FROM ( " + pagedSubquery + " ) g, config_info t WHERE g.id = t.id ";
         List pagedParams = getDialect().rebuildParameters(true, true, Collects.emptyArrayList(), rowSelection);
         return new MapperResult(sql, pagedParams);
     }
@@ -256,7 +256,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
 
         List<Object> paramList = new ArrayList<>();
-        final String sqlFetchRows = "SELECT id,data_id,group_id,tenant_id,content FROM config_info WHERE ";
+        final String sqlFetchRows = "SELECT id,data_id,group_id,tenant_id,content,type FROM config_info WHERE ";
         String where = " tenant_id= ? ";
         paramList.add(tenant);
         if (!Strings.isBlank(dataId)) {
@@ -351,7 +351,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
 
         List<Object> paramList = Lists.newArrayList();
 
-        final String sqlFetchRows = "SELECT id,data_id,group_id,tenant_id,app_name,content,encrypted_data_key FROM config_info";
+        final String sqlFetchRows = "SELECT id,data_id,group_id,tenant_id,app_name,content,type "+ (NacosEnvs.hasEncryptedDataKeyColumn()? ",encrypted_data_key":"")+" FROM config_info";
         StringBuilder where = new StringBuilder(" WHERE ");
 
         where.append(" tenant_id LIKE ? ");
