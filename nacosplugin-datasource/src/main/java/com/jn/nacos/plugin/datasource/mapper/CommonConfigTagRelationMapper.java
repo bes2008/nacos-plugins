@@ -165,13 +165,8 @@ public class CommonConfigTagRelationMapper extends BaseMapper implements ConfigT
         StringBuilder where = new StringBuilder(" WHERE ");
         final String baseSql = "SELECT count(*) FROM config_info a LEFT JOIN config_tags_relation b ON a.id=b.id";
 
-        if(Strings.isBlank(tenantId)){
-            where.append(" a.tenant_id = ? ");
-        }
-        else {
-            where.append(" a.tenant_id LIKE ? ");
-            paramList.add(tenantId);
-        }
+        where.append(" a.tenant_id = ? ");
+        paramList.add(tenantId);
 
         if (!Strings.isBlank(dataId)) {
             where.append(" AND a.data_id LIKE ? ");
@@ -233,13 +228,9 @@ public class CommonConfigTagRelationMapper extends BaseMapper implements ConfigT
         final String baseSql =
                 "SELECT a.ID,a.data_id,a.group_id,a.tenant_id,a.app_name,a.content, a.type FROM config_info  a LEFT JOIN "
                         + "config_tags_relation b ON a.id=b.id ";
-        if(Strings.isBlank(tenantId)){
-            where.append(" a.tenant_id = ? ");
-        }
-        else {
-            where.append(" a.tenant_id LIKE ? ");
-            paramList.add(tenantId);
-        }
+
+        where.append(" a.tenant_id = ? ");
+        paramList.add(tenantId);
 
         if (!Strings.isBlank(dataId)) {
             where.append(" AND a.data_id LIKE ? ");
