@@ -10,7 +10,7 @@ import com.jn.langx.util.Strings;
 import com.jn.langx.util.collection.Collects;
 import com.jn.langx.util.collection.Lists;
 import com.jn.nacos.plugin.datasource.NacosEnvs;
-import com.jn.nacos.plugin.datasource.tools.WhereBuilder;
+import com.jn.nacos.plugin.datasource.utils.WhereBuilder;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.sql.Timestamp;

@@ -1,4 +1,4 @@
-package com.jn.nacos.plugin.datasource.tools;
+package com.jn.nacos.plugin.datasource.utils;
 
 
 import com.alibaba.nacos.plugin.datasource.model.MapperResult;
