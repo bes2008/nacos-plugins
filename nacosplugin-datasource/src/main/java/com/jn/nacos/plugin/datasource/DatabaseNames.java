@@ -12,6 +12,9 @@ public class DatabaseNames {
     public static final String DAMENG = "dm";
     public static final String MSSQL = "sqlserver";
     public static final String POSTGRESQL = "postgresql";
+
+    public static final String PANWEI = "panwei";
+
     public static final String OSCAR = "oscar";
 
     /**

@@ -30,6 +30,9 @@ public class NacosEnvs {
      */
     private static final String CONFIG_KEY_DB_DDL_IDENTIFIER_QUOTED_MODE="db.sql.identifier.quoted.mode";
 
+    /**
+     * 指定兼容模式，这个会影响判定 是否会将 "" => null的判定
+     */
     private static final String CONFIG_KEY_DB_COMPATIBILITY="db.sql.compatibility.type";
 
     public static int versionCompare(String comparedVersion) {

@@ -5,7 +5,7 @@ import com.jn.nacos.plugin.datasource.IdentifierQuotedMode;
 import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 import com.jn.sqlhelper.dialect.SqlCompatibilityType;
 
-public class OpenGaussDatabaseDialect  extends NacosDatabaseDialect {
+public class OpenGaussDatabaseDialect extends NacosDatabaseDialect {
     public OpenGaussDatabaseDialect() {
         super(DatabaseNames.OPENGAUSS);
         this.identifierQuotedMode = IdentifierQuotedMode.QUOTED;

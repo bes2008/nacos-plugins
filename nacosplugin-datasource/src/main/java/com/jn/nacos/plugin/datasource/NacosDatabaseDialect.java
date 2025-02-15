@@ -39,6 +39,9 @@ public abstract class NacosDatabaseDialect {
         this.identifierQuotedMode = IdentifierQuotedMode.UNQUOTED;
     }
 
+    /**
+     * @return 获取DDL文件中相关语句的引号模式
+     */
     public IdentifierQuotedMode getPluginProvidedDDLIdentifierQuotedMode(){
         return identifierQuotedMode;
     }
@@ -99,6 +102,12 @@ public abstract class NacosDatabaseDialect {
     protected Map<String,String> specifiedFunctions(){
         return null;
     }
+
+    /**
+     * 获取函数
+     * @param functionName 函数名
+     * @return 返回数据库特定的函数形态
+     */
     public String getFunction(String functionName){
         String func = this.functionMap.get(functionName);
         if(Objs.isEmpty(func)){
@@ -115,42 +124,71 @@ public abstract class NacosDatabaseDialect {
         return this.delegate.getLimitSql(sql,useLimitVariable, subQuery, rowSelection);
     }
 
+    /**
+     * 将 limit, offset等加入到 queryParams中
+     * @param queryParams 原始的参数
+     * @param selection row selection 对象
+     * @return 拼装后的参数列表
+     */
     public List rebuildParameters(List queryParams, RowSelection selection){
         return rebuildParameters(false, true, queryParams, selection);
     }
 
+    /**
+     * 将 limit, offset等加入到 queryParams中
+     * @param queryParams 原始的参数
+     * @param selection row selection 对象
+     * @return 拼装后的参数列表
+     */
     public List rebuildParameters(boolean subquery, boolean useLimitVariable, List queryParams, RowSelection selection){
         return this.delegate.rebuildParameters(subquery,useLimitVariable, selection, queryParams);
     }
 
-
+    /**
+     * 对表名、字段名进行引号包装
+     * @param identifier 表名、字段名
+     * @param identifierCase 大小写形式
+     * @return 包装后的值
+     */
     public String wrapQuote(String identifier, Dialect.IdentifierCase identifierCase){
         // 数据库表名、列名的大小写，由 dialect 内部实现
         return this.delegate.getQuotedIdentifier(identifier, identifierCase);
     }
 
+    /**
+     * 对表名、字段名进行引号去包装
+     * @param identifier 表名、字段名
+     * @return 返回去包装后的值
+     */
     public String unwrapQuote(String identifier){
         return this.delegate.getUnquoteIdentifier(identifier);
     }
 
     /**
-     * 通常是在 ORACLE 兼容模式下，会将 空字符串""转换成 NULL
+     * 通常是在 ORACLE 兼容模式下，JDBC驱动会自动将参数中的 空字符串""转换成 NULL。
      */
     public boolean isAutoCastEmptyStringToNull(SqlCompatibilityType sqlCompatibilityType){
         return sqlCompatibilityType == SqlCompatibilityType.ORACLE;
     }
 
     /**
-     * 为了应对存入 "" 字符串时，被当作 null 处理的情况
+     * 为了应对存入 "" 字符串时，被当作 null 处理的情况。
+     * 当不希望""被处理成null时，可以使用这个方法，将"" 转换成默认值。
      */
     public String genCastNullToDefaultExpression(String expressionOrIdentifier,@Nullable String defaultValue){
         return expressionOrIdentifier;
     }
 
+    /**
+     * @return 获取数据库方言名称
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return 获取数据库的默认的兼容模式
+     */
     public SqlCompatibilityType getDefaultCompatibilityType(){
         return delegate.getDefaultSqlCompatibilityType();
     }
