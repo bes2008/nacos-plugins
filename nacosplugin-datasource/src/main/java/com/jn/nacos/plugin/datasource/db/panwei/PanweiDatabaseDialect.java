@@ -6,7 +6,7 @@ import com.jn.nacos.plugin.datasource.NacosDatabaseDialect;
 
 public class PanweiDatabaseDialect extends NacosDatabaseDialect {
     public PanweiDatabaseDialect() {
-        super(DatabaseNames.OPENGAUSS);
+        super(DatabaseNames.PANWEI);
         this.identifierQuotedMode = IdentifierQuotedMode.QUOTED;
     }
 
