@@ -43,10 +43,7 @@ public class PluginContext extends AbstractInitializable {
         this.databaseName = NacosEnvs.getConfiguredDatabaseName();
         Preconditions.checkTrue(!Objs.equals(DatabaseNames.UNSUPPORTED, this.databaseName), "database {} is unsupported", this.databaseName);
 
-        if(isUseBuiltinDatabasePlugin()){
-            logger.info("user the builtin database plugin");
-            return;
-        }else {
+        if(!isUseBuiltinDatabasePlugin()){
             this.dialect = NacosDatabaseDialectManager.getInstance().getDialect(this.databaseName);
             this.identifierQuotedModeInDDL = NacosEnvs.getIdentifierQuotedMode(this.dialect);
             this.sqlCompatibilityType = NacosEnvs.getSqlCompatibilityType(this.dialect);
