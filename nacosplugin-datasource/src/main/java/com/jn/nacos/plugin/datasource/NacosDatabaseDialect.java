@@ -37,7 +37,6 @@ public abstract class NacosDatabaseDialect {
         this.name = name;
         String sqlhelperDialect = getCustomizedDialect(this.name);
         this.delegate = DialectRegistry.getInstance().gaussDialect(sqlhelperDialect);
-        Preconditions.checkNotNull(this.delegate, "invalid datasource : {}", this.name);
         this.functionMap = initFunctionMap();
         this.identifierQuotedMode = IdentifierQuotedMode.UNQUOTED;
     }
