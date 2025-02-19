@@ -90,11 +90,6 @@ public class NacosEnvs {
         return compatibilityType;
     }
 
-    public static boolean isUseBuiltinDatabasePlugin() {
-        String databaseName = getConfiguredDatabaseName();
-        return Objs.equals(DatabaseNames.UNDEFINED, databaseName);
-    }
-
     public static String getConfiguredDatabaseName() {
         String databaseName = EnvUtil.getProperty(CONFIG_KEY_DATASOURCE_PLATFORM);
         if (Strings.isBlank(databaseName)) {
