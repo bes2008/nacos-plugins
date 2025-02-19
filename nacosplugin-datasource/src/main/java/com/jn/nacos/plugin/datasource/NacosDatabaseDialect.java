@@ -1,5 +1,6 @@
 package com.jn.nacos.plugin.datasource;
 
+import com.jn.langx.annotation.NonNull;
 import com.jn.langx.annotation.Nullable;
 import com.jn.langx.text.StringTemplates;
 import com.jn.langx.util.Objs;
@@ -18,6 +19,7 @@ import java.util.Map;
 public abstract class NacosDatabaseDialect {
 
     private String name;
+    @NonNull
     private Dialect delegate;
     private Map<String, String> functionMap;
 
@@ -35,6 +37,7 @@ public abstract class NacosDatabaseDialect {
         this.name = name;
         String sqlhelperDialect = getCustomizedDialect(this.name);
         this.delegate = DialectRegistry.getInstance().gaussDialect(sqlhelperDialect);
+        Preconditions.checkNotNull(this.delegate, "invalid datasource : {}", this.name);
         this.functionMap = initFunctionMap();
         this.identifierQuotedMode = IdentifierQuotedMode.UNQUOTED;
     }
