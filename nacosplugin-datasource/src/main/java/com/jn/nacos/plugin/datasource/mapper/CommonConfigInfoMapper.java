@@ -30,8 +30,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         sql = getDialect().getLimitSql(sql, rowSelection);
 
         List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.START_TIME),
-                context.getWhereParameter(FieldConstant.LAST_MAX_ID),
-                context.getWhereParameter(FieldConstant.PAGE_SIZE));
+                context.getWhereParameter(FieldConstant.LAST_MAX_ID));
 
         List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
