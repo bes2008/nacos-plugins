@@ -19,7 +19,7 @@ public class CommonHistoryConfigInfoMapper extends BaseMapper implements History
         RowSelection rowSelection = new RowSelection(0, pageSize);
         String sql = "DELETE FROM his_config_info WHERE gmt_modified < ? ";
         sql = getDialect().getLimitSql(sql, rowSelection);
-        List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.START_TIME), pageSize);
+        List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.START_TIME));
         List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
     }

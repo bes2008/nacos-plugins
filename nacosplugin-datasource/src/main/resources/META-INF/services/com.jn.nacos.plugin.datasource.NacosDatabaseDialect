@@ -6,3 +6,4 @@ com.jn.nacos.plugin.datasource.db.mssql.MssqlDatabaseDialect
 com.jn.nacos.plugin.datasource.db.mysql.MysqlDatabaseDialect
 com.jn.nacos.plugin.datasource.db.oracle.OracleDatabaseDialect
 com.jn.nacos.plugin.datasource.db.postgresql.PostgresDatabaseDialect
+com.jn.nacos.plugin.datasource.db.panwei.PanweiDatabaseDialect

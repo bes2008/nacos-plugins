@@ -5,10 +5,12 @@ import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.ConfigInfoMapper;
 import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.alibaba.nacos.plugin.datasource.model.MapperResult;
+import com.jn.langx.util.Objs;
 import com.jn.langx.util.Strings;
 import com.jn.langx.util.collection.Collects;
 import com.jn.langx.util.collection.Lists;
 import com.jn.nacos.plugin.datasource.NacosEnvs;
+import com.jn.nacos.plugin.datasource.utils.WhereBuilder;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.sql.Timestamp;
@@ -22,14 +24,13 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
     @Override
     public MapperResult findChangeConfig(MapperContext context) {
         RowSelection rowSelection = new RowSelection(0, context.getPageSize());
-        String sql = "SELECT id, data_id, group_id, tenant_id, app_name, content, gmt_modified, encrypted_data_key FROM config_info WHERE "
+        String sql = "SELECT id, data_id, group_id, tenant_id, app_name, content, gmt_modified,type "+ (NacosEnvs.hasEncryptedDataKeyColumn()? ",encrypted_data_key":"")+" FROM config_info WHERE "
                 + "gmt_modified >= ? and id > ? order by id ";
 
         sql = getDialect().getLimitSql(sql, rowSelection);
 
         List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.START_TIME),
-                context.getWhereParameter(FieldConstant.LAST_MAX_ID),
-                context.getWhereParameter(FieldConstant.PAGE_SIZE));
+                context.getWhereParameter(FieldConstant.LAST_MAX_ID));
 
         List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
@@ -62,13 +63,81 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
     @Override
     public MapperResult findConfigInfo4PageCountRows(MapperContext context) {
         useDefaultTenantIdWithWhereParameter(context);
-        return ConfigInfoMapper.super.findConfigInfo4PageCountRows(context);
+
+        final String dataId = (String) context.getWhereParameter(FieldConstant.DATA_ID);
+        final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
+        final String content = (String) context.getWhereParameter(FieldConstant.CONTENT);
+        final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
+        final String tenantId = (String) context.getWhereParameter(FieldConstant.TENANT_ID);
+        final String[] types = (String[]) context.getWhereParameter(FieldConstant.TYPE);
+
+        final List<Object> paramList = new ArrayList<>();
+
+        final String sqlCount = "SELECT count(*) FROM config_info";
+        StringBuilder where = new StringBuilder(" WHERE ");
+        where.append(" tenant_id=? ");
+        paramList.add(tenantId);
+        if (Strings.isNotBlank(dataId)) {
+            where.append(" AND data_id=? ");
+            paramList.add(dataId);
+        }
+        if (Strings.isNotBlank(group)) {
+            where.append(" AND group_id=? ");
+            paramList.add(group);
+        }
+        if (Strings.isNotBlank(appName)) {
+            where.append(" AND app_name=? ");
+            paramList.add(appName);
+        }
+        if (Strings.isNotBlank(content)) {
+            where.append(" AND content LIKE ? ");
+            paramList.add(content);
+        }
+
+        if(Objs.isNotEmpty(types)){
+            where.append(" and a.type in (");
+            for (int i = 0; i < types.length; i++) {
+                if(i!=0){
+                    where.append(", ");
+                }
+                where.append('?');
+                paramList.add(types[i]);
+            }
+            where.append(") ");
+        }
+
+        return new MapperResult(sqlCount + where, paramList);
     }
 
     @Override
     public MapperResult findConfigInfoLike4PageCountRows(MapperContext context) {
         useDefaultTenantIdWithWhereParameter(context);
-        return ConfigInfoMapper.super.findConfigInfoLike4PageCountRows(context);
+        final String dataId = (String) context.getWhereParameter(FieldConstant.DATA_ID);
+        final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
+        final String content = (String) context.getWhereParameter(FieldConstant.CONTENT);
+        final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
+        final String tenantId = (String) context.getWhereParameter(FieldConstant.TENANT_ID);
+        final String[] types = (String[]) context.getWhereParameter(FieldConstant.TYPE);
+
+        WhereBuilder where = new WhereBuilder("SELECT count(*) FROM config_info");
+
+        where.eq("tenant_id", tenantId);
+        if (Strings.isNotBlank(dataId)) {
+            where.and().like("data_id", dataId);
+        }
+        if (Strings.isNotBlank(group)) {
+            where.and().like("group_id", group);
+        }
+        if (Strings.isNotBlank(appName)) {
+            where.and().eq("app_name", appName);
+        }
+        if (Strings.isNotBlank(content)) {
+            where.and().like("content", content);
+        }
+        if (!Objs.isEmpty(types)) {
+            where.and().in("type", types);
+        }
+        return where.build();
     }
 
     @Override
@@ -91,7 +160,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
 
         List paramList = Lists.newArrayList();
 
-        String sql= "SELECT ID,data_id,group_id,tenant_id,app_name,content FROM config_info WHERE tenant_id LIKE ? AND app_name = ? order by id asc";
+        String sql= "SELECT ID,data_id,group_id,tenant_id,app_name,content,type FROM config_info WHERE tenant_id LIKE ? AND app_name = ? order by id asc";
         paramList.add(tenantId);
         paramList.add(appName);
         sql = getDialect().getLimitSql(sql, rowSelection);
@@ -153,7 +222,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());
         String subquery = "SELECT id FROM config_info ORDER BY id ";
         String pagedSubquery = getDialect().getLimitSql(subquery,true,true, rowSelection);
-        String sql = "SELECT t.id,data_id,group_id,content,md5 " + " FROM ( " + pagedSubquery + " ) g, config_info t WHERE g.id = t.id ";
+        String sql = "SELECT t.id,data_id,group_id,content,md5,type " + " FROM ( " + pagedSubquery + " ) g, config_info t WHERE g.id = t.id ";
         List pagedParams = getDialect().rebuildParameters(true, true, Collects.emptyArrayList(), rowSelection);
         return new MapperResult(sql, pagedParams);
     }
@@ -256,7 +325,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
 
         List<Object> paramList = new ArrayList<>();
-        final String sqlFetchRows = "SELECT id,data_id,group_id,tenant_id,content FROM config_info WHERE ";
+        final String sqlFetchRows = "SELECT id,data_id,group_id,tenant_id,content,type FROM config_info WHERE ";
         String where = " tenant_id= ? ";
         paramList.add(tenant);
         if (!Strings.isBlank(dataId)) {
@@ -288,6 +357,7 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
         final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
         final String content = (String) context.getWhereParameter(FieldConstant.CONTENT);
+        final String[] types = (String[]) context.getWhereParameter(FieldConstant.TYPE);
 
         List<Object> paramList = new ArrayList<>();
 
@@ -311,6 +381,18 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         if (!Strings.isBlank(content)) {
             where.append(" AND content LIKE ? ");
             paramList.add(content);
+        }
+
+        if(Objs.isNotEmpty(types)){
+            where.append(" and a.type in (");
+            for (int i = 0; i < types.length; i++) {
+                if(i!=0){
+                    where.append(", ");
+                }
+                where.append('?');
+                paramList.add(types[i]);
+            }
+            where.append(") ");
         }
 
         sql = sql + where + " order by id asc";
@@ -348,10 +430,11 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         final String group = (String) context.getWhereParameter(FieldConstant.GROUP_ID);
         final String appName = (String) context.getWhereParameter(FieldConstant.APP_NAME);
         final String content = (String) context.getWhereParameter(FieldConstant.CONTENT);
+        final String[] types = (String[]) context.getWhereParameter(FieldConstant.TYPE);
 
         List<Object> paramList = Lists.newArrayList();
 
-        final String sqlFetchRows = "SELECT id,data_id,group_id,tenant_id,app_name,content,encrypted_data_key FROM config_info";
+        final String sqlFetchRows = "SELECT id,data_id,group_id,tenant_id,app_name,content,type "+ (NacosEnvs.hasEncryptedDataKeyColumn()? ",encrypted_data_key":"")+" FROM config_info";
         StringBuilder where = new StringBuilder(" WHERE ");
 
         where.append(" tenant_id LIKE ? ");
@@ -371,6 +454,18 @@ public class CommonConfigInfoMapper extends BaseMapper implements ConfigInfoMapp
         if (!Strings.isBlank(content)) {
             where.append(" AND content LIKE ? ");
             paramList.add(content);
+        }
+
+        if(Objs.isNotEmpty(types)){
+            where.append(" and a.type in (");
+            for (int i = 0; i < types.length; i++) {
+                if(i!=0){
+                    where.append(", ");
+                }
+                where.append('?');
+                paramList.add(types[i]);
+            }
+            where.append(") ");
         }
 
         RowSelection rowSelection = new RowSelection(context.getStartRow(), context.getPageSize());

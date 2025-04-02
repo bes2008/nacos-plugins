@@ -227,3 +227,19 @@ db.pool.config.driverClassName=org.postgresql.Driver
 db.sql.compatibility.type=postgresql
 
 ```
+
+### Panwei (中国移动)
+```properties
+
+# PanWei
+spring.sql.init.platform=panwei
+#spring.sql.plugin.builtin.enabled=false
+db.num=1
+db.url.0=jdbc:panweidb://localhost:15432/dbname?currentSchema=nacos&reWriteBatchedInserts=true
+db.user.0=gaussdb
+db.password.0=thePassword@123
+db.pool.config.driverClassName=org.panweidb.Driver
+# 需要根据实际情况配置，对于Panwei默认配置为 oracle
+db.sql.compatibility.type=mysql
+
+```
