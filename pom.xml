@@ -27,7 +27,7 @@
         <jmh.version>1.23</jmh.version>
         <langx-java.version>5.4.4</langx-java.version>
         <commons-codec.version>1.17.0</commons-codec.version>
-        <nacos.version>2.4.2</nacos.version>
+        <nacos.version>3.0.0</nacos.version>
         <spring.version>5.3.39</spring.version>
         <sqlhelper.version>5.1.1</sqlhelper.version>
     </properties>
