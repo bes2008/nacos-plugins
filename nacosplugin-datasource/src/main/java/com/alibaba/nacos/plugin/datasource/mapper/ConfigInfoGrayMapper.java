@@ -32,8 +32,8 @@ public interface ConfigInfoGrayMapper extends Mapper {
         Object dataId = context.getWhereParameter(FieldConstant.DATA_ID);
         Object groupId = context.getWhereParameter(FieldConstant.GROUP_ID);
         Object tenantId = context.getWhereParameter(FieldConstant.TENANT_ID);
-        Object grayName = context.getWhereParameter(FieldConstant.GRAY_NAME);
-        Object grayRule = context.getWhereParameter(FieldConstant.GRAY_RULE);
+        Object grayName = context.getWhereParameter("grayName");
+        Object grayRule = context.getWhereParameter("grayRule");
         Object oldMd5 = context.getWhereParameter(FieldConstant.MD5);
         String sql = "UPDATE config_info_gray SET content = ?, md5 = ?, src_ip = ?,src_user = ?,gmt_modified = "
                 + getFunction("NOW()") + ",app_name = ?, gray_rule = ?"
