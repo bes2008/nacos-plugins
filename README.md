@@ -30,9 +30,17 @@
 #### 使用说明
 
 
-#### 参与贡献
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+## Nacos 数据库变更
+
+- 2.2.0 => 2.4.2
+  - 无变化
+- 2.4.2 => 2.5.0
+  - 移除表：config_info_aggr
+  - 新增表：config_info_gray 
+  - 变更表：his_config_info，新增了3个字段：publish_type、gray_name、ext_info2.5.0 => 2.5.1
+- 2.5.0 => 2.5.1
+  - 移除表：config_info_beta、config_info_tag
+- 2.5.1 => 3.0.3 
+  - 无变化
+
