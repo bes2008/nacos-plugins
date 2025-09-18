@@ -38,7 +38,7 @@
 - 2.4.3 => 2.5.0
   - 移除表：config_info_aggr
   - 新增表：config_info_gray 
-  - 变更表：his_config_info，新增了3个字段：publish_type、gray_name、ext_info2.5.0 => 2.5.1
+  - 变更表：his_config_info，新增了3个字段：publish_type、gray_name、ext_info
 - 2.5.0 => 2.5.1
   - 移除表：config_info_beta、config_info_tag
 - 2.5.1 => 3.0.3 

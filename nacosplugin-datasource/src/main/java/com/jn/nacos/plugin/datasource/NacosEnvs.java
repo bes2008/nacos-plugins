@@ -35,10 +35,18 @@ public class NacosEnvs {
      */
     private static final String CONFIG_KEY_DB_COMPATIBILITY="db.sql.compatibility.type";
 
-    public static int versionCompare(String comparedVersion) {
+    private static int versionCompare(String comparedVersion) {
         String currentVersion = toNacosStandardVersion(VersionUtils.version);
         String version2 = toNacosStandardVersion(comparedVersion);
         return VersionUtils.compareVersion(currentVersion, version2);
+    }
+
+    public static boolean hasConfigInfoGrayTable() {
+        return versionGreatEquals("2.5.0");
+    }
+
+    public static boolean versionGreatEquals(String comparedVersion){
+        return versionCompare(comparedVersion)>=0;
     }
 
     private static String toNacosStandardVersion(String version) {
@@ -48,7 +56,7 @@ public class NacosEnvs {
     }
 
     public static boolean hasEncryptedDataKeyColumn() {
-        return versionCompare("2.1.0") >= 0;
+        return versionGreatEquals("2.1.0");
     }
 
     /**
@@ -136,7 +144,7 @@ public class NacosEnvs {
      * @return 是否可替换
      */
     public static boolean supportsBuiltinDatabasePluginReplaced() {
-        return versionCompare("2.3.0") >= 0;
+        return versionGreatEquals("2.3.0");
     }
 
 }
