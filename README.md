@@ -33,9 +33,9 @@
 
 ## Nacos 数据库变更
 
-- 2.2.0 => 2.4.2
+- 2.2.0 => 2.4.3
   - 无变化
-- 2.4.2 => 2.5.0
+- 2.4.3 => 2.5.0
   - 移除表：config_info_aggr
   - 新增表：config_info_gray 
   - 变更表：his_config_info，新增了3个字段：publish_type、gray_name、ext_info2.5.0 => 2.5.1
