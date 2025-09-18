@@ -7,3 +7,4 @@ com.jn.nacos.plugin.datasource.mapper.CommonGroupCapacityMapper
 com.jn.nacos.plugin.datasource.mapper.CommonHistoryConfigInfoMapper
 com.jn.nacos.plugin.datasource.mapper.CommonTenantCapacityMapper
 com.jn.nacos.plugin.datasource.mapper.CommonTenantInfoMapper
+com.jn.nacos.plugin.datasource.mapper.CommonConfigInfoGrayMapper
