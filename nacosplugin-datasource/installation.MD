@@ -139,7 +139,7 @@ db.url.0=jdbc:sqlserver://localhost:1433;databaseName=nacos;encrypt=false
 db.user.0=sa
 db.password.0=SA123456Pswd
 db.pool.config.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
-```   
+```
 
 ### MySQL
 
@@ -153,7 +153,7 @@ mysql --password=root_password --host=localhost --port=3306 --user root < create
 # MySQL
 spring.sql.init.platform=mysql
 db.num=1
-db.url.0=jdbc:mysql://localhost:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=30000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useServerPrepStmts=true&allowPublicKeyRetrieval=true
+db.url.0=jdbc:mysql://localhost:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=30000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useServerPrepStmts=true
 db.user.0=root
 db.password.0=root_password
 db.pool.config.driverClassName=com.mysql.cj.jdbc.Driver
