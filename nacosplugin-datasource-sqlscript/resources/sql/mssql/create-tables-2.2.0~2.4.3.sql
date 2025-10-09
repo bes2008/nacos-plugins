@@ -209,7 +209,7 @@ CREATE TABLE "his_config_info" (
                                    "app_name" varchar(128) ,
                                    "content" ntext  NOT NULL,
                                    "md5" varchar(32) ,
-                                   "gmt_create" datetime NOT NULL  DEFAULT '2010-05-05 00:00:00',
+                                   "gmt_create" datetime NOT NULL,
                                    "gmt_modified" datetime NOT NULL,
                                    "src_user" ntext ,
                                    "src_ip" varchar(20) ,

@@ -277,7 +277,7 @@ CREATE TABLE "his_config_info" (
                                    "app_name" varchar(128) ,
                                    "content" text  NOT NULL,
                                    "md5" varchar(32) ,
-                                   "gmt_create" timestamp(6) NOT NULL  DEFAULT '2010-05-05 00:00:00',
+                                   "gmt_create" timestamp(6) NOT NULL DEFAULT now(),
                                    "gmt_modified" timestamp(6) NOT NULL,
                                    "src_user" text ,
                                    "src_ip" varchar(20) ,
