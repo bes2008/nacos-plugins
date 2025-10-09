@@ -14,6 +14,7 @@
   - Magicdata
   - OpenGauss
   - PanWei
+  - Kingbase
 - 与Oracle 兼容
   - DM
   - Oracle
