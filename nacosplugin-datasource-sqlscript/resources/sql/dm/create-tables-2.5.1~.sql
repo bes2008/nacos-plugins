@@ -70,9 +70,7 @@ CREATE TABLE "config_info_gray" (
   "tenant_id" varchar(128),
   "gray_name" varchar(128) NOT NULL,
   "gray_rule" text NOT NULL,
-  "encrypted_data_key" varchar(1024) NOT NULL,
-  KEY "idx_dataid_gmt_modified" ("data_id","gmt_modified"),
-  KEY "idx_gmt_modified" ("gmt_modified")
+  "encrypted_data_key" varchar(1024) NOT NULL
 );
 COMMENT ON COLUMN "config_info_gray"."id" IS 'id';
 COMMENT ON COLUMN "config_info_gray"."data_id" IS 'data_id';
