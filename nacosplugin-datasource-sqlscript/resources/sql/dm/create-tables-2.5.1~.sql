@@ -60,7 +60,7 @@ CREATE TABLE "config_info_gray" (
   "id" bigint unsigned NOT NULL IDENTITY(1,1),
   "data_id" varchar(255) NOT NULL,
   "group_id" varchar(128) NOT NULL,
-  "content" longtext NOT NULL,
+  "content" text NOT NULL,
   "md5" varchar(32),
   "src_user" text,
   "src_ip" varchar(100),
@@ -73,9 +73,7 @@ CREATE TABLE "config_info_gray" (
   "encrypted_data_key" varchar(1024) NOT NULL,
   KEY "idx_dataid_gmt_modified" ("data_id","gmt_modified"),
   KEY "idx_gmt_modified" ("gmt_modified")
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-
+);
 COMMENT ON COLUMN "config_info_gray"."id" IS 'id';
 COMMENT ON COLUMN "config_info_gray"."data_id" IS 'data_id';
 COMMENT ON COLUMN "config_info_gray"."group_id" IS 'content';
@@ -219,7 +217,7 @@ CREATE TABLE "his_config_info" (
                                    "encrypted_data_key" text,
                                    "publish_type" varchar(50),
                                    "gray_name" varchar(50),
-                                   "ext_info"  longtext
+                                   "ext_info"  text
 );
 ALTER TABLE "his_config_info" MODIFY COLUMN "publish_type" SET DEFAULT 'formal';
 
