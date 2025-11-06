@@ -10,6 +10,9 @@
   + Oracle(8, 9, 10, 11, 12 ... )
   + PostgreSQL
   + Derby
+  + MySQL
+  + Panwei (中移磐维)
+  + Magicdata
 
 #### 软件架构
 作为nacos的插件使用
