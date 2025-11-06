@@ -1,23 +1,51 @@
 ## 2.5.1
 + [ ] 兼容nacos 2.5.1
   + [x] 功能兼容 2.5.1
-  + [ ] mysql 脚本更新
-  + [ ] mysql 环境验证
+  + [x] mysql 脚本更新
+    + [x] nacos 2.5.1
+    + [ ] nacos 2.5.0
+    + [ ] nacos 2.4.3
   + [ ] derby 脚本更新
-  + [ ] derby 环境验证
+    + [ ] nacos 2.5.1
+    + [ ] nacos 2.5.0
+    + [ ] nacos 2.4.3
   + [ ] dm 脚本更新
   + [ ] dm 环境验证
+    + [ ] nacos 2.5.1
+    + [ ] nacos 2.5.0
+    + [ ] nacos 2.4.3
   + [ ] kingbase 脚本更新
   + [ ] kingbase 环境验证
+    + [ ] nacos 2.5.1
+    + [ ] nacos 2.5.0
+    + [ ] nacos 2.4.3
   + [ ] magicdata 脚本更新
   + [ ] magicdata 环境验证 
+    + [ ] nacos 2.5.1
+    + [ ] nacos 2.5.0
+    + [ ] nacos 2.4.3
   + [ ] mssql 脚本更新
   + [ ] mssql 环境验证 
+    + [ ] nacos 2.5.1
+    + [ ] nacos 2.5.0
+    + [ ] nacos 2.4.3
   + [ ] opengauss 脚本更新
   + [ ] opengauss 环境验证 
+    + [ ] nacos 2.5.1
+    + [ ] nacos 2.5.0
+    + [ ] nacos 2.4.3
   + [ ] oracle 脚本更新
   + [ ] oracle 环境验证 
+    + [ ] nacos 2.5.1
+    + [ ] nacos 2.5.0
+    + [ ] nacos 2.4.3
   + [ ] panwei 脚本更新
   + [ ] panwei 环境验证 
+    + [ ] nacos 2.5.1
+    + [ ] nacos 2.5.0
+    + [ ] nacos 2.4.3
   + [ ] postgres 脚本更新
   + [ ] postgres 环境验证 
+    + [ ] nacos 2.5.1
+    + [ ] nacos 2.5.0
+    + [ ] nacos 2.4.3
