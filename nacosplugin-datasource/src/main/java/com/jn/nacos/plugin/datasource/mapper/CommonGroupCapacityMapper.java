@@ -105,8 +105,8 @@ public class CommonGroupCapacityMapper extends BaseMapper implements GroupCapaci
     }
 
     public MapperResult select(MapperContext context) {
-        String sql = "SELECT id, quota, usage, max_size, max_aggr_count, max_aggr_size, group_id FROM group_capacity "
-                + "WHERE group_id = ?";
+        // "SELECT id, quota, usage, max_size, max_aggr_count, max_aggr_size, group_id FROM group_capacity WHERE group_id = ?";
+        String sql = select(Lists.newArrayList("id", "quota", "usage", "max_size", "max_aggr_count", "max_aggr_size", "group_id"), Lists.newArrayList("group_id"));
         return new MapperResult(sql, Collections.singletonList(context.getWhereParameter(FieldConstant.GROUP_ID)));
     }
 
