@@ -30,25 +30,68 @@ public class CommonTenantCapacityMapper extends BaseMapper implements TenantCapa
     @Override
     public MapperResult incrementUsageWithDefaultQuotaLimit(MapperContext context) {
         useDefaultTenantIdWithWhereParameter(context);
-        return new MapperResult("UPDATE tenant_capacity SET usage = usage + 1, gmt_modified = ? WHERE tenant_id = ? AND usage < ? AND quota = 0", CollectionUtils.list(new Object[]{context.getUpdateParameter("gmtModified"), context.getWhereParameter("tenantId"), context.getWhereParameter("usage")}));
+        String sql = new StringBuilder()
+                .append("UPDATE tenant_capacity ")
+                .append("SET ")
+                .append(getIdentifierInDb("usage")).append(" = ").append(getIdentifierInDb("usage")).append(" + 1,")
+                .append("gmt_modified = ? ")
+                .append("WHERE tenant_id = ?")
+                .append(" AND ")
+                .append(getIdentifierInDb("usage")).append(" < ?")
+                .append(" AND ")
+                .append(getIdentifierInDb("quota")).append(" = 0")
+                .toString();
+        // "UPDATE tenant_capacity SET usage = usage + 1, gmt_modified = ? WHERE tenant_id = ? AND usage < ? AND quota = 0"
+        return new MapperResult(sql, CollectionUtils.list(new Object[]{context.getUpdateParameter("gmtModified"), context.getWhereParameter("tenantId"), context.getWhereParameter("usage")}));
     }
 
     @Override
     public MapperResult incrementUsageWithQuotaLimit(MapperContext context) {
         useDefaultTenantIdWithWhereParameter(context);
-        return new MapperResult("UPDATE tenant_capacity SET usage = usage + 1, gmt_modified = ? WHERE tenant_id = ? AND usage < quota AND quota != 0", CollectionUtils.list(new Object[]{context.getUpdateParameter("gmtModified"), context.getWhereParameter("tenantId")}));
+        String sql = new StringBuilder()
+                .append("UPDATE tenant_capacity ")
+                .append("SET ")
+                .append(getIdentifierInDb("usage")).append(" = ").append(getIdentifierInDb("usage")).append(" + 1,")
+                .append("gmt_modified = ? ")
+                .append("WHERE tenant_id = ?")
+                .append(" AND ")
+                .append(getIdentifierInDb("usage")).append(" < ").append(getIdentifierInDb("quota"))
+                .append(" AND ")
+                .append(getIdentifierInDb("quota")).append(" != 0")
+                .toString();
+
+        // "UPDATE tenant_capacity SET usage = usage + 1, gmt_modified = ? WHERE tenant_id = ? AND usage < quota AND quota != 0"
+        return new MapperResult(sql, CollectionUtils.list(new Object[]{context.getUpdateParameter("gmtModified"), context.getWhereParameter("tenantId")}));
     }
 
     @Override
     public MapperResult incrementUsage(MapperContext context) {
         useDefaultTenantIdWithWhereParameter(context);
-        return new MapperResult("UPDATE tenant_capacity SET usage = usage + 1, gmt_modified = ? WHERE tenant_id = ?", CollectionUtils.list(new Object[]{context.getUpdateParameter("gmtModified"), context.getWhereParameter("tenantId")}));
+        String sql = new StringBuilder()
+                .append("UPDATE tenant_capacity ")
+                .append("SET ")
+                .append(getIdentifierInDb("usage")).append(" = ").append(getIdentifierInDb("usage")).append(" + 1,")
+                .append("gmt_modified = ? ")
+                .append("WHERE tenant_id = ?")
+                .toString();
+        // "UPDATE tenant_capacity SET usage = usage + 1, gmt_modified = ? WHERE tenant_id = ?"
+        return new MapperResult(sql, CollectionUtils.list(new Object[]{context.getUpdateParameter("gmtModified"), context.getWhereParameter("tenantId")}));
     }
 
     @Override
     public MapperResult decrementUsage(MapperContext context) {
         useDefaultTenantIdWithWhereParameter(context);
-        return new MapperResult("UPDATE tenant_capacity SET usage = usage - 1, gmt_modified = ? WHERE tenant_id = ? AND usage > 0", CollectionUtils.list(new Object[]{context.getUpdateParameter("gmtModified"), context.getWhereParameter("tenantId")}));
+        String sql = new StringBuilder()
+                .append("UPDATE tenant_capacity ")
+                .append("SET ")
+                .append(getIdentifierInDb("usage")).append(" = ").append(getIdentifierInDb("usage")).append(" - 1,")
+                .append("gmt_modified = ? ")
+                .append("WHERE tenant_id = ?")
+                .append(" AND ")
+                .append(getIdentifierInDb("usage")).append(" > 0")
+                .toString();
+        // "UPDATE tenant_capacity SET usage = usage - 1, gmt_modified = ? WHERE tenant_id = ? AND usage > 0"
+        return new MapperResult(sql, CollectionUtils.list(new Object[]{context.getUpdateParameter("gmtModified"), context.getWhereParameter("tenantId")}));
     }
 
     @Override
@@ -63,18 +106,38 @@ public class CommonTenantCapacityMapper extends BaseMapper implements TenantCapa
         paramList.add(context.getUpdateParameter("gmtCreate"));
         paramList.add(context.getUpdateParameter("gmtModified"));
         paramList.add(context.getWhereParameter("tenantId"));
-        return new MapperResult("INSERT INTO tenant_capacity (tenant_id, quota, usage, max_size, max_aggr_count, max_aggr_size, gmt_create, gmt_modified) SELECT ?, ?, count(*), ?, ?, ?, ?, ? FROM config_info WHERE tenant_id=?", paramList);
+
+        String sql = new StringBuilder()
+                .append("INSERT INTO tenant_capacity (")
+                .append(getColumns("tenant_id", "quota", "usage", "max_size", "max_aggr_count", "max_aggr_size", "gmt_create", "gmt_modified"))
+                .append("SELECT ?, ?, count(*), ?, ?, ?, ?, ? FROM config_info WHERE tenant_id=?")
+                .toString();
+        // "INSERT INTO tenant_capacity (tenant_id, quota, usage, max_size, max_aggr_count, max_aggr_size, gmt_create, gmt_modified) SELECT ?, ?, count(*), ?, ?, ?, ?, ? FROM config_info WHERE tenant_id=?"
+        return new MapperResult(sql, paramList);
     }
 
     @Override
     public MapperResult correctUsage(MapperContext context) {
         useDefaultTenantIdWithWhereParameter(context);
-        return new MapperResult("UPDATE tenant_capacity SET usage = (SELECT count(*) FROM config_info WHERE tenant_id = ?), gmt_modified = ? WHERE tenant_id = ?", CollectionUtils.list(new Object[]{context.getWhereParameter("tenantId"), context.getUpdateParameter("gmtModified"), context.getWhereParameter("tenantId")}));
+        String sql = new StringBuilder()
+                .append("UPDATE tenant_capacity ")
+                .append("SET ")
+                .append(getIdentifierInDb("usage")).append(" = (SELECT count(*) FROM config_info WHERE tenant_id = ?),")
+                .append("gmt_modified = ? ")
+                .append("WHERE tenant_id = ?")
+                .toString();
+        // "UPDATE tenant_capacity SET usage = (SELECT count(*) FROM config_info WHERE tenant_id = ?), gmt_modified = ? WHERE tenant_id = ?"
+        return new MapperResult(sql, CollectionUtils.list(new Object[]{context.getWhereParameter("tenantId"), context.getUpdateParameter("gmtModified"), context.getWhereParameter("tenantId")}));
     }
 
     public MapperResult select(MapperContext context) {
-        String sql = "SELECT id, quota, usage, max_size, max_aggr_count, max_aggr_size, tenant_id FROM tenant_capacity "
-                + "WHERE tenant_id = ?";
+       // String sql = "SELECT id, quota, usage, max_size, max_aggr_count, max_aggr_size, tenant_id FROM tenant_capacity WHERE tenant_id = ?";
+        String sql = new StringBuilder()
+                .append("SELECT ")
+                .append(getColumns("id", "quota", "usage", "max_size", "max_aggr_count", "max_aggr_size", "tenant_id"))
+                .append(" FROM tenant_capacity")
+                .append(" WHERE tenant_id = ?")
+                .toString();
         return new MapperResult(sql, Collections.singletonList(context.getWhereParameter(FieldConstant.TENANT_ID)));
     }
 }
