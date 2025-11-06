@@ -7,6 +7,7 @@ import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.jn.langx.util.Objs;
 import com.jn.langx.util.Strings;
 import com.jn.langx.util.collection.Pipeline;
+import com.jn.langx.util.function.Function;
 import com.jn.nacos.plugin.datasource.*;
 import com.jn.sqlhelper.dialect.Dialect;
 import com.jn.sqlhelper.dialect.SqlCompatibilityType;
@@ -28,6 +29,17 @@ public abstract class BaseMapper extends AbstractMapper {
 
     public final SqlCompatibilityType getSqlCompatibilityType(){
         return PluginContext.INSTANCE.getSqlCompatibilityType();
+    }
+
+    public String getColumns(String... columns){
+        return Pipeline.of(columns)
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) {
+                        return getIdentifierInDb(s);
+                    }
+                })
+                .join(",");
     }
 
     public String getIdentifierInDb(String identifier){
