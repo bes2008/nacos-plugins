@@ -2,10 +2,12 @@
 + [ ] 兼容nacos 2.5.1
   + [x] 功能兼容 2.5.1
   + [x] mysql 脚本更新
+  + [ ] mysql 环境验证
     + [x] nacos 2.5.1
     + [ ] nacos 2.5.0
     + [ ] nacos 2.4.3
   + [ ] derby 脚本更新
+  + [ ] mysql 环境验证
     + [ ] nacos 2.5.1
     + [ ] nacos 2.5.0
     + [ ] nacos 2.4.3
