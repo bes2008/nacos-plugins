@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.github.bes2008.solution.nacosplugins</groupId>
+        <groupId>io.github.qhsword.nacosplugins</groupId>
         <artifactId>nacos-plugins</artifactId>
         <version>2.5.1</version>
     </parent>
@@ -24,11 +24,11 @@
             <artifactId>nacos-datasource-plugin</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.github.bes2008.solution.sqlhelper</groupId>
+            <groupId>io.github.qhsword.sqlhelper</groupId>
             <artifactId>sqlhelper-dialect</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>io.github.bes2008.solution.langx</groupId>
+                    <groupId>io.github.qhsword.langx</groupId>
                     <artifactId>langx-java-el</artifactId>
                 </exclusion>
             </exclusions>

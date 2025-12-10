@@ -1,7 +1,7 @@
 ## datasource 插件安装
 1. 将插件、数据库驱动 放到 `<NACOS_HOME>/plugins` 目录
 ```text
-io.github.bes2008.solution.nacosplugins:nacosplugin-all:jar:VERSION           
+io.github.qhsword.nacosplugins:nacosplugin-all:jar:VERSION           
 ```
 
 2. 在application.properties中配置数据库

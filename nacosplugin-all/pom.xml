@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>io.github.bes2008.solution.nacosplugins</groupId>
+        <groupId>io.github.qhsword.nacosplugins</groupId>
         <artifactId>nacos-plugins</artifactId>
         <version>2.5.1</version>
     </parent>
@@ -18,7 +18,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.github.bes2008.solution.nacosplugins</groupId>
+            <groupId>io.github.qhsword.nacosplugins</groupId>
             <artifactId>nacosplugin-datasource</artifactId>
         </dependency>
     </dependencies>
@@ -45,21 +45,21 @@
                             <shadedArtifactAttached>false</shadedArtifactAttached>
                             <artifactSet>
                                 <includes>
-                                    <include>io.github.bes2008.solution.nacosplugins</include>
-                                    <include>io.github.bes2008.solution.sqlhelper</include>
-                                    <include>io.github.bes2008.solution.langx:langx-java</include>
+                                    <include>io.github.qhsword.nacosplugins</include>
+                                    <include>io.github.qhsword.sqlhelper</include>
+                                    <include>io.github.qhsword.langx:langx-java</include>
                                 </includes>
                             </artifactSet>
 
                             <filters>
                                 <filter>
-                                    <artifact>io.github.bes2008.solution.nacosplugins</artifact>
+                                    <artifact>io.github.qhsword.nacosplugins</artifact>
                                     <excludes>
                                         <exclude>META-INF/maven/**</exclude>
                                     </excludes>
                                 </filter>
                                 <filter>
-                                    <artifact>io.github.bes2008.solution.sqlhelper:sqlhelper-dialect</artifact>
+                                    <artifact>io.github.qhsword.sqlhelper:sqlhelper-dialect</artifact>
                                     <excludes>
                                         <exclude>META-INF/maven/**</exclude>
 
@@ -77,7 +77,7 @@
                                     </excludes>
                                 </filter>
                                 <filter>
-                                    <artifact>io.github.bes2008.solution.sqlhelper:sqlhelper-common</artifact>
+                                    <artifact>io.github.qhsword.sqlhelper:sqlhelper-common</artifact>
                                     <excludes>
                                         <exclude>META-INF/maven/**</exclude>
 
@@ -94,7 +94,7 @@
                                     </excludes>
                                 </filter>
                                 <filter>
-                                    <artifact>io.github.bes2008.solution.langx:langx-java</artifact>
+                                    <artifact>io.github.qhsword.langx:langx-java</artifact>
                                     <excludes>
                                         <exclude>META-INF/maven/**</exclude>
 

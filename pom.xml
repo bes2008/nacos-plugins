@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.bes2008.solution.nacosplugins</groupId>
+    <groupId>io.github.qhsword.nacosplugins</groupId>
     <artifactId>nacos-plugins</artifactId>
     <version>2.5.1</version>
     <packaging>pom</packaging>
@@ -66,7 +66,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.github.bes2008.solution.nacosplugins</groupId>
+                <groupId>io.github.qhsword.nacosplugins</groupId>
                 <artifactId>nacosplugin-datasource</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -85,7 +85,7 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>io.github.bes2008.solution.langx</groupId>
+                <groupId>io.github.qhsword.langx</groupId>
                 <artifactId>langx-java</artifactId>
                 <version>${langx-java.version}</version>
             </dependency>
@@ -160,7 +160,7 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>io.github.bes2008.solution.sqlhelper</groupId>
+                <groupId>io.github.qhsword.sqlhelper</groupId>
                 <artifactId>sqlhelper-dialect</artifactId>
                 <version>${sqlhelper.version}</version>
             </dependency>
@@ -194,7 +194,7 @@
             <artifactId>jmh-generator-annprocess</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.github.bes2008.solution.langx</groupId>
+            <groupId>io.github.qhsword.langx</groupId>
             <artifactId>langx-java</artifactId>
         </dependency>
         <dependency>
