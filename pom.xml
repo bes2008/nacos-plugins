@@ -6,10 +6,13 @@
 
     <groupId>io.github.qhsword.nacosplugins</groupId>
     <artifactId>nacos-plugins</artifactId>
-    <version>2.5.1</version>
+    <version>2.5.1.0</version>
     <packaging>pom</packaging>
     <name>${project.groupId}:${project.artifactId}:${project.version}</name>
 
+    <!--
+    版本号约定：共4位，前面三位 与 nacos版本一致，第四位递增
+    -->
     <description>
         nacos plugins: datasource plugin (postgresql, oracle, sqlserver etc)
     </description>
