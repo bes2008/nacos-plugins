@@ -146,7 +146,6 @@
                                         <exclude>com/jn/langx/util/collection/forwarding/**</exclude>
                                         <exclude>com/jn/langx/util/collection/graph/**</exclude>
                                         <exclude>com/jn/langx/util/collection/list/**</exclude>
-                                        <exclude>com/jn/langx/util/collection/multivalue/**</exclude>
                                         <exclude>com/jn/langx/util/collection/pushback/**</exclude>
                                         <exclude>com/jn/langx/util/collection/stack/**</exclude>
                                         <exclude>com/jn/langx/util/collection/tree/**</exclude>
