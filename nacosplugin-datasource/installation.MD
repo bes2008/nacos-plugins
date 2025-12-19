@@ -70,7 +70,7 @@ db.pool.config.driverClassName=org.postgresql.Driver
 
 使用 DBeaver 连接到达梦数据库上时，一次只能执行一条SQL语句。
 
-想要执行SQL脚本文件，需要提供的命令行工具：${dmdbms}/disql
+想要执行SQL脚本文件，需要提供的命令行工具：${dmdbms}/bin/disql
 
 ```shell
 ./disql SYSDBA/dameng777@localhost:5236 \`./create-schema.sql
