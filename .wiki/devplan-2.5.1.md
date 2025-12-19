@@ -16,39 +16,49 @@
     + [x] nacos 2.5.1
     + [ ] nacos 2.5.0
     + [ ] nacos 2.4.3
+    + [ ] nacos 2.4.2
   + [ ] derby
     + [ ] nacos 2.5.1
     + [ ] nacos 2.5.0
     + [ ] nacos 2.4.3
+    + [ ] nacos 2.4.2
   + [ ] dm
     + [ ] nacos 2.5.1
     + [ ] nacos 2.5.0
     + [ ] nacos 2.4.3
+    + [ ] nacos 2.4.2
   + [ ] kingbase
     + [ ] nacos 2.5.1
     + [ ] nacos 2.5.0
     + [ ] nacos 2.4.3
+    + [ ] nacos 2.4.2
   + [ ] magicdata
     + [ ] nacos 2.5.1
     + [ ] nacos 2.5.0
     + [ ] nacos 2.4.3
+    + [ ] nacos 2.4.2
   + [ ] mssql
     + [ ] nacos 2.5.1
     + [ ] nacos 2.5.0
     + [ ] nacos 2.4.3
+    + [ ] nacos 2.4.2
   + [ ] opengauss
     + [ ] nacos 2.5.1
     + [ ] nacos 2.5.0
     + [ ] nacos 2.4.3
+    + [ ] nacos 2.4.2
   + [ ] oracle
     + [ ] nacos 2.5.1
     + [ ] nacos 2.5.0
     + [ ] nacos 2.4.3
+    + [ ] nacos 2.4.2
   + [ ] panwei
     + [ ] nacos 2.5.1
     + [ ] nacos 2.5.0
     + [ ] nacos 2.4.3
+    + [ ] nacos 2.4.2
   + [ ] postgres
     + [ ] nacos 2.5.1
     + [ ] nacos 2.5.0
     + [ ] nacos 2.4.3
+    + [ ] nacos 2.4.2
