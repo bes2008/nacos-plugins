@@ -23,7 +23,7 @@
   + [ ] dm
     + [ ] nacos 2.5.1
     + [ ] nacos 2.4.3
-    + [ ] nacos 2.4.2
+    + [x] nacos 2.4.2
   + [ ] kingbase
     + [ ] nacos 2.5.1
     + [ ] nacos 2.4.3
