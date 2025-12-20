@@ -138,6 +138,8 @@
                                         <exclude>com/jn/langx/text/translate/**</exclude>
                                         <exclude>com/jn/langx/text/xml/**</exclude>
 
+                                        <exclude>com/jn/langx/spec/purl/**</exclude>
+
                                         <exclude>com/jn/langx/util/bean/**</exclude>
                                         <exclude>com/jn/langx/util/bit/**</exclude>
                                         <exclude>com/jn/langx/util/bloom/**</exclude>
@@ -185,6 +187,10 @@
                                         <exclude>com/jn/langx/util/script/**</exclude>
                                         <exclude>com/jn/langx/util/timing/**</exclude>
                                         <exclude>com/jn/langx/util/transformer/**</exclude>
+
+                                        <exclude>com/jn/langx/java8/util/concurrent/**</exclude>
+                                        <exclude>com/jn/langx/java8/util/datetime/**</exclude>
+
                                     </excludes>
                                 </filter>
                             </filters>
