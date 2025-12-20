@@ -198,6 +198,13 @@ end;
 /
 
 
+ALTER TABLE group_capacity ALTER quota SET DEFAULT 0;
+ALTER TABLE group_capacity ALTER usage SET DEFAULT 0;
+ALTER TABLE group_capacity ALTER max_size SET DEFAULT 0;
+ALTER TABLE group_capacity ALTER max_aggr_count SET DEFAULT 0;
+ALTER TABLE group_capacity ALTER max_aggr_size SET DEFAULT 0;
+ALTER TABLE group_capacity ALTER max_history_count SET DEFAULT 0;
+
 
 DROP TABLE IF EXISTS his_config_info;
 CREATE TABLE his_config_info (
@@ -309,7 +316,12 @@ select tenant_capacity_id_seq.nextval into:new.id from dual;
 end;
 /
 
-
+ALTER TABLE tenant_capacity ALTER COLUMN quota SET DEFAULT 0;
+ALTER TABLE tenant_capacity ALTER COLUMN usage SET DEFAULT 0;
+ALTER TABLE tenant_capacity ALTER COLUMN max_size SET DEFAULT 0;
+ALTER TABLE tenant_capacity ALTER COLUMN max_aggr_count SET DEFAULT 0;
+ALTER TABLE tenant_capacity ALTER COLUMN max_aggr_size SET DEFAULT 0;
+ALTER TABLE tenant_capacity ALTER COLUMN max_history_count SET DEFAULT 0;
 
 DROP TABLE IF EXISTS tenant_info;
 CREATE TABLE tenant_info (

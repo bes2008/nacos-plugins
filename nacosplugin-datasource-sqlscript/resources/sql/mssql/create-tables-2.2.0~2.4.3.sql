@@ -180,7 +180,12 @@ CREATE TABLE "group_capacity" (
                                   "gmt_create" datetime NOT NULL,
                                   "gmt_modified" datetime NOT NULL
 );
-
+ALTER TABLE "group_capacity" ALTER COLUMN "quota" SET DEFAULT 0;
+ALTER TABLE "group_capacity" ALTER COLUMN "usage" SET DEFAULT 0;
+ALTER TABLE "group_capacity" ALTER COLUMN "max_size" SET DEFAULT 0;
+ALTER TABLE "group_capacity" ALTER COLUMN "max_aggr_count" SET DEFAULT 0;
+ALTER TABLE "group_capacity" ALTER COLUMN "max_aggr_size" SET DEFAULT 0;
+ALTER TABLE "group_capacity" ALTER COLUMN "max_history_count" SET DEFAULT 0;
 
 
 -- ----------------------------
@@ -256,6 +261,13 @@ CREATE TABLE "tenant_capacity" (
                                    "gmt_modified" datetime NOT NULL
 );
 
+
+ALTER TABLE "tenant_capacity" ALTER COLUMN "quota" SET DEFAULT 0;
+ALTER TABLE "tenant_capacity" ALTER COLUMN "usage" SET DEFAULT 0;
+ALTER TABLE "tenant_capacity" ALTER COLUMN "max_size" SET DEFAULT 0;
+ALTER TABLE "tenant_capacity" ALTER COLUMN "max_aggr_count" SET DEFAULT 0;
+ALTER TABLE "tenant_capacity" ALTER COLUMN "max_aggr_size" SET DEFAULT 0;
+ALTER TABLE "tenant_capacity" ALTER COLUMN "max_history_count" SET DEFAULT 0;
 
 -- ----------------------------
 -- Indexes structure for table tenant_capacity
