@@ -1,3 +1,7 @@
+whenever sqlerror exit 1;
+
+
+
 ALTER SESSION SET CURRENT_SCHEMA=nacos;
 
 -- ----------------------------

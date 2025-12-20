@@ -1,3 +1,5 @@
+whenever sqlerror exit 1;
+
 ALTER SESSION SET CURRENT_SCHEMA=nacos;
 
 -- ----------------------------
@@ -57,7 +59,7 @@ ALTER TABLE "config_info" ADD CONSTRAINT "config_info_pkey" PRIMARY KEY ("id");
 -- ----------------------------
 DROP TABLE IF EXISTS "config_info_gray";
 CREATE TABLE "config_info_gray" (
-  "id" bigint unsigned NOT NULL IDENTITY(1,1),
+  "id" bigint NOT NULL IDENTITY(1,1),
   "data_id" varchar(255) NOT NULL,
   "group_id" varchar(128) NOT NULL,
   "content" text NOT NULL,
@@ -217,7 +219,7 @@ CREATE TABLE "his_config_info" (
                                    "gray_name" varchar(50),
                                    "ext_info"  text
 );
-ALTER TABLE "his_config_info" MODIFY COLUMN "publish_type" SET DEFAULT 'formal';
+ALTER TABLE "his_config_info" ALTER COLUMN "publish_type" SET DEFAULT 'formal';
 
 COMMENT ON COLUMN "his_config_info"."app_name" IS 'app_name';
 COMMENT ON COLUMN "his_config_info"."tenant_id" IS '租户字段';
