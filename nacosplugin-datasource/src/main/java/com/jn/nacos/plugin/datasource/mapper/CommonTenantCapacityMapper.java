@@ -35,7 +35,7 @@ public class CommonTenantCapacityMapper extends BaseMapper implements TenantCapa
                 .append("SET ")
                 .append(getIdentifierInDb("usage")).append(" = ").append(getIdentifierInDb("usage")).append(" + 1,")
                 .append("gmt_modified = ? ")
-                .append("WHERE tenant_id = ?")
+                .append(" WHERE tenant_id = ?")
                 .append(" AND ")
                 .append(getIdentifierInDb("usage")).append(" < ?")
                 .append(" AND ")
@@ -53,7 +53,7 @@ public class CommonTenantCapacityMapper extends BaseMapper implements TenantCapa
                 .append("SET ")
                 .append(getIdentifierInDb("usage")).append(" = ").append(getIdentifierInDb("usage")).append(" + 1,")
                 .append("gmt_modified = ? ")
-                .append("WHERE tenant_id = ?")
+                .append(" WHERE tenant_id = ?")
                 .append(" AND ")
                 .append(getIdentifierInDb("usage")).append(" < ").append(getIdentifierInDb("quota"))
                 .append(" AND ")
@@ -86,7 +86,7 @@ public class CommonTenantCapacityMapper extends BaseMapper implements TenantCapa
                 .append("SET ")
                 .append(getIdentifierInDb("usage")).append(" = ").append(getIdentifierInDb("usage")).append(" - 1,")
                 .append("gmt_modified = ? ")
-                .append("WHERE tenant_id = ?")
+                .append(" WHERE tenant_id = ?")
                 .append(" AND ")
                 .append(getIdentifierInDb("usage")).append(" > 0")
                 .toString();
@@ -110,7 +110,7 @@ public class CommonTenantCapacityMapper extends BaseMapper implements TenantCapa
         String sql = new StringBuilder()
                 .append("INSERT INTO tenant_capacity (")
                 .append(getColumns("tenant_id", "quota", "usage", "max_size", "max_aggr_count", "max_aggr_size", "gmt_create", "gmt_modified"))
-                .append("SELECT ?, ?, count(*), ?, ?, ?, ?, ? FROM config_info WHERE tenant_id=?")
+                .append(" SELECT ?, ?, count(*), ?, ?, ?, ?, ? FROM config_info WHERE tenant_id=?")
                 .toString();
         // "INSERT INTO tenant_capacity (tenant_id, quota, usage, max_size, max_aggr_count, max_aggr_size, gmt_create, gmt_modified) SELECT ?, ?, count(*), ?, ?, ?, ?, ? FROM config_info WHERE tenant_id=?"
         return new MapperResult(sql, paramList);
