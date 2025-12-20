@@ -195,6 +195,12 @@ CREATE UNIQUE INDEX IF NOT EXISTS "uk_group_id" ON "group_capacity"  (
 ALTER TABLE "group_capacity" ADD CONSTRAINT "group_capacity_pkey" PRIMARY KEY ("id");
 
 
+ALTER TABLE "group_capacity" ALTER COLUMN "quota" SET DEFAULT 0;
+ALTER TABLE "group_capacity" ALTER COLUMN "usage" SET DEFAULT 0;
+ALTER TABLE "group_capacity" ALTER COLUMN "max_size" SET DEFAULT 0;
+ALTER TABLE "group_capacity" ALTER COLUMN "max_aggr_count" SET DEFAULT 0;
+ALTER TABLE "group_capacity" ALTER COLUMN "max_aggr_size" SET DEFAULT 0;
+ALTER TABLE "group_capacity" ALTER COLUMN "max_history_count" SET DEFAULT 0;
 
 -- ----------------------------
 -- Table structure for his_config_info
