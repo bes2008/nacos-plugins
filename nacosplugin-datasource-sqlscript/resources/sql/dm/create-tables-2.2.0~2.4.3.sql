@@ -364,6 +364,12 @@ CREATE UNIQUE INDEX IF NOT EXISTS "uk_tenant_id" ON "tenant_capacity"  (
 -- ----------------------------
 ALTER TABLE "tenant_capacity" ADD CONSTRAINT "tenant_capacity_pkey" PRIMARY KEY ("id");
 
+ALTER TABLE "tenant_capacity" ALTER COLUMN "quota" SET DEFAULT 0;
+ALTER TABLE "tenant_capacity" ALTER COLUMN "usage" SET DEFAULT 0;
+ALTER TABLE "tenant_capacity" ALTER COLUMN "max_size" SET DEFAULT 0;
+ALTER TABLE "tenant_capacity" ALTER COLUMN "max_aggr_count" SET DEFAULT 0;
+ALTER TABLE "tenant_capacity" ALTER COLUMN "max_aggr_size" SET DEFAULT 0;
+ALTER TABLE "tenant_capacity" ALTER COLUMN "max_history_count" SET DEFAULT 0;
 
 
 -- ----------------------------
