@@ -101,9 +101,8 @@ CREATE UNIQUE INDEX "uk_configinfogray_datagrouptenantgray" ON "config_info_gray
 -- ----------------------------
 -- Indexes structure for table config_info_gray
 -- ----------------------------
-CREATE INDEX IF NOT EXISTS "idx_dataid_gmt_modified" ON "config_info_gray" USING btree ("data_id", "gmt_modified");
-CREATE INDEX IF NOT EXISTS "idx_gmt_modified" ON "config_info_gray" USING btree ( "gmt_modified" );
-
+CREATE INDEX IF NOT EXISTS "idx_config_info_gray_dataid_gmt_modified" ON "config_info_gray" USING btree ("data_id", "gmt_modified");
+CREATE INDEX IF NOT EXISTS "idx_config_info_gray_gmt_modified" ON "config_info_gray" USING btree ( "gmt_modified" );
 
 
 -- ----------------------------
@@ -132,14 +131,8 @@ COMMENT ON TABLE "config_tags_relation" IS 'config_tag_relation';
 -- ----------------------------
 -- Indexes structure for table config_tags_relation
 -- ----------------------------
-CREATE INDEX "idx_tenant_id" ON "config_tags_relation" USING btree (
-    "tenant_id"
-    );
-CREATE UNIQUE INDEX "uk_configtagrelation_configidtag" ON "config_tags_relation" USING btree (
-    "id",
-    "tag_name",
-    "tag_type"
-    );
+CREATE INDEX "idx_tags_relation_tenant_id" ON "config_tags_relation" USING btree ("tenant_id");
+CREATE UNIQUE INDEX "uk_configtagrelation_configidtag" ON "config_tags_relation" USING btree ("id","tag_name","tag_type");
 
 -- ----------------------------
 -- Primary Key structure for table config_tags_relation
@@ -156,12 +149,12 @@ DROP TABLE IF EXISTS "group_capacity";
 CREATE TABLE "group_capacity" (
                                   "id" bigserial NOT NULL,
                                   "group_id" varchar(128)  NOT NULL,
-                                  "quota" int4 NOT NULL,
-                                  "usage" int4 NOT NULL,
-                                  "max_size" int4 NOT NULL,
-                                  "max_aggr_count" int4 NOT NULL,
-                                  "max_aggr_size" int4 NOT NULL,
-                                  "max_history_count" int4 NOT NULL,
+                                  "quota" int4 NOT NULL DEFAULT 0,
+                                  "usage" int4 NOT NULL DEFAULT 0,
+                                  "max_size" int4 NOT NULL DEFAULT 0,
+                                  "max_aggr_count" int4 NOT NULL DEFAULT 0,
+                                  "max_aggr_size" int4 NOT NULL DEFAULT 0,
+                                  "max_history_count" int4 NOT NULL DEFAULT 0,
                                   "gmt_create" timestamp(3) without time zone NOT NULL,
                                   "gmt_modified" timestamp(3) without time zone NOT NULL
 );
@@ -182,9 +175,7 @@ COMMENT ON TABLE "group_capacity" IS '集群、各Group容量信息表';
 -- ----------------------------
 -- Indexes structure for table group_capacity
 -- ----------------------------
-CREATE UNIQUE INDEX "uk_group_id" ON "group_capacity" USING btree (
-    "group_id"
-    );
+CREATE UNIQUE INDEX "uk_group_capacity_group_id" ON "group_capacity" USING btree ("group_id");
 
 -- ----------------------------
 -- Primary Key structure for table group_capacity
@@ -225,15 +216,9 @@ COMMENT ON TABLE "his_config_info" IS '多租户改造';
 -- ----------------------------
 -- Indexes structure for table his_config_info
 -- ----------------------------
-CREATE INDEX "idx_did" ON "his_config_info" USING btree (
-    "data_id"
-    );
-CREATE INDEX "idx_gmt_create" ON "his_config_info" USING btree (
-    "gmt_create"
-    );
-CREATE INDEX "idx_gmt_modified" ON "his_config_info" USING btree (
-    "gmt_modified"
-    );
+CREATE INDEX "idx_his_config_info_did" ON "his_config_info" USING btree ("data_id");
+CREATE INDEX "idx_his_config_info_gmt_create" ON "his_config_info" USING btree ("gmt_create");
+CREATE INDEX "idx_his_config_info_gmt_modified" ON "his_config_info" USING btree ("gmt_modified");
 
 -- ----------------------------
 -- Primary Key structure for table his_config_info
@@ -248,12 +233,12 @@ DROP TABLE IF EXISTS "tenant_capacity";
 CREATE TABLE "tenant_capacity" (
                                    "id" bigserial NOT NULL,
                                    "tenant_id" varchar(128)  NOT NULL,
-                                   "quota" int4 NOT NULL,
-                                   "usage" int4 NOT NULL,
-                                   "max_size" int4 NOT NULL,
-                                   "max_aggr_count" int4 NOT NULL,
-                                   "max_aggr_size" int4 NOT NULL,
-                                   "max_history_count" int4 NOT NULL,
+                                   "quota" int4 NOT NULL DEFAULT 0,
+                                   "usage" int4 NOT NULL DEFAULT 0,
+                                   "max_size" int4 NOT NULL DEFAULT 0,
+                                   "max_aggr_count" int4 NOT NULL DEFAULT 0,
+                                   "max_aggr_size" int4 NOT NULL DEFAULT 0,
+                                   "max_history_count" int4 NOT NULL DEFAULT 0,
                                    "gmt_create" timestamp(3) without time zone NOT NULL,
                                    "gmt_modified" timestamp(3) without time zone NOT NULL
 );
@@ -273,9 +258,7 @@ COMMENT ON TABLE "tenant_capacity" IS '租户容量信息表';
 -- ----------------------------
 -- Indexes structure for table tenant_capacity
 -- ----------------------------
-CREATE UNIQUE INDEX "uk_tenant_id" ON "tenant_capacity" USING btree (
-    "tenant_id"
-    );
+CREATE UNIQUE INDEX "uk_tenant_capacity_tenant_id" ON "tenant_capacity" USING btree ("tenant_id");
 
 -- ----------------------------
 -- Primary Key structure for table tenant_capacity
@@ -311,10 +294,7 @@ COMMENT ON TABLE "tenant_info" IS 'tenant_info';
 -- ----------------------------
 -- Indexes structure for table tenant_info
 -- ----------------------------
-CREATE UNIQUE INDEX "uk_tenant_info_kptenantid" ON "tenant_info" USING btree (
-    "kp",
-    "tenant_id"
-    );
+CREATE UNIQUE INDEX "uk_tenant_info_kptenantid" ON "tenant_info" USING btree ("kp","tenant_id");
 
 
 
@@ -342,10 +322,7 @@ CREATE TABLE "roles" (
 -- ----------------------------
 -- Indexes structure for table roles
 -- ----------------------------
-CREATE UNIQUE INDEX "uk_username_role" ON "roles" USING btree (
-    "username",
-    "role"
-    );
+CREATE UNIQUE INDEX "uk_username_role" ON "roles" USING btree ("username","role");
 
 -- ----------------------------
 -- Table structure for permissions
@@ -361,11 +338,7 @@ CREATE TABLE "permissions" (
 -- ----------------------------
 -- Indexes structure for table permissions
 -- ----------------------------
-CREATE UNIQUE INDEX "uk_role_permission" ON "permissions" USING btree (
-    "role",
-    "resource",
-    "action"
-    );
+CREATE UNIQUE INDEX "uk_role_permission" ON "permissions" USING btree ("role","resource","action");
 
 
 -- ----------------------------

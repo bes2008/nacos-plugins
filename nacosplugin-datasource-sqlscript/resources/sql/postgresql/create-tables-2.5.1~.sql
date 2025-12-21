@@ -23,8 +23,7 @@ CREATE TABLE "config_info" (
                                "type" varchar(64) ,
                                "c_schema" text ,
                                "encrypted_data_key" text
-)
-;
+);
 
 COMMENT ON COLUMN "config_info"."id" IS 'id';
 COMMENT ON COLUMN "config_info"."data_id" IS 'data_id';

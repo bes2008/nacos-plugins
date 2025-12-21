@@ -23,8 +23,7 @@ CREATE TABLE "config_info" (
                                "type" varchar(64) ,
                                "c_schema" text ,
                                "encrypted_data_key" text
-)
-;
+);
 
 COMMENT ON COLUMN "config_info"."id" IS 'id';
 COMMENT ON COLUMN "config_info"."data_id" IS 'data_id';
@@ -67,8 +66,7 @@ CREATE TABLE "config_info_aggr" (
                                     "gmt_modified" timestamp(3) without time zone NOT NULL,
                                     "app_name" varchar(128) ,
                                     "tenant_id" varchar(128)
-)
-;
+);
 COMMENT ON COLUMN "config_info_aggr"."id" IS 'id';
 COMMENT ON COLUMN "config_info_aggr"."data_id" IS 'data_id';
 COMMENT ON COLUMN "config_info_aggr"."group_id" IS 'group_id';
@@ -154,8 +152,7 @@ CREATE TABLE "config_info_tag" (
                                    "gmt_modified" timestamp(3) without time zone NOT NULL,
                                    "src_user" text ,
                                    "src_ip" varchar(20)
-)
-;
+);
 COMMENT ON COLUMN "config_info_tag"."id" IS 'id';
 COMMENT ON COLUMN "config_info_tag"."data_id" IS 'data_id';
 COMMENT ON COLUMN "config_info_tag"."group_id" IS 'group_id';
