@@ -43,6 +43,7 @@
         </developer>
     </developers>
     <distributionManagement>
+        <!--
         <snapshotRepository>
             <id>sonatype_oss</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -51,6 +52,11 @@
             <id>sonatype_oss</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </repository>
+        -->
+        <snapshotRepository>
+            <id>central</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
     <scm>
         <tag>${project.version}</tag>
@@ -251,7 +257,7 @@
         <profile>
             <id>envHome</id>
             <properties>
-                <gpg.executable>D:/Program Files (x86)/GnuPG/bin/gpg</gpg.executable>
+                <gpg.executable>D:/Program Files (x86)/GNU/GnuPG/gpg2.exe</gpg.executable>
                 <gpg.homedir>C:/Users/Administrator/AppData/Roaming/gnupg</gpg.homedir>
                 <!--
                 <gpg.passphrase>YOUR GPG PASSPHRASE</gpg.passphrase>
@@ -288,34 +294,15 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-deploy-plugin</artifactId>
-                        <version>2.8.2</version>
-                        <executions>
-                            <execution>
-                                <id>deploy</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>deploy</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.8</version>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.9.0</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>sonatype_oss</serverId>
-                            <nexusUrl>https://s01.oss.sonatype.org</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                            <sslAllowAll>true</sslAllowAll>
-                            <stagingProgressPauseDurationSeconds>5</stagingProgressPauseDurationSeconds>
-                            <stagingProgressTimeoutMinutes>5</stagingProgressTimeoutMinutes>
-                            <detectBuildFailures>false</detectBuildFailures>
-                            <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
-                            <keepStagingRepositoryOnFailure>true</keepStagingRepositoryOnFailure>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <deploymentName>nacos-plugins-${project.version}</deploymentName>
+                            <failOnBuildFailure>true</failOnBuildFailure>
                         </configuration>
                     </plugin>
                     <plugin>
