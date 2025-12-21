@@ -193,6 +193,12 @@ db.pool.config.driverClassName=oracle.jdbc.OracleDriver
     + 问题版本：<=2.4.1，已于 nacos 2.4.2 版本修复
     + 影响范围：只会影响到dump接口，功能不受影响
 
+4. jdbc driver选择
+   + 在JDK8上运行时，选择：com.oracle.database.jdbc:ojdbc8:23.26.0.0.0
+   + 在JDK11~JDK21上运行时，选择：com.oracle.database.jdbc:ojdbc11:23.26.0.0.0
+   + 在JDK6~JDK8上运行时，选择：com.oracle.database.jdbc:ojdbc6:11.2.0.4
+
+
 ### Derby
 
 1. 配置
