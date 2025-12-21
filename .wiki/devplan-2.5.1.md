@@ -3,12 +3,12 @@
   + [x] 功能兼容 2.5.1
   + [x] mysql 脚本更新
   + [ ] derby 脚本更新
-  + [ ] dm 脚本更新
+  + [x] dm 脚本更新
   + [ ] kingbase 脚本更新
   + [ ] magicdata 脚本更新
   + [ ] mssql 脚本更新
   + [ ] opengauss 脚本更新
-  + [ ] oracle 脚本更新
+  + [x] oracle 脚本更新
   + [ ] panwei 脚本更新
   + [ ] postgres 脚本更新
 + [ ] 验证
