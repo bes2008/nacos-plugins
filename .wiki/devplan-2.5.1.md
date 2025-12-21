@@ -40,8 +40,8 @@
     + [ ] nacos 2.5.1
     + [ ] nacos 2.4.3
     + [ ] nacos 2.4.2
-  + [ ] oracle
-    + [ ] nacos 2.5.1
+  + [x] oracle
+    + [x] nacos 2.5.1
     + [x] nacos 2.4.3
     + [x] nacos 2.4.2
   + [ ] panwei
