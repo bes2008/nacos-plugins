@@ -36,98 +36,32 @@ CREATE UNIQUE INDEX "uk_configinfo_datagrouptenant" ON "config_info" ("data_id",
 ALTER TABLE "config_info" ADD CONSTRAINT "config_info_pkey" PRIMARY KEY ("id");
 
 
+/******************************************/
+/*   表名称 = config_info_gray             */
+/******************************************/
+DROP TABLE IF EXISTS "config_info_gray";
+CREATE TABLE "config_info_gray" (
+                                    "id" bigint unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                    "data_id" varchar(255) NOT NULL,
+                                    "group_id" varchar(128) NOT NULL,
+                                    "content" longtext NOT NULL,
+                                    "md5" varchar(32) DEFAULT NULL,
+                                    "src_user" text,
+                                    "src_ip" varchar(100) DEFAULT NULL,
+                                    "gmt_create" datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+                                    "gmt_modified" datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+                                    "app_name" varchar(128) DEFAULT NULL,
+                                    "tenant_id" varchar(128) DEFAULT '',
+                                    "gray_name" varchar(128) NOT NULL,
+                                    "gray_rule" text NOT NULL,
+                                    "encrypted_data_key" varchar(256) NOT NULL DEFAULT ''
 
--- ----------------------------
--- Table structure for config_info_aggr
--- ----------------------------
-DROP TABLE IF EXISTS "config_info_aggr";
-CREATE TABLE "config_info_aggr" (
-                                    "id" BIGINT NOT NULL IDENTITY(1,1),
-                                    "data_id" varchar(255)  NOT NULL,
-                                    "group_id" varchar(255)  NOT NULL,
-                                    "datum_id" varchar(255)  NOT NULL,
-                                    "content" ntext  NOT NULL,
-                                    "gmt_modified" datetime NOT NULL,
-                                    "app_name" varchar(128) ,
-                                    "tenant_id" varchar(128)
 );
 
 
--- ----------------------------
--- Indexes structure for table config_info_aggr
--- ----------------------------
-CREATE UNIQUE INDEX  "uk_configinfoaggr_datagrouptenantdatum" ON "config_info_aggr"  ("data_id","group_id","tenant_id","datum_id");
-
--- ----------------------------
--- Primary Key structure for table config_info_aggr
--- ----------------------------
-ALTER TABLE "config_info_aggr" ADD CONSTRAINT "config_info_aggr_pkey" PRIMARY KEY ("id");
-
-
-
--- ----------------------------
--- Table structure for config_info_beta
--- ----------------------------
-DROP TABLE IF EXISTS "config_info_beta";
-CREATE TABLE "config_info_beta" (
-                                    "id" BIGINT NOT NULL IDENTITY(1,1),
-                                    "data_id" varchar(255)  NOT NULL,
-                                    "group_id" varchar(128)  NOT NULL,
-                                    "app_name" varchar(128) ,
-                                    "content" ntext  NOT NULL,
-                                    "beta_ips" varchar(1024) ,
-                                    "md5" varchar(32) ,
-                                    "gmt_create" datetime NOT NULL,
-                                    "gmt_modified" datetime NOT NULL,
-                                    "src_user" ntext ,
-                                    "src_ip" varchar(20) ,
-                                    "tenant_id" varchar(128) ,
-                                    "encrypted_data_key" ntext
-);
-
-
--- ----------------------------
--- Indexes structure for table config_info_beta
--- ----------------------------
-CREATE UNIQUE INDEX  "uk_configinfobeta_datagrouptenant" ON "config_info_beta"  ("data_id","group_id","tenant_id");
-
--- ----------------------------
--- Primary Key structure for table config_info_beta
--- ----------------------------
-ALTER TABLE "config_info_beta" ADD CONSTRAINT "config_info_beta_pkey" PRIMARY KEY ("id");
-
-
--- ----------------------------
--- Table structure for config_info_tag
--- ----------------------------
-DROP TABLE IF EXISTS "config_info_tag";
-CREATE TABLE "config_info_tag" (
-                                   "id" BIGINT NOT NULL IDENTITY(1,1),
-                                   "data_id" varchar(255)  NOT NULL,
-                                   "group_id" varchar(128)  NOT NULL,
-                                   "tenant_id" varchar(128) ,
-                                   "tag_id" varchar(128)  NOT NULL,
-                                   "app_name" varchar(128) ,
-                                   "content" ntext  NOT NULL,
-                                   "md5" varchar(32) ,
-                                   "gmt_create" datetime NOT NULL,
-                                   "gmt_modified" datetime NOT NULL,
-                                   "src_user" ntext ,
-                                   "src_ip" varchar(20)
-);
-
-
-
--- ----------------------------
--- Indexes structure for table config_info_tag
--- ----------------------------
-CREATE UNIQUE INDEX  "uk_configinfotag_datagrouptenanttag" ON "config_info_tag"  ("data_id","group_id","tenant_id","tag_id");
-
--- ----------------------------
--- Primary Key structure for table config_info_tag
--- ----------------------------
-ALTER TABLE "config_info_tag" ADD CONSTRAINT "config_info_tag_pkey" PRIMARY KEY ("id");
-
+CREATE UNIQUE INDEX  "uk_configinfogray_datagrouptenantgray" ON "config_info_gray"  ("data_id","group_id","tenant_id","gray_name");
+CREATE UNIQUE INDEX  "idx_dataid_gmt_modified" ON "config_info_gray"  ("data_id","gmt_modified");
+CREATE UNIQUE INDEX  "idx_gmt_modified" ON "config_info_gray" ("gmt_modified");
 -- ----------------------------
 -- Table structure for config_tags_relation
 -- ----------------------------
@@ -147,14 +81,8 @@ CREATE TABLE "config_tags_relation" (
 -- ----------------------------
 -- Indexes structure for table config_tags_relation
 -- ----------------------------
-CREATE INDEX  "idx_tenant_id" ON "config_tags_relation"  (
-    "tenant_id"
-    );
-CREATE UNIQUE INDEX  "uk_configtagrelation_configidtag" ON "config_tags_relation"  (
-    "id",
-    "tag_name",
-    "tag_type"
-    );
+CREATE INDEX  "idx_tenant_id" ON "config_tags_relation"  ("tenant_id");
+CREATE UNIQUE INDEX  "uk_configtagrelation_configidtag" ON "config_tags_relation"  ("id","tag_name","tag_type");
 
 -- ----------------------------
 -- Primary Key structure for table config_tags_relation
@@ -180,7 +108,6 @@ CREATE TABLE "group_capacity" (
                                   "gmt_create" datetime NOT NULL,
                                   "gmt_modified" datetime NOT NULL
 );
-
 
 -- ----------------------------
 -- Indexes structure for table group_capacity
@@ -236,7 +163,7 @@ ALTER TABLE "his_config_info" ADD CONSTRAINT "his_config_info_pkey" PRIMARY KEY 
 DROP TABLE IF EXISTS "tenant_capacity";
 CREATE TABLE "tenant_capacity" (
                                    "id" BIGINT NOT NULL IDENTITY(1,1),
-                                   "tenant_id" varchar(128)  NOT NULL,
+                                   "tenant_id" varchar(128) NOT NULL,
                                    "quota" INT NOT NULL DEFAULT 0,
                                    "usage" INT NOT NULL DEFAULT 0,
                                    "max_size" INT NOT NULL DEFAULT 0,
