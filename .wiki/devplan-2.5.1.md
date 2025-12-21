@@ -6,7 +6,7 @@
   + [x] dm 脚本更新
   + [ ] kingbase 脚本更新
   + [ ] magicdata 脚本更新
-  + [ ] mssql 脚本更新
+  + [x] mssql 脚本更新
   + [ ] opengauss 脚本更新
   + [x] oracle 脚本更新
   + [ ] panwei 脚本更新

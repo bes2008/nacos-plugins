@@ -151,12 +151,12 @@ DROP TABLE IF EXISTS "group_capacity";
 CREATE TABLE "group_capacity" (
                                   "id" bigserial NOT NULL,
                                   "group_id" varchar(128)  NOT NULL,
-                                  "quota" int4 NOT NULL,
-                                  "usage" int4 NOT NULL,
-                                  "max_size" int4 NOT NULL,
-                                  "max_aggr_count" int4 NOT NULL,
-                                  "max_aggr_size" int4 NOT NULL,
-                                  "max_history_count" int4 NOT NULL,
+                                  "quota" int4 NOT NULL DEFAULT 0,
+                                  "usage" int4 NOT NULL DEFAULT 0,
+                                  "max_size" int4 NOT NULL DEFAULT 0,
+                                  "max_aggr_count" int4 NOT NULL DEFAULT 0,
+                                  "max_aggr_size" int4 NOT NULL DEFAULT 0,
+                                  "max_history_count" int4 NOT NULL DEFAULT 0,
                                   "gmt_create" timestamp(6) NOT NULL,
                                   "gmt_modified" timestamp(6) NOT NULL
 )
@@ -244,12 +244,12 @@ DROP TABLE IF EXISTS "tenant_capacity";
 CREATE TABLE "tenant_capacity" (
                                    "id" bigserial NOT NULL,
                                    "tenant_id" varchar(128)  NOT NULL,
-                                   "quota" int4 NOT NULL,
-                                   "usage" int4 NOT NULL,
-                                   "max_size" int4 NOT NULL,
-                                   "max_aggr_count" int4 NOT NULL,
-                                   "max_aggr_size" int4 NOT NULL,
-                                   "max_history_count" int4 NOT NULL,
+                                   "quota" int4 NOT NULL DEFAULT 0,
+                                   "usage" int4 NOT NULL DEFAULT 0,
+                                   "max_size" int4 NOT NULL DEFAULT 0,
+                                   "max_aggr_count" int4 NOT NULL DEFAULT 0,
+                                   "max_aggr_size" int4 NOT NULL DEFAULT 0,
+                                   "max_history_count" int4 NOT NULL DEFAULT 0,
                                    "gmt_create" timestamp(6) NOT NULL,
                                    "gmt_modified" timestamp(6) NOT NULL
 );
