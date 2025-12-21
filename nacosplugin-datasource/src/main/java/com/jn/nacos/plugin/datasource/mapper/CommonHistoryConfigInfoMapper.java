@@ -18,10 +18,11 @@ public class CommonHistoryConfigInfoMapper extends BaseMapper implements History
         int pageSize = Integer.parseInt(context.getWhereParameter(FieldConstant.LIMIT_SIZE).toString());
 
         RowSelection rowSelection = new RowSelection(0, pageSize);
-        String sql = "DELETE FROM his_config_info WHERE gmt_modified < ? ";
-        sql = getDialect().getLimitSql(sql, rowSelection);
+        String subQuerySql = "select hi.id AS id from his_config_info hi where hi.gmt_modified < ? order by hi.gmt_modified asc";
+        subQuerySql = getDialect().getLimitSql(subQuerySql, true, true, rowSelection);
+        String sql = "DELETE FROM his_config_info h WHERE h.id in (  "+subQuerySql+" ) ";
         List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.START_TIME));
-        List pagedParams = getDialect().rebuildParameters(paramList, rowSelection);
+        List pagedParams = getDialect().rebuildParameters(true, true, paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
     }
 
