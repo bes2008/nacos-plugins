@@ -139,7 +139,10 @@ CREATE TABLE "his_config_info" (
                                    "src_ip" varchar(20) ,
                                    "op_type" char(10) ,
                                    "tenant_id" varchar(128) ,
-                                   "encrypted_data_key" ntext
+                                   "encrypted_data_key" ntext,
+                                   "publish_type" varchar(50)  DEFAULT 'formal',
+                                   "gray_name" varchar(50)  DEFAULT NULL,
+                                   "ext_info"  longtext DEFAULT NULL
 );
 
 
