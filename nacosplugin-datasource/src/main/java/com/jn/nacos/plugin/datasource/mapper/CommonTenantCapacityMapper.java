@@ -5,6 +5,7 @@ import com.alibaba.nacos.plugin.datasource.constants.FieldConstant;
 import com.alibaba.nacos.plugin.datasource.mapper.TenantCapacityMapper;
 import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.alibaba.nacos.plugin.datasource.model.MapperResult;
+import com.jn.langx.util.Strings;
 import com.jn.langx.util.collection.Lists;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
@@ -131,6 +132,7 @@ public class CommonTenantCapacityMapper extends BaseMapper implements TenantCapa
     }
 
     public MapperResult select(MapperContext context) {
+        useDefaultTenantIdWithWhereParameter(context);
        // String sql = "SELECT id, quota, usage, max_size, max_aggr_count, max_aggr_size, tenant_id FROM tenant_capacity WHERE tenant_id = ?";
         String sql = new StringBuilder()
                 .append("SELECT ")

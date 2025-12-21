@@ -222,9 +222,9 @@ CREATE TABLE his_config_info (
                                  op_type char(10) ,
                                  tenant_id varchar2(128) DEFAULT 'public',
                                  encrypted_data_key CLOB  DEFAULT '',
-                                 "publish_type" varchar(50) DEFAULT 'formal',
-                                 "gray_name" varchar(50),
-                                 "ext_info"  CLOB
+                                 publish_type varchar(50) DEFAULT 'formal',
+                                 gray_name varchar(50),
+                                 ext_info  CLOB
 );
 COMMENT ON COLUMN his_config_info.app_name IS 'app_name';
 COMMENT ON COLUMN his_config_info.tenant_id IS '租户字段';
