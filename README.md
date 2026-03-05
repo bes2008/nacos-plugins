@@ -8,11 +8,12 @@
   + MSSQL (SQLServer)
   + OpenGauss （高斯）
   + Oracle(8, 9, 10, 11, 12 ... )
-  + PostgreSQL
-  + Derby
-  + MySQL
-  + Panwei (中移磐维)
-  + Magicdata
+  + PostgreSQL (13.x,15.x,17.x)
+  + Derby (10.x)
+  + MySQL (8.x)
+  + Panwei (中移磐维: 1.x, 2.x)
+  + Magicdata (宝兰德：1.0.x)
+  + GoldenDB (中兴金篆数据库： 6.1.03.10.SP4)
 
 #### 软件架构
 作为nacos的插件使用
