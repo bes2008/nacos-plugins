@@ -17,6 +17,8 @@ public class DatabaseNames {
 
     public static final String OSCAR = "oscar";
 
+    public static final String GOLDENDB="GoldenDB";
+
     /**
      * 当 spring.sql.init.platform 配置没有配置，或者配置了 derby, mysql 时，都会将 自定义的插件设置为 undefined
      */
