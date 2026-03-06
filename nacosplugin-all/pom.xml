@@ -48,6 +48,7 @@
                                     <include>io.github.qhsword.nacosplugins</include>
                                     <include>io.github.qhsword.sqlhelper</include>
                                     <include>io.github.qhsword.langx:langx-java</include>
+                                    <include>org.jspecify:jspecify</include>
                                 </includes>
                             </artifactSet>
 
@@ -141,7 +142,6 @@
                                         <exclude>com/jn/langx/spec/purl/**</exclude>
 
                                         <exclude>com/jn/langx/util/bean/**</exclude>
-                                        <exclude>com/jn/langx/util/bit/**</exclude>
                                         <exclude>com/jn/langx/util/bloom/**</exclude>
 
                                         <exclude>com/jn/langx/util/collection/exclusion/**</exclude>
