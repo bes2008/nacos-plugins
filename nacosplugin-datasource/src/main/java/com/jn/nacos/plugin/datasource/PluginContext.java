@@ -39,17 +39,17 @@ public class PluginContext extends AbstractInitializable {
     @Override
     protected void doInit() throws InitializationException {
         Logger logger = Loggers.getLogger(PluginContext.class);
-        logger.info("================== nacos datasource plugin context initial==================");
+        logger.info("================== Nacos datasource plugin context initial==================");
         this.databaseName = NacosEnvs.getConfiguredDatabaseName();
         Preconditions.checkTrue(!Objs.equals(DatabaseNames.UNSUPPORTED, this.databaseName), "database {} is unsupported", this.databaseName);
 
         if(!isUseBuiltinDatabasePlugin()){
             this.dialect = NacosDatabaseDialectManager.getInstance().getDialect(this.databaseName);
-            this.identifierQuotedModeInDDL = NacosEnvs.getIdentifierQuotedMode(this.dialect);
+            this.identifierQuotedModeInDDL = NacosEnvs.updateIdentifierQuotedMode(this.dialect);
             this.sqlCompatibilityType = NacosEnvs.getSqlCompatibilityType(this.dialect);
             logger.info("selected dialect: {}, identifierQuotedMode: {}, sqlCompatibilityType: {}", this.databaseName, this.identifierQuotedModeInDDL, this.sqlCompatibilityType!=null? this.sqlCompatibilityType.getName():"unspecified");
         }
-        logger.info("================== nacos datasource plugin context initial finished ==================");
+        logger.info("================== Nacos datasource plugin context initial finished ==================");
     }
 
     public static final PluginContext INSTANCE = new PluginContext();

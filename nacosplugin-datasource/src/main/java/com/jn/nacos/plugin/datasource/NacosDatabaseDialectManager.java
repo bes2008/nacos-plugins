@@ -1,6 +1,7 @@
 package com.jn.nacos.plugin.datasource;
 
 import com.alibaba.nacos.common.spi.NacosServiceLoader;
+import com.jn.langx.util.collection.LinkedCaseInsensitiveMap;
 import com.jn.langx.util.collection.Maps;
 
 import java.util.Collection;
@@ -15,7 +16,7 @@ public class NacosDatabaseDialectManager {
     }
     private void init(){
         Collection<NacosDatabaseDialect> dialects = NacosServiceLoader.load(NacosDatabaseDialect.class);
-        Map<String, NacosDatabaseDialect> map = Maps.newHashMap();
+        Map<String, NacosDatabaseDialect> map = new LinkedCaseInsensitiveMap<NacosDatabaseDialect>();
         for (NacosDatabaseDialect dialect : dialects){
             map.put(dialect.getName(), dialect);
         }

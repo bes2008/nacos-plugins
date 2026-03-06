@@ -62,11 +62,14 @@ public class NacosEnvs {
     /**
      * 当使用的 create-schema.sql, create-tables.sql 不是插件提供的，需要指定该配置。
      */
-    public static IdentifierQuotedMode getIdentifierQuotedMode(NacosDatabaseDialect dialect) {
+    public static IdentifierQuotedMode updateIdentifierQuotedMode(NacosDatabaseDialect dialect) {
         String modeString = EnvUtil.getProperty(CONFIG_KEY_DB_DDL_IDENTIFIER_QUOTED_MODE);
         IdentifierQuotedMode mode = null;
         if (Strings.isNotBlank(modeString)) {
             mode = Enums.ofName(IdentifierQuotedMode.class, modeString);
+            if(mode != null){
+                dialect.identifierQuotedMode = mode;
+            }
         }
         if (mode == null) {
             mode = dialect.getPluginProvidedDDLIdentifierQuotedMode();
