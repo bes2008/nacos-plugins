@@ -165,6 +165,24 @@ spring.sql.plugin.builtin.enabled=false
 nacos_version >= 2.3.0 时，支持将mysql替换为本插件。  
 ```
 
+### GoldenDB
+1. schema初始化
+```shell
+mysql --password=root_password --host=localhost --port=3306 --user root < create_schema.sql
+mysql --password=root_password --host=localhost --port=3306 --user root < create_tables.sql
+```
+2. JDBC配置
+```properties
+# GoldenDB
+spring.sql.init.platform=goldendb
+db.num=1
+db.url.0=jdbc:mysql://localhost:3306/nacos?characterEncoding=utf8&connectTimeout=1000&socketTimeout=30000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useServerPrepStmts=true
+db.user.0=root
+db.password.0=root_password
+db.pool.config.driverClassName=com.goldendb.jdbc.Driver
+
+```
+
 ### Oracle
 1. 脚本执行
 ```shell
