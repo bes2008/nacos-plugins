@@ -1,12 +1,12 @@
 package com.jn.nacos.plugin.datasource;
 
-import com.jn.langx.annotation.Nullable;
 import com.jn.langx.lifecycle.AbstractInitializable;
 import com.jn.langx.lifecycle.InitializationException;
 import com.jn.langx.util.Objs;
 import com.jn.langx.util.Preconditions;
 import com.jn.langx.util.logging.Loggers;
 import com.jn.sqlhelper.dialect.SqlCompatibilityType;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 
 
