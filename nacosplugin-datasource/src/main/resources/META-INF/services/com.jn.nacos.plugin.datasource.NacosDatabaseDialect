@@ -8,3 +8,4 @@ com.jn.nacos.plugin.datasource.db.oracle.OracleDatabaseDialect
 com.jn.nacos.plugin.datasource.db.postgresql.PostgresDatabaseDialect
 com.jn.nacos.plugin.datasource.db.panwei.PanweiDatabaseDialect
 com.jn.nacos.plugin.datasource.db.dm.DmDatabaseDialect
+com.jn.nacos.plugin.datasource.db.goldendb.GoldenDBDatabaseDialect
