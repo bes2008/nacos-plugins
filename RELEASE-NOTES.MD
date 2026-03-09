@@ -3,6 +3,8 @@
 + 升级依赖：
   + langx-java: 5.8.1 => 5.8.1
   + sqlhelper: 6.0.3 => 6.0.5
++ BugFix:
+  + 完善 history clear
 
 ## 2.5.1.0
 + 兼容nacos 2.5.1
