@@ -6,6 +6,7 @@ import com.alibaba.nacos.plugin.datasource.model.MapperContext;
 import com.alibaba.nacos.plugin.datasource.model.MapperResult;
 import com.jn.langx.util.collection.Lists;
 import com.jn.nacos.plugin.datasource.NacosEnvs;
+import com.jn.sqlhelper.dialect.SubqueryPosition;
 import com.jn.sqlhelper.dialect.pagination.RowSelection;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class CommonHistoryConfigInfoMapper extends BaseMapper implements History
         // MySQL 中，limit 如果在子查询中时，不支持放在 in/all/any/some 的子查询中。
         // 这个子查询是在 in 子句 中，且有 limit ，MySQL 是不支持的
         String sql=null;
-        if(!getDialect().getDelegate().isSupportsVariableLimitInSubquery()){
+        if(!getDialect().getDelegate().isSupportsLimitSubquery(SubqueryPosition.WHERE_IN)){
             sql= "DELETE FROM his_config_info h WHERE gmt_modified < ? ";
             sql = getDialect().getLimitSql(sql, rowSelection);
         }else {
