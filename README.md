@@ -49,3 +49,6 @@
 - 2.5.1 => 3.0.3 
   - 无变化
 
+## Ref
++ [Gitee](https://gitee.com/coderjn/nacos-plugins)
++ [GitHub](https://github.com/qhsword/nacos-plugins)
