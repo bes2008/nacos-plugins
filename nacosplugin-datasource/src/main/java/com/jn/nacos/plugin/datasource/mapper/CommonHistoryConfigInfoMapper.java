@@ -23,17 +23,18 @@ public class CommonHistoryConfigInfoMapper extends BaseMapper implements History
         // MySQL 中，limit 如果在子查询中时，不支持放在 in/all/any/some 的子查询中。
         // 这个子查询是在 in 子句 中，且有 limit ，MySQL 是不支持的
         String sql=null;
+        List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.START_TIME));
+        List pagedParams =null;
         if(!getDialect().getDelegate().isSupportsLimitSubquery(SubqueryPosition.WHERE_IN)){
             sql= "DELETE FROM his_config_info h WHERE gmt_modified < ? ";
             sql = getDialect().getLimitSql(sql, rowSelection);
+            pagedParams = getDialect().rebuildParameters( paramList, rowSelection);
         }else {
             String subQuerySql = "select hi.id AS id from his_config_info hi where hi.gmt_modified < ? order by hi.gmt_modified asc";
             subQuerySql = getDialect().getLimitSql(subQuerySql, true, true, rowSelection);
             sql = "DELETE FROM his_config_info h WHERE h.id in (  "+subQuerySql+" ) ";
+            pagedParams = getDialect().rebuildParameters(true, true, paramList, rowSelection);
         }
-        List paramList = Lists.newArrayList(context.getWhereParameter(FieldConstant.START_TIME));
-
-        List pagedParams = getDialect().rebuildParameters(true, true, paramList, rowSelection);
         return new MapperResult(sql, pagedParams);
     }
 
