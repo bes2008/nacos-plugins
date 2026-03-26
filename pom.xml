@@ -60,14 +60,14 @@
     </distributionManagement>
     <scm>
         <tag>${project.version}</tag>
-        <url>scm:git:https://gitee.com/coderjn/nacos-plugins.git</url>
-        <connection>https://gitee.com/coderjn/nacos-plugins.git</connection>
-        <developerConnection>https://gitee.com/coderjn/nacos-plugins.git</developerConnection>
+        <url>scm:git:https://gitee.com/qhsword/nacos-plugins.git</url>
+        <connection>https://gitee.com/qhsword/nacos-plugins.git</connection>
+        <developerConnection>https://gitee.com/qhsword/nacos-plugins.git</developerConnection>
     </scm>
     <licenses>
         <license>
             <name>MulanPSL2</name>
-            <url>https://gitee.com/coderjn/nacos-plugins/blob/master/LICENSE</url>
+            <url>https://gitee.com/qhsword/nacos-plugins/blob/master/LICENSE</url>
             <distribution>manual</distribution>
         </license>
     </licenses>
